@@ -10,7 +10,7 @@ import java.util.Map;
 /**
  * 与 Hook 绑定的房间实例，用于获取房间信息以及对房间进行操作。
  */
-public interface HookRoom {
+public interface HookedRoom {
     /**
      * 获取房间名称
      *
