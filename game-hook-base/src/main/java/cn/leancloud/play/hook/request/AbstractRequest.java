@@ -8,7 +8,7 @@ import clojure.lang.RT;
 import java.util.HashMap;
 import java.util.Map;
 
-public abstract class AbstractRequest {
+public abstract class AbstractRequest implements RoomRequest{
     private static final Keyword cid_k = (Keyword)RT.keyword(null, "cid");
     private static final Keyword pid_k = (Keyword)RT.keyword(null, "pid");
     private static final IFn merge_map_fn = Clojure.var("clojure.core", "merge");
@@ -24,29 +24,17 @@ public abstract class AbstractRequest {
         this.readOnly = false;
     }
 
-    /**
-     * 获取本次请求所属的房间名
-     *
-     * @return 房间名
-     */
+    @Override
     public String getRoomName() {
         return getParameter(cid_k);
     }
 
-    /**
-     * 获取触发本次请求的玩家 User Id
-     *
-     * @return 返回玩家 User Id
-     */
+    @Override
     public String getUserId() {
         return getParameter(pid_k);
     }
 
-    /**
-     * 获取所有请求参数，返回结果为不可变 Map，如要修改某个参数请使用参数对应的 setters 方法
-     *
-     * @return 所有请求参数
-     */
+    @Override
     @SuppressWarnings("unchecked")
     public Map<Keyword, Object> getAllParameters() {
         if (modifiedParams.isEmpty()) {
@@ -56,9 +44,7 @@ public abstract class AbstractRequest {
         }
     }
 
-    /**
-     * 内部使用，设置 Read Only 后本请求不能再修改请求参数
-     */
+    @Override
     public void setReadOnly() {
         readOnly = true;
     }

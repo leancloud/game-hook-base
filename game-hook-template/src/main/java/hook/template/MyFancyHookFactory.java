@@ -11,7 +11,7 @@ public class MyFancyHookFactory implements HookFactory {
     @Override
     public GameHook create(HookRoom room, String hookName, Map<String, String> initConfigs) {
         if ("fancy-hook".equals(hookName)) {
-            return new MyFancyGameHook(initConfigs);
+            return new MyFancyGameHook(room, initConfigs);
         } else {
             Log.error("unknown hook name {}", hookName);
             return null;
