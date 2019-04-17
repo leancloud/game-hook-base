@@ -8,6 +8,20 @@ import java.util.Objects;
  * 发送事件附带选项
  */
 public final class RaiseRpcOptions {
+    /**
+     * 静态空 option
+     */
+    public static final RaiseRpcOptions emptyOption = RaiseRpcOptions.builder().build();
+
+    /**
+     * 创建 RaiseRpcOptions 的 Builder
+     *
+     * @return RaiseRpcOptions 的 Builder
+     */
+    public static RaiseRpcOptionsBuilder builder() {
+        return new RaiseRpcOptionsBuilder();
+    }
+
     private final int eventId;
     private final CacheOption cacheOption;
 
