@@ -1,5 +1,6 @@
 package cn.leancloud.play.hook.context;
 
+import cn.leancloud.play.hook.HookedRoom;
 import cn.leancloud.play.hook.Reason;
 import cn.leancloud.play.hook.request.RoomRequest;
 
@@ -12,28 +13,35 @@ public interface Context <T extends RoomRequest>{
     /**
      * 获取当前 Context 状态
      *
-     * @return 返回 Context 状态
+     * @return Context 状态
      */
     ContextStatus getStatus();
 
     /**
      * 获取与当前 Context 绑定的 Hook 请求参数实例
      *
-     * @return 返回 Hook 请求参数实例
+     * @return Hook 请求参数实例
      */
     T getRequest();
 
     /**
+     * 获取与当前 Context 绑定的 Room 实例
+     *
+     * @return 绑定的 Room 实例
+     */
+    HookedRoom getHookedRoom();
+
+    /**
      * 获取当前 Context 所属 Hook 名称
      *
-     * @return 返回 Hook 名称
+     * @return Hook 名称
      */
     String getHookName();
 
     /**
      * 同意本次请求，Game Server 会执行 Hook 之后的操作
      */
-    public void continueProcess();
+    void continueProcess();
 
     /**
      * 拒绝本次请求，并发送 Reason 信息给发送请求的玩家
