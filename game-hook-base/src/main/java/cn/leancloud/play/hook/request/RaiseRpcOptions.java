@@ -11,7 +11,7 @@ public final class RaiseRpcOptions {
     /**
      * 静态空 option
      */
-    public static final RaiseRpcOptions noMoreOptions = RaiseRpcOptions.builder().build();
+    public static final RaiseRpcOptions emptyOption = RaiseRpcOptions.builder().build();
 
     /**
      * 创建 RaiseRpcOptions 的 Builder
