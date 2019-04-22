@@ -12,6 +12,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class MasterIsWatchingYouHook extends AbstractGameHook {
     @Override
     public void onBeforeRaiseRpc(BeforeRaiseRpcContext ctx) {
