@@ -1,4 +1,4 @@
-package hook.template;
+package cn.leancloud.play.hook.template;
 
 import cn.leancloud.play.hook.AbstractGameHook;
 import cn.leancloud.play.hook.context.*;
