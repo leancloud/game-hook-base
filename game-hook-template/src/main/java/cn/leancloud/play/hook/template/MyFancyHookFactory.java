@@ -10,16 +10,16 @@ import java.util.Map;
 public class MyFancyHookFactory implements HookFactory {
     @Override
     public GameHook create(HookedRoom room, String hookName, Map<String, String> initConfigs) {
-    if (hookName != null && hookName.length() > 0) {
-        switch (hookName) {
-            case "fancy-hook":
-                return new MyFancyGameHook(room, initConfigs);
-            case "master is watching you hook":
-                return new MasterIsWatchingYouHook(room);
+        if (hookName != null && hookName.length() > 0) {
+            switch (hookName) {
+                case "fancy-hook":
+                    return new MyFancyGameHook(room, initConfigs);
+                case "master is watching you hook":
+                    return new MasterIsWatchingYouHook(room);
+            }
         }
-    }
 
-    Log.error("unknown hook name {}", hookName);
-    return null;
+        Log.error("unknown hook name {}", hookName);
+        return null;
     }
 }
