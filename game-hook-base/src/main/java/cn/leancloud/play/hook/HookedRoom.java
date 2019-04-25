@@ -17,7 +17,7 @@ public interface HookedRoom {
      * 属性不会发生变化，但需要任务尽快执行完以避免过长时间的阻塞线程。
      *
      * 因为性能原因，返回的 ScheduledExecutorService 时间精度为 20ms，比如布置一个任务 30ms 后执行则实际
-     * 执行时间与预期执行时间之间的偏差最大 20ms。
+     * 执行时间在 30ms ~ 50ms 之间，即不会早于预期执行时间且与预期执行时间最大偏差为 20ms。
      *
      * 返回的 ScheduledExecutorService 不能被 shutdown，执行 shutdown 没有任何作用。
      *
