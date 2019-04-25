@@ -6,11 +6,25 @@ import cn.leancloud.play.hook.request.RoomSystemProperty;
 
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ScheduledExecutorService;
 
 /**
  * 与 Hook 绑定的房间实例，用于获取房间信息以及对房间进行操作。
  */
 public interface HookedRoom {
+    /**
+     * 获取一个 ScheduledExecutorService 用于将某个任务交给与当前房间绑定的线程来执行。在该线程上能保证任务运行期间，房间
+     * 属性不会发生变化，但需要任务尽快执行完以避免过长时间的阻塞线程。
+     *
+     * 因为性能原因，返回的 ScheduledExecutorService 时间精度为 20ms，比如布置一个任务 30ms 后执行则实际
+     * 执行时间在 30ms ~ 50ms 之间，即不会早于预期执行时间且与预期执行时间最大偏差为 20ms。
+     *
+     * 返回的 ScheduledExecutorService 不能被 shutdown，执行 shutdown 没有任何作用。
+     *
+     * @return ScheduledExecutorService
+     */
+    ScheduledExecutorService getScheduler();
+
     /**
      * 获取房间名称
      *
@@ -100,8 +114,8 @@ public interface HookedRoom {
      * 更改房间玩家自定义属性
      *
      * @param targetActorId 目标玩家 Actor Id
-     * @param valuesToSet 待修改的玩家自定义属性
-     * @param expectedValues 设置 CAS 操作用于匹配的玩家自定义属性。设置了用于匹配的玩家自定义属性后，只有当玩家自定义属性符合
+     * @param valuesToSet 待修改的玩家自定义属性，不能为 null
+     * @param expectedValues 不能为 null。设置 CAS 操作用于匹配的玩家自定义属性。设置了用于匹配的玩家自定义属性后，只有当玩家自定义属性符合
      *                       匹配的值后更新玩家自定义属性操作才会生效。
      */
     void updatePlayerProperty(int targetActorId, Map<String, Object> valuesToSet, Map<String, Object> expectedValues);
@@ -109,15 +123,15 @@ public interface HookedRoom {
     /**
      * 更改房间自定义属性
      *
-     * @param valuesToSet 待修改的房间自定义属性
-     * @param expectedValues 进行 CAS 操作时使用，用于匹配的房间自定义属性。设置了用于匹配的自定义属性后，只有当房间自定义属性符合
+     * @param valuesToSet 待修改的房间自定义属性, 不能为 null
+     * @param expectedValues 不能为 null。进行 CAS 操作时使用，用于匹配的房间自定义属性。设置了用于匹配的自定义属性后，只有当房间自定义属性符合
      *                       匹配的值后更新房间自定义属性操作才会生效。
      */
     void updateRoomProperty(Map<String, Object> valuesToSet, Map<String, Object> expectedValues);
 
     /**
      * 更改房间系统属性
-     * @param property 待修改的系统属性
+     * @param property 待修改的系统属性，不能为 null
      * @param <K> 具体要改的系统属性
      * @param <V> 待修改后的值
      */
@@ -133,20 +147,20 @@ public interface HookedRoom {
     /**
      * 发送事件给目标 Actor。
      *
-     * @param toActorsIds 目标 Actor Id 列表
-     * @param fromActorId 发送事件的 Actor Id
-     * @param data 事件数据
-     * @param options 发送事件配置选项
+     * @param toActorsIds 目标 Actor Id 列表，不能为 null
+     * @param fromActorId 发送事件的 Actor Id，为 0 表示由系统发出
+     * @param data 事件数据，不能为 null
+     * @param options 发送事件配置选项，不能为 null
      */
     void raiseRpcToActors(List<Integer> toActorsIds, int fromActorId, byte[] data, RaiseRpcOptions options);
 
     /**
      * 发送事件给目标接收组
      *
-     * @param toReceiverGroup 目标接收组
-     * @param fromActorId 发送事件的 Actor Id
-     * @param data 事件数据
-     * @param options 发送事件配置选项
+     * @param toReceiverGroup 目标接收组，不能为 null
+     * @param fromActorId 发送事件的 Actor Id，为 0 表示由系统发出
+     * @param data 事件数据，不能为 null
+     * @param options 发送事件配置选项，不能为 null
      */
     void raiseRpcToReceiverGroup(ReceiverGroup toReceiverGroup, int fromActorId, byte[] data, RaiseRpcOptions options);
 }

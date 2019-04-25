@@ -50,7 +50,7 @@ public final class RaiseRpcOptions {
 
     public static class RaiseRpcOptionsBuilder implements Builder<RaiseRpcOptions> {
         private int eventId = -1;
-        private CacheOption cacheOption;
+        private CacheOption cacheOption = CacheOption.NO_CACHE;
 
         /**
          * 发送事件带着自定义事件 Id

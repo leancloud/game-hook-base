@@ -4,6 +4,13 @@ import cn.leancloud.play.hook.context.*;
 
 public interface GameHook {
     /**
+     * 获取与当前 Game Hook 绑定的 Room 实例
+     *
+     * @return 绑定的 Room 实例
+     */
+    HookedRoom getHookedRoom();
+
+    /**
      * 创建房间前调用
      *
      * @param ctx context

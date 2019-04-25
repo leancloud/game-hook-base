@@ -3,6 +3,17 @@ package cn.leancloud.play.hook;
 import cn.leancloud.play.hook.context.*;
 
 public abstract class AbstractGameHook implements GameHook{
+    private final HookedRoom room;
+
+    public AbstractGameHook(HookedRoom room) {
+        this.room = room;
+    }
+
+    @Override
+    public HookedRoom getHookedRoom() {
+        return room;
+    }
+
     @Override
     public void onCreateRoom(CreateRoomContext ctx) {
         ctx.continueProcess();

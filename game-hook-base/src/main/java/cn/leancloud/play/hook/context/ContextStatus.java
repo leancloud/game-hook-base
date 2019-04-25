@@ -9,21 +9,22 @@ public enum ContextStatus {
      */
     NEW((byte)0),
     /**
+     * Hook 请求被延迟处理
+     */
+    DEFERRED((byte)1),
+    /**
      * Hook 请求被通过，已经在处理中
      */
-    CONTINUED((byte)1),
+    CONTINUED((byte)10),
     /**
      * Hook 请求被拒绝，会返回信息给发送请求的玩家
      */
-    REJECTED((byte)2),
+    REJECTED((byte)11),
     /**
      * Hook 请求被拒绝，不会返回信息给发送请求的玩家
      */
-    SKIPPED((byte)3),
-    /**
-     * Hook 请求被延迟处理
-     */
-    DEFERRED((byte)4);
+    SKIPPED((byte)12);
+
 
     private byte code;
 
@@ -31,4 +32,7 @@ public enum ContextStatus {
         this.code = code;
     }
 
+    public byte getCode() {
+        return code;
+    }
 }

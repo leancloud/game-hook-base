@@ -13,9 +13,9 @@ public class MyFancyHookFactory implements HookFactory {
         if (hookName != null && hookName.length() > 0) {
             switch (hookName) {
                 case "fancy-hook":
-                    return new MyFancyGameHook(initConfigs);
+                    return new MyFancyGameHook(room, initConfigs);
                 case "master is watching you hook":
-                    return new MasterIsWatchingYouHook();
+                    return new MasterIsWatchingYouHook(room);
             }
         }
 
