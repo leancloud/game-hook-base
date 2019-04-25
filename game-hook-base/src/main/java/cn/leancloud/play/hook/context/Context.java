@@ -25,18 +25,17 @@ public interface Context <T extends RoomRequest>{
     T getRequest();
 
     /**
-     * 获取与当前 Context 绑定的 Room 实例
-     *
-     * @return 绑定的 Room 实例
-     */
-    HookedRoom getHookedRoom();
-
-    /**
      * 获取当前 Context 所属 Hook 名称
      *
      * @return Hook 名称
      */
     String getHookName();
+
+    /**
+     * 当前 Game Hook 请求是否已经被处理过，即状态为 CONTINUED, SKIPPED, REJECTED
+     * @return Game Hook 是否已经被处理过
+     */
+    boolean isProcessed();
 
     /**
      * 同意本次请求，Game Server 会执行 Hook 之后的操作

@@ -1,13 +1,15 @@
 package cn.leancloud.play.hook.template;
 
 import cn.leancloud.play.hook.AbstractGameHook;
+import cn.leancloud.play.hook.HookedRoom;
 import cn.leancloud.play.hook.context.*;
 import cn.leancloud.play.hook.request.*;
 
 import java.util.Map;
 
 public class MyFancyGameHook extends AbstractGameHook {
-    public MyFancyGameHook(Map<String, String> initConfigs) {
+    public MyFancyGameHook(HookedRoom room, Map<String, String> initConfigs) {
+        super(room);
         // do some constructor stuff
     }
 

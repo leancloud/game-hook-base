@@ -14,10 +14,14 @@ import java.util.List;
 
 
 public class MasterIsWatchingYouHook extends AbstractGameHook {
+    public MasterIsWatchingYouHook(HookedRoom room) {
+        super(room);
+    }
+
     @Override
     public void onBeforeRaiseRpc(BeforeRaiseRpcContext ctx) {
         RaiseRpcRequest req = ctx.getRequest();
-        HookedRoom room = ctx.getHookedRoom();
+        HookedRoom room = getHookedRoom();
         Actor master = room.getMaster();
         if (master == null) {
             // no master in this room

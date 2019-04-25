@@ -1,7 +1,6 @@
 package cn.leancloud.play.hook.context;
 
 import cn.leancloud.play.hook.HookResponse;
-import cn.leancloud.play.hook.HookedRoom;
 import cn.leancloud.play.hook.Reason;
 import cn.leancloud.play.hook.request.CloseRoomRequest;
 import cn.leancloud.play.utils.Log;
@@ -10,9 +9,8 @@ import java.util.concurrent.CompletableFuture;
 
 public final class CloseRoomContext extends AbstractOperationContext<CloseRoomRequest> {
     public CloseRoomContext(CloseRoomRequest req,
-                            HookedRoom hookedRoom,
                             CompletableFuture<HookResponse<CloseRoomRequest>> future) {
-        super(req, hookedRoom, future);
+        super(req, future);
     }
 
     @Override

@@ -6,11 +6,21 @@ import cn.leancloud.play.hook.request.RoomSystemProperty;
 
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ScheduledExecutorService;
 
 /**
  * 与 Hook 绑定的房间实例，用于获取房间信息以及对房间进行操作。
  */
 public interface HookedRoom {
+    /**
+     * 获取一个 ScheduledExecutorService 用于设置定时任务或将某个任务交由与当前 Game Hook 绑定的线程来做。
+     * 因为性能原因，返回的 ScheduledExecutorService 时间精度为 20ms，比如布置一个任务 30ms 后执行则实际
+     * 执行时间与预期执行时间之间的偏差最大 20ms。
+     *
+     * @return ScheduledExecutorService
+     */
+    ScheduledExecutorService getScheduler();
+
     /**
      * 获取房间名称
      *
