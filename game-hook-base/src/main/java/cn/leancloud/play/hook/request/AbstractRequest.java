@@ -9,9 +9,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 public abstract class AbstractRequest implements RoomRequest{
-    private static final Keyword cid_k = (Keyword)RT.keyword(null, "cid");
-    private static final Keyword pid_k = (Keyword)RT.keyword(null, "pid");
-    private static final IFn merge_map_fn = Clojure.var("clojure.core", "merge");
+    private static final Keyword cidK = (Keyword)RT.keyword(null, "cid");
+    private static final Keyword pidK = (Keyword)RT.keyword(null, "pid");
+    private static final IFn mergeMapFn = Clojure.var("clojure.core", "merge");
 
     private final Map<Keyword, Object> originParams;
     private final Map<Keyword, Object> modifiedParams;
@@ -26,12 +26,12 @@ public abstract class AbstractRequest implements RoomRequest{
 
     @Override
     public String getRoomName() {
-        return getParameter(cid_k);
+        return getParameter(cidK);
     }
 
     @Override
     public String getUserId() {
-        return getParameter(pid_k);
+        return getParameter(pidK);
     }
 
     @Override
@@ -40,7 +40,7 @@ public abstract class AbstractRequest implements RoomRequest{
         if (modifiedParams.isEmpty()) {
             return originParams;
         } else {
-            return (Map<Keyword, Object>) merge_map_fn.invoke(originParams, modifiedParams);
+            return (Map<Keyword, Object>) mergeMapFn.invoke(originParams, modifiedParams);
         }
     }
 

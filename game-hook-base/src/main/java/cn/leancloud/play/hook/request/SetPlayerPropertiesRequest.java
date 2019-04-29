@@ -9,9 +9,9 @@ import java.util.Map;
 import java.util.Objects;
 
 public final class SetPlayerPropertiesRequest extends AbstractRequest {
-    private static final Keyword target_actor_id_k = (Keyword) RT.keyword(null, "target-actor-id");
-    private static final Keyword expect_attr_k = (Keyword) RT.keyword(null, "expect-attr");
-    private static final Keyword attr_k = (Keyword) RT.keyword(null, "attr");
+    private static final Keyword targetActorIdK = (Keyword) RT.keyword(null, "target-actor-id");
+    private static final Keyword expectAttrK = (Keyword) RT.keyword(null, "expect-attr");
+    private static final Keyword attrK = (Keyword) RT.keyword(null, "attr");
 
     public SetPlayerPropertiesRequest(Map<Keyword, Object> requestParams) {
         super(requestParams);
@@ -23,7 +23,7 @@ public final class SetPlayerPropertiesRequest extends AbstractRequest {
      * @return 返回房间玩家自定义属性，是不可变 Map
      */
     public Map<String, Object> getProperties() {
-        return getParameter(attr_k, Collections.emptyMap());
+        return getParameter(attrK, Collections.emptyMap());
     }
 
     /**
@@ -37,7 +37,7 @@ public final class SetPlayerPropertiesRequest extends AbstractRequest {
         Objects.requireNonNull(attr);
         if (attr.isEmpty()) throw new IllegalArgumentException();
 
-        setParameter(attr_k, PersistentHashMap.create(attr));
+        setParameter(attrK, PersistentHashMap.create(attr));
         return this;
     }
 
@@ -48,7 +48,7 @@ public final class SetPlayerPropertiesRequest extends AbstractRequest {
      * @return 用于匹配的玩家自定义属性
      */
     public Map<String, Object> getExpectedValues() {
-        return getParameter(expect_attr_k, Collections.emptyMap());
+        return getParameter(expectAttrK, Collections.emptyMap());
     }
 
     /**
@@ -63,7 +63,7 @@ public final class SetPlayerPropertiesRequest extends AbstractRequest {
         Objects.requireNonNull(casAttr);
         if (casAttr.isEmpty()) throw new IllegalArgumentException();
 
-        setParameter(expect_attr_k, PersistentHashMap.create(casAttr));
+        setParameter(expectAttrK, PersistentHashMap.create(casAttr));
         return this;
     }
 
@@ -73,7 +73,7 @@ public final class SetPlayerPropertiesRequest extends AbstractRequest {
      * @return 目标玩家 Actor Id
      */
     public int getTargetActorId() {
-        Number id = getParameter(target_actor_id_k);
+        Number id = getParameter(targetActorIdK);
         if (id != null) {
             return id.intValue();
         } else {
@@ -88,7 +88,7 @@ public final class SetPlayerPropertiesRequest extends AbstractRequest {
      * @return this
      */
     public SetPlayerPropertiesRequest setTargetActorId(int actorId) {
-        setParameter(target_actor_id_k, (long) actorId);
+        setParameter(targetActorIdK, (long) actorId);
         return this;
     }
 }

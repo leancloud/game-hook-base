@@ -8,11 +8,11 @@ import clojure.lang.RT;
 import java.util.*;
 
 public final class SetRoomSystemPropertiesRequest extends AbstractRequest {
-    private static final Keyword sys_attr_k = (Keyword) RT.keyword(null, "sys-attr");
-    private static final Keyword expect_sys_attr_k = (Keyword) RT.keyword(null, "expect-sys-attr");
-    private static final Keyword expect_members_k = (Keyword) RT.keyword(null, "expectMembers");
-    private static final Keyword visible_k = (Keyword) RT.keyword(null, "visible");
-    private static final Keyword open_k = (Keyword) RT.keyword(null, "open");
+    private static final Keyword sysAttrK = (Keyword) RT.keyword(null, "sys-attr");
+    private static final Keyword expectSysAttrK = (Keyword) RT.keyword(null, "expect-sys-attr");
+    private static final Keyword expectMembersK = (Keyword) RT.keyword(null, "expectMembers");
+    private static final Keyword visibleK = (Keyword) RT.keyword(null, "visible");
+    private static final Keyword openK = (Keyword) RT.keyword(null, "open");
 
     public SetRoomSystemPropertiesRequest(Map<Keyword, Object> requestParams) {
         super(requestParams);
@@ -125,26 +125,26 @@ public final class SetRoomSystemPropertiesRequest extends AbstractRequest {
         Objects.requireNonNull(attr);
         if (attr.isEmpty()) throw new IllegalArgumentException();
 
-        setParameter(sys_attr_k, PersistentHashMap.create(attr));
+        setParameter(sysAttrK, PersistentHashMap.create(attr));
     }
 
     private Map<Keyword, Object> getProperties() {
-        return getParameter(sys_attr_k, Collections.emptyMap());
+        return getParameter(sysAttrK, Collections.emptyMap());
     }
 
     private Map<Keyword, Object> getExpectedValues() {
-        return getParameter(expect_sys_attr_k, Collections.emptyMap());
+        return getParameter(expectSysAttrK, Collections.emptyMap());
     }
 
     private void setExpectedValues(Map<Keyword, Object> casAttr) {
         Objects.requireNonNull(casAttr);
         if (casAttr.isEmpty()) throw new IllegalArgumentException();
 
-        setParameter(expect_sys_attr_k, PersistentHashMap.create(casAttr));
+        setParameter(expectSysAttrK, PersistentHashMap.create(casAttr));
     }
 
     public final static class ExpectedMembersProperty implements RoomSystemProperty<Keyword, List<String>> {
-        private static Keyword propertyKey = expect_members_k;
+        private static Keyword propertyKey = expectMembersK;
         private final List<String> valueToSet;
         private final List<String> expectedValue;
 
@@ -187,7 +187,7 @@ public final class SetRoomSystemPropertiesRequest extends AbstractRequest {
     }
 
     public final static class ExposeRoomProperty implements RoomSystemProperty<Keyword, Boolean> {
-        private static Keyword propertyKey = visible_k;
+        private static Keyword propertyKey = visibleK;
         private final Boolean valueToSet;
         private final Boolean expectedValue;
 
@@ -224,7 +224,7 @@ public final class SetRoomSystemPropertiesRequest extends AbstractRequest {
     }
 
     public final static class OpenRoomProperty implements RoomSystemProperty<Keyword, Boolean> {
-        private static Keyword propertyKey = open_k;
+        private static Keyword propertyKey = openK;
         private final Boolean valueToSet;
         private final Boolean expectedValue;
 
