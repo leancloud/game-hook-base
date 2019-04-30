@@ -3,6 +3,7 @@ package cn.leancloud.play.hook.request;
 import clojure.lang.Keyword;
 import clojure.lang.PersistentVector;
 import clojure.lang.RT;
+import cn.leancloud.play.utils.Log;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Collections;
@@ -164,6 +165,7 @@ public final class RaiseRpcRequest extends AbstractRequest {
             return id.intValue();
         }
 
+        Log.error("No from actor id in RaiseRpcRequest. current params={}", getAllParameters());
         return -1;
     }
 }

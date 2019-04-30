@@ -3,6 +3,7 @@ package cn.leancloud.play.hook.request;
 import clojure.lang.Keyword;
 import clojure.lang.PersistentHashMap;
 import clojure.lang.RT;
+import cn.leancloud.play.utils.Log;
 
 import java.util.Collections;
 import java.util.Map;
@@ -77,6 +78,8 @@ public final class SetPlayerPropertiesRequest extends AbstractRequest {
         if (id != null) {
             return id.intValue();
         } else {
+
+            Log.error("No target actor id in SetPlayerPropertiesRequest. current params={}", getAllParameters());
             return -1;
         }
     }
