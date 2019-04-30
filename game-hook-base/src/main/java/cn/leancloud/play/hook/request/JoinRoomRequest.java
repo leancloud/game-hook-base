@@ -11,10 +11,10 @@ import java.util.Map;
 import java.util.Objects;
 
 public final class JoinRoomRequest extends AbstractRequest {
-    private static final Keyword expect_m_k = (Keyword) RT.keyword(null, "expect-m");
-    private static final Keyword is_rejoin_k = (Keyword) RT.keyword(null, "rejoin?");
-    private static final Keyword expect_attr_k = (Keyword) RT.keyword(null, "expect-attr");
-    private static final Keyword attr_k = (Keyword) RT.keyword(null, "attr");
+    private static final Keyword expectMK = (Keyword) RT.keyword(null, "expect-m");
+    private static final Keyword isRejoinK = (Keyword) RT.keyword(null, "rejoin?");
+    private static final Keyword expectAttrK = (Keyword) RT.keyword(null, "expect-attr");
+    private static final Keyword attrK = (Keyword) RT.keyword(null, "attr");
 
     public JoinRoomRequest(Map<Keyword, Object> requestParams) {
         super(requestParams);
@@ -26,7 +26,7 @@ public final class JoinRoomRequest extends AbstractRequest {
      * @return 房间指定的玩家 ID 列表
      */
     public List<String> getExpectUsers() {
-        return getParameter(expect_m_k, Collections.emptyList());
+        return getParameter(expectMK, Collections.emptyList());
     }
 
     /**
@@ -39,7 +39,7 @@ public final class JoinRoomRequest extends AbstractRequest {
     public JoinRoomRequest setExpectUsers(List<String> expectUsers) {
         Objects.requireNonNull(expectUsers);
         if (expectUsers.isEmpty()) throw new IllegalArgumentException();
-        setParameter(expect_m_k, PersistentVector.create(expectUsers));
+        setParameter(expectMK, PersistentVector.create(expectUsers));
         return this;
     }
 
@@ -49,7 +49,7 @@ public final class JoinRoomRequest extends AbstractRequest {
      * @return 是否是再次加入房间
      */
     public boolean isRejoin() {
-        return getParameter(is_rejoin_k, false);
+        return getParameter(isRejoinK, false);
     }
 
     /**
@@ -58,7 +58,7 @@ public final class JoinRoomRequest extends AbstractRequest {
      * @return 匹配房间条件
      */
     public Map<String, Object> getMatchProperties() {
-        return getParameter(expect_attr_k, Collections.emptyMap());
+        return getParameter(expectAttrK, Collections.emptyMap());
     }
 
     /**
@@ -71,7 +71,7 @@ public final class JoinRoomRequest extends AbstractRequest {
         Objects.requireNonNull(attr);
         if (attr.isEmpty()) throw new IllegalArgumentException();
 
-        setParameter(expect_attr_k, PersistentHashMap.create(attr));
+        setParameter(expectAttrK, PersistentHashMap.create(attr));
         return this;
     }
 
@@ -81,7 +81,7 @@ public final class JoinRoomRequest extends AbstractRequest {
      * @return 返回房间玩家自定义属性，是不可变 Map
      */
     public Map<String, Object> getActorProperties() {
-        return getParameter(attr_k, Collections.emptyMap());
+        return getParameter(attrK, Collections.emptyMap());
     }
 
     /**
@@ -95,7 +95,7 @@ public final class JoinRoomRequest extends AbstractRequest {
         Objects.requireNonNull(attr);
         if (attr.isEmpty()) throw new IllegalArgumentException();
 
-        setParameter(attr_k, PersistentHashMap.create(attr));
+        setParameter(attrK, PersistentHashMap.create(attr));
         return this;
     }
 }

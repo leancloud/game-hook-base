@@ -12,13 +12,13 @@ import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 public final class CreateRoomRequest extends AbstractRequest {
-    private static final Keyword max_members_k = (Keyword) RT.keyword(null, "max-members");
-    private static final Keyword empty_room_ttl_k = (Keyword) RT.keyword(null, "empty-room-ttl");
-    private static final Keyword player_ttl_k = (Keyword) RT.keyword(null, "player-ttl");
-    private static final Keyword expect_m_k = (Keyword) RT.keyword(null, "expect-m");
-    private static final Keyword is_visible_k = (Keyword) RT.keyword(null, "visible?");
-    private static final Keyword lobby_keys_k = (Keyword) RT.keyword(null, "lobby-keys");
-    private static final Keyword attr_k = (Keyword) RT.keyword(null, "attr");
+    private static final Keyword maxMembersK = (Keyword) RT.keyword(null, "max-members");
+    private static final Keyword emptyRoomTtlK = (Keyword) RT.keyword(null, "empty-room-ttl");
+    private static final Keyword playerTtlK = (Keyword) RT.keyword(null, "player-ttl");
+    private static final Keyword expectMK = (Keyword) RT.keyword(null, "expect-m");
+    private static final Keyword isVisibleK = (Keyword) RT.keyword(null, "visible?");
+    private static final Keyword lobbyKeysK = (Keyword) RT.keyword(null, "lobby-keys");
+    private static final Keyword attrK = (Keyword) RT.keyword(null, "attr");
 
     public CreateRoomRequest(Map<Keyword, Object> requestParams) {
         super(requestParams);
@@ -30,7 +30,7 @@ public final class CreateRoomRequest extends AbstractRequest {
      * @return 最大房间人数
      */
     public int getMaxPlayerCount() {
-        return getParameter(max_members_k, 10);
+        return getParameter(maxMembersK, 10);
     }
 
     /**
@@ -41,7 +41,7 @@ public final class CreateRoomRequest extends AbstractRequest {
      */
     public CreateRoomRequest setMaxPlayerCount(int max) {
         if (max <= 0) throw new IllegalArgumentException();
-        setParameter(max_members_k, max);
+        setParameter(maxMembersK, max);
         return this;
     }
 
@@ -51,7 +51,7 @@ public final class CreateRoomRequest extends AbstractRequest {
      * @return 返回空房间保留时间
      */
     public int getEmptyRoomTtlSecs() {
-        return getParameter(empty_room_ttl_k, 0);
+        return getParameter(emptyRoomTtlK, 0);
     }
 
     /**
@@ -64,7 +64,7 @@ public final class CreateRoomRequest extends AbstractRequest {
      */
     public CreateRoomRequest setEmptyRoomTtl(long ttl, TimeUnit unit) {
         if (ttl <= 0) throw new IllegalArgumentException();
-        setParameter(empty_room_ttl_k, (int) unit.toSeconds(ttl));
+        setParameter(emptyRoomTtlK, (int) unit.toSeconds(ttl));
         return this;
     }
 
@@ -74,7 +74,7 @@ public final class CreateRoomRequest extends AbstractRequest {
      * @return 返回玩家允许的最大离线时间
      */
     public int getPlayerTtlSecs() {
-        return getParameter(player_ttl_k, 0);
+        return getParameter(playerTtlK, 0);
     }
 
     /**
@@ -88,7 +88,7 @@ public final class CreateRoomRequest extends AbstractRequest {
     public CreateRoomRequest setPlayerTtl(long ttl, TimeUnit unit) {
         if (ttl <= 0) throw new IllegalArgumentException();
 
-        setParameter(player_ttl_k, (int) unit.toSeconds(ttl));
+        setParameter(playerTtlK, (int) unit.toSeconds(ttl));
         return this;
     }
 
@@ -98,7 +98,7 @@ public final class CreateRoomRequest extends AbstractRequest {
      * @return 房间指定的玩家 ID 列表
      */
     public List<String> getExpectUsers() {
-        return getParameter(expect_m_k, Collections.emptyList());
+        return getParameter(expectMK, Collections.emptyList());
     }
 
     /**
@@ -112,7 +112,7 @@ public final class CreateRoomRequest extends AbstractRequest {
         Objects.requireNonNull(expectUsers);
         if (expectUsers.isEmpty()) throw new IllegalArgumentException();
 
-        setParameter(expect_m_k, PersistentVector.create(expectUsers));
+        setParameter(expectMK, PersistentVector.create(expectUsers));
         return this;
     }
 
@@ -122,7 +122,7 @@ public final class CreateRoomRequest extends AbstractRequest {
      * @return 房间是否可见
      */
     public boolean isVisible() {
-        return getParameter(is_visible_k, true);
+        return getParameter(isVisibleK, true);
     }
 
     /**
@@ -131,7 +131,7 @@ public final class CreateRoomRequest extends AbstractRequest {
      * @return this
      */
     public CreateRoomRequest hideRoom() {
-        setParameter(is_visible_k, false);
+        setParameter(isVisibleK, false);
         return this;
     }
 
@@ -141,7 +141,7 @@ public final class CreateRoomRequest extends AbstractRequest {
      * @return this
      */
     public CreateRoomRequest exposeRoom() {
-        setParameter(is_visible_k, true);
+        setParameter(isVisibleK, true);
         return this;
     }
 
@@ -151,7 +151,7 @@ public final class CreateRoomRequest extends AbstractRequest {
      * @return 用于房间匹配的房间自定义属性键
      */
     public List<String> getLobbyKeys() {
-        return getParameter(lobby_keys_k, Collections.emptyList());
+        return getParameter(lobbyKeysK, Collections.emptyList());
     }
 
     /**
@@ -165,7 +165,7 @@ public final class CreateRoomRequest extends AbstractRequest {
         Objects.requireNonNull(keys);
         if (keys.isEmpty()) throw new IllegalArgumentException();
 
-        setParameter(lobby_keys_k, PersistentVector.create(keys));
+        setParameter(lobbyKeysK, PersistentVector.create(keys));
 
         return this;
     }
@@ -176,7 +176,7 @@ public final class CreateRoomRequest extends AbstractRequest {
      * @return 返回房间自定义属性，是不可变 Map
      */
     public Map<String, Object> getRoomProperties() {
-        return getParameter(attr_k, Collections.emptyMap());
+        return getParameter(attrK, Collections.emptyMap());
     }
 
     /**
@@ -190,7 +190,7 @@ public final class CreateRoomRequest extends AbstractRequest {
         Objects.requireNonNull(attr);
         if (attr.isEmpty()) throw new IllegalArgumentException();
 
-        setParameter(attr_k, PersistentHashMap.create(attr));
+        setParameter(attrK, PersistentHashMap.create(attr));
         return this;
     }
 }
