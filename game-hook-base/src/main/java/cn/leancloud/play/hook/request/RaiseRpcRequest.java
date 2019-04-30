@@ -165,7 +165,7 @@ public final class RaiseRpcRequest extends AbstractRequest {
             return id.intValue();
         }
 
-        Log.error("No from actor id in RaiseRpcRequest. current params={}", getAllParameters());
+        Log.error("No from actor id in {}. current params={}", RaiseRpcRequest.class.getSimpleName(), getAllParameters());
         return -1;
     }
 }

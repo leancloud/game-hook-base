@@ -48,7 +48,7 @@ public final class LeaveRoomRequest extends AbstractRequest {
             return id.intValue();
         }
 
-        Log.error("No target actor id in LeaveRoomRequest. current params={}", getAllParameters());
+        Log.error("No target actor id in {}. current params={}", LeaveRoomRequest.class.getSimpleName(), getAllParameters());
         return -1;
     }
 
