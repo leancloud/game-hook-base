@@ -15,6 +15,7 @@ FEATURE = None
 CONFIG_BITMAP = 0xFFFF
 DEFAULT_PROTOCOL = 'json.1'
 USE_APP_ROUTER_ADDR = False
+FORCE_USE_INSECURE_ADDR = False
 
 _UNSET = object()
 
@@ -46,6 +47,7 @@ def init_config(env):
     global FEATURE
     global CONFIG_BITMAP
     global USE_APP_ROUTER_ADDR
+    global FORCE_USE_INSECURE_ADDR
 
     fetch_config = create_config_fetcher(env)
 
@@ -62,6 +64,8 @@ def init_config(env):
         "CONFIG_BITMAP", fallback="0xFFFF"), base=16)
     USE_APP_ROUTER_ADDR = fetch_config(
         'USE_APP_ROUTER', fallback="False") == "True"
+    FORCE_USE_INSECURE_ADDR = fetch_config(
+        'FORCE_USE_INSECURE_ADDR', fallback='False') == "True"
     if USE_APP_ROUTER_ADDR:
         ROUTER_URL = "https://%s.%s" % (
             APP_ID[0:8], fetch_config('GAME_ROUTER_URL'))

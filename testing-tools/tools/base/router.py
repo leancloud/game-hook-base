@@ -11,7 +11,7 @@ def get_lobby_route(feature=None, insecure=False):
     payload = {'appId': config.APP_ID}
     if config.FEATURE is not None:
         payload['feature'] = config.FEATURE
-    if insecure:
+    if insecure or config.FORCE_USE_INSECURE_ADDR:
         payload['insecure'] = True
 
     auth_url = "%s/router" % config.ROUTER_URL
