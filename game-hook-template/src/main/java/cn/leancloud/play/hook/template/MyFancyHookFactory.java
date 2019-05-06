@@ -9,7 +9,7 @@ import java.util.Map;
 
 public class MyFancyHookFactory implements HookFactory {
     @Override
-    public GameHook create(HookedRoom room, String hookName, Map<String, String> initConfigs) {
+    public GameHook create(HookedRoom room, String hookName, Map<String, Object> initConfigs) {
         if (hookName != null && hookName.length() > 0) {
             switch (hookName) {
                 case "fancy-hook":

@@ -8,7 +8,7 @@ import cn.leancloud.play.hook.request.*;
 import java.util.Map;
 
 public class MyFancyGameHook extends AbstractGameHook {
-    public MyFancyGameHook(HookedRoom room, Map<String, String> initConfigs) {
+    public MyFancyGameHook(HookedRoom room, Map<String, Object> initConfigs) {
         super(room);
         // do some constructor stuff
     }

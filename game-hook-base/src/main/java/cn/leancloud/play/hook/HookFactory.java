@@ -11,5 +11,5 @@ public interface HookFactory {
      * @param initConfigs 创建 Hook 的初始化配置参数
      * @return 新创建的 Hook
      */
-    GameHook create(HookedRoom room, String hookName, Map<String, String> initConfigs);
+    GameHook create(HookedRoom room, String hookName, Map<String, Object> initConfigs);
 }
