@@ -6,7 +6,7 @@
 
     <groupId>cn.leancloud.play</groupId>
     <artifactId>game-hook-base</artifactId>
-    <version>1.4</version>
+    <version>1.5-SNAPSHOT</version>
 
     <properties>
         <clojure.version>1.10.0</clojure.version>
