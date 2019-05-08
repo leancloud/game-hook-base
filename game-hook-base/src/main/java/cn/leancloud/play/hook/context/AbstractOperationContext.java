@@ -4,12 +4,14 @@ import cn.leancloud.play.hook.HookResponse;
 import cn.leancloud.play.hook.Reason;
 import cn.leancloud.play.hook.request.RoomRequest;
 
+import java.util.ConcurrentModificationException;
 import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 
 abstract class AbstractOperationContext<T extends RoomRequest> implements Context<T> {
     private final CompletableFuture<HookResponse<T>> future;
     private final T req;
+    private final Thread bindingThread;
 
     private ContextStatus status;
 
@@ -20,6 +22,7 @@ abstract class AbstractOperationContext<T extends RoomRequest> implements Contex
         this.req = req;
         this.future = future;
         this.status = ContextStatus.NEW;
+        this.bindingThread = Thread.currentThread();
     }
 
     @Override
@@ -52,6 +55,10 @@ abstract class AbstractOperationContext<T extends RoomRequest> implements Contex
     void updateStatusWhenNotProcessed(ContextStatus newStatus) {
         if (isProcessed()) {
             throw new IllegalStateException("request already processed");
+        } else if (Thread.currentThread() != bindingThread) {
+            String msg = "Context can only be operated by it's binding thread. Please use the scheduler in HookedRoom" +
+                    "to submit a task to operate this Context.";
+            throw new ConcurrentModificationException(msg);
         } else {
             status = newStatus;
         }
