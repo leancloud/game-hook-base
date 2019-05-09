@@ -132,10 +132,8 @@ public interface HookedRoom {
     /**
      * 更改房间系统属性
      * @param property 待修改的系统属性，不能为 null
-     * @param <K> 具体要改的系统属性
-     * @param <V> 待修改后的值
      */
-    <K, V> void updateRoomSystemProperty(RoomSystemProperty<K, V> property);
+    <V> void updateRoomSystemProperty(RoomSystemProperty<V> property);
 
     /**
      * 将某玩家从房间移除

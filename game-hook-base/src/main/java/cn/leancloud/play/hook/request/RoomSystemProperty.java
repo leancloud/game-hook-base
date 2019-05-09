@@ -1,7 +1,13 @@
 package cn.leancloud.play.hook.request;
 
-public interface RoomSystemProperty<K, V> {
-    K getPropertyKey();
+import clojure.lang.Keyword;
 
-    V getValueToSet();
+public interface RoomSystemProperty<V> {
+    Keyword getPropertyKey();
+
+    V getPropertyValueToSet();
+
+    default Object getSerializedPropertyValue() {
+        return getPropertyValueToSet();
+    }
 }

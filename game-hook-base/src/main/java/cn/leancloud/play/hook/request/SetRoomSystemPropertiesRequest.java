@@ -28,9 +28,9 @@ public final class SetRoomSystemPropertiesRequest extends AbstractRequest {
     public SetRoomSystemPropertiesRequest setOpenRoomProperty(OpenRoomProperty property) {
         Objects.requireNonNull(property);
 
-        if (property.getValueToSet() != null) {
+        if (property.getPropertyValueToSet() != null) {
             HashMap<Keyword, Object> oldProps = new HashMap<>(getProperties());
-            oldProps.put(OpenRoomProperty.propertyKey, property.getValueToSet());
+            oldProps.put(OpenRoomProperty.propertyKey, property.getSerializedPropertyValue());
             setProperties(oldProps);
         }
 
@@ -51,9 +51,9 @@ public final class SetRoomSystemPropertiesRequest extends AbstractRequest {
     public SetRoomSystemPropertiesRequest setExposeRoomProperty(ExposeRoomProperty property) {
         Objects.requireNonNull(property);
 
-        if (property.getValueToSet() != null) {
+        if (property.getPropertyValueToSet() != null) {
             HashMap<Keyword, Object> oldProps = new HashMap<>(getProperties());
-            oldProps.put(ExposeRoomProperty.propertyKey, property.getValueToSet());
+            oldProps.put(ExposeRoomProperty.propertyKey, property.getSerializedPropertyValue());
             setProperties(oldProps);
         }
 
@@ -63,12 +63,12 @@ public final class SetRoomSystemPropertiesRequest extends AbstractRequest {
     @SuppressWarnings("unchecked")
     public Optional<ExpectedMembersProperty> getExpectedMembersProperty() {
         HashMap<Keyword, Object> oldProps = new HashMap<>(getProperties());
-        Map<Keyword, List<String>> valueToSet = (Map<Keyword, List<String>>) oldProps.get(ExpectedMembersProperty.propertyKey);
+        Map<Keyword, Collection<String>> valueToSet = (Map<Keyword, Collection<String>>) oldProps.get(ExpectedMembersProperty.propertyKey);
 
         if (valueToSet != null && !valueToSet.isEmpty()) {
-            Map.Entry<Keyword,List<String>> entry = valueToSet.entrySet().iterator().next();
+            Map.Entry<Keyword, Collection<String>> entry = valueToSet.entrySet().iterator().next();
             Operator op = Operator.findOperator(entry.getKey());
-            ExpectedMembersProperty property = new ExpectedMembersProperty(op, entry.getValue());
+            ExpectedMembersProperty property = new ExpectedMembersProperty(op, new HashSet<>(entry.getValue()));
             return Optional.of(property);
         }
 
@@ -78,12 +78,9 @@ public final class SetRoomSystemPropertiesRequest extends AbstractRequest {
     public SetRoomSystemPropertiesRequest setExpectedMembersProperty(ExpectedMembersProperty property) {
         Objects.requireNonNull(property);
 
-        if (property.getValueToSet() != null) {
+        if (property.getPropertyValueToSet() != null) {
             HashMap<Keyword, Object> oldProps = new HashMap<>(getProperties());
-            Map<Keyword, List<String>> valueToSet = new HashMap<>();
-            ValueWithOperator<List<String>> expectMembers = property.getValueToSet();
-            valueToSet.put(expectMembers.op.key, expectMembers.value);
-            oldProps.put(ExpectedMembersProperty.propertyKey, valueToSet);
+            oldProps.put(ExpectedMembersProperty.propertyKey, property.getSerializedPropertyValue());
             setProperties(oldProps);
         }
 
@@ -102,17 +99,13 @@ public final class SetRoomSystemPropertiesRequest extends AbstractRequest {
     }
 
     public enum Operator {
-        ADD(Operator.addK),
-        REMOVE(Operator.removeK),
-        SET(Operator.setK),
-        DROP(Operator.dropK);
-
-        private static Keyword addK = (Keyword) RT.keyword(null, "$add");
-        private static Keyword removeK = (Keyword) RT.keyword(null, "$remove");
-        private static Keyword setK = (Keyword) RT.keyword(null, "$set");
-        private static Keyword dropK = (Keyword) RT.keyword(null, "$drop");
+        ADD(RT.keyword(null, "$add")),
+        REMOVE(RT.keyword(null, "$remove")),
+        SET(RT.keyword(null, "$set")),
+        DROP(RT.keyword(null, "$drop"));
 
         private final Keyword key;
+
         Operator(Keyword k) {
             this.key = k;
         }
@@ -128,74 +121,36 @@ public final class SetRoomSystemPropertiesRequest extends AbstractRequest {
         }
     }
 
-    public final static class ValueWithOperator<V> {
-        private final Operator op;
-        private final V value;
-
-        ValueWithOperator(Operator op, V value) {
-            this.op = op;
-            this.value = value;
-        }
-
-        public Operator getOperator() {
-            return op;
-        }
-
-        public V getValue() {
-            return value;
-        }
-
-        public static <V> ValueWithOperator add(V valueToSet) {
-            Objects.requireNonNull(valueToSet);
-
-            return new ValueWithOperator<>(Operator.ADD, valueToSet);
-        }
-
-        public static <V> ValueWithOperator remove(V valueToSet) {
-            Objects.requireNonNull(valueToSet);
-
-            return new ValueWithOperator<>(Operator.REMOVE, valueToSet);
-        }
-
-        public static <V> ValueWithOperator set(V valueToSet) {
-            Objects.requireNonNull(valueToSet);
-
-            return new ValueWithOperator<>(Operator.SET, valueToSet);
-        }
-
-        public static <V> ValueWithOperator drop() {
-            return new ValueWithOperator<>(Operator.DROP, null);
-        }
-    }
-
-    public final static class ExpectedMembersProperty implements RoomSystemProperty<Keyword, ValueWithOperator<List<String>>> {
+    public final static class ExpectedMembersProperty implements RoomSystemProperty<Set<String>> {
         private static Keyword propertyKey = (Keyword) RT.keyword(null, "expectMembers");
-        private final ValueWithOperator<List<String>> valueToSet;
+        private final Operator operator;
+        private final Set<String> valueToSet;
 
-        private ExpectedMembersProperty(Operator op, List<String> valueToSet) {
-            this.valueToSet = new ValueWithOperator<>(op, Collections.unmodifiableList(new ArrayList<>(valueToSet)));
+        private ExpectedMembersProperty(Operator op, Set<String> valueToSet) {
+            this.operator = op;
+            this.valueToSet = Collections.unmodifiableSet(new HashSet<>(valueToSet));
         }
 
-        public static ExpectedMembersProperty add(List<String> valueToSet) {
+        public static ExpectedMembersProperty add(Set<String> valueToSet) {
             Objects.requireNonNull(valueToSet);
 
             return new ExpectedMembersProperty(Operator.ADD, valueToSet);
         }
 
-        public static ExpectedMembersProperty remove(List<String> valueToSet) {
+        public static ExpectedMembersProperty remove(Set<String> valueToSet) {
             Objects.requireNonNull(valueToSet);
 
             return new ExpectedMembersProperty(Operator.REMOVE, valueToSet);
         }
 
-        public static ExpectedMembersProperty set(List<String> valueToSet) {
+        public static ExpectedMembersProperty set(Set<String> valueToSet) {
             Objects.requireNonNull(valueToSet);
 
             return new ExpectedMembersProperty(Operator.SET, valueToSet);
         }
 
         public static ExpectedMembersProperty drop() {
-            return new ExpectedMembersProperty(Operator.DROP, Collections.emptyList());
+            return new ExpectedMembersProperty(Operator.DROP, Collections.emptySet());
         }
 
         @Override
@@ -204,12 +159,23 @@ public final class SetRoomSystemPropertiesRequest extends AbstractRequest {
         }
 
         @Override
-        public ValueWithOperator<List<String>> getValueToSet() {
+        public Set<String> getPropertyValueToSet() {
             return valueToSet;
+        }
+
+        public Operator getOperator() {
+            return operator;
+        }
+
+        @Override
+        public Object getSerializedPropertyValue() {
+            Map<Keyword, Set<String>> m = new HashMap<>();
+            m.put(operator.key, valueToSet);
+            return m;
         }
     }
 
-    public final static class ExposeRoomProperty implements RoomSystemProperty<Keyword, Boolean> {
+    public final static class ExposeRoomProperty implements RoomSystemProperty<Boolean> {
         private static Keyword propertyKey = (Keyword) RT.keyword(null, "visible");
         private final Boolean valueToSet;
 
@@ -230,12 +196,12 @@ public final class SetRoomSystemPropertiesRequest extends AbstractRequest {
         }
 
         @Override
-        public Boolean getValueToSet() {
+        public Boolean getPropertyValueToSet() {
             return valueToSet;
         }
     }
 
-    public final static class OpenRoomProperty implements RoomSystemProperty<Keyword, Boolean> {
+    public final static class OpenRoomProperty implements RoomSystemProperty<Boolean> {
         private static Keyword propertyKey = (Keyword) RT.keyword(null, "open");
         private final Boolean valueToSet;
 
@@ -255,7 +221,7 @@ public final class SetRoomSystemPropertiesRequest extends AbstractRequest {
         }
 
         @Override
-        public Boolean getValueToSet() {
+        public Boolean getPropertyValueToSet() {
             return valueToSet;
         }
     }
