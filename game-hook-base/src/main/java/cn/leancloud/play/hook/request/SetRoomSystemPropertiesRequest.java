@@ -89,14 +89,14 @@ public final class SetRoomSystemPropertiesRequest extends AbstractRequest {
      * @return 邀请好友属性选项。使用 Optional 是因为请求内可能没有设置房间邀请好友属性，需要通过判断确认。
      */
     @SuppressWarnings("unchecked")
-    public Optional<ExpectedMembersProperty> getExpectedMembersProperty() {
+    public Optional<ExpectedUserIdsProperty> getExpectedUserIdsProperty() {
         HashMap<Keyword, Object> oldProps = new HashMap<>(getProperties());
-        Map<Keyword, Collection<String>> valueToSet = (Map<Keyword, Collection<String>>) oldProps.get(ExpectedMembersProperty.propertyKey);
+        Map<Keyword, Collection<String>> valueToSet = (Map<Keyword, Collection<String>>) oldProps.get(ExpectedUserIdsProperty.propertyKey);
 
         if (valueToSet != null && !valueToSet.isEmpty()) {
             Map.Entry<Keyword, Collection<String>> entry = valueToSet.entrySet().iterator().next();
             Operator op = Operator.findOperator(entry.getKey());
-            ExpectedMembersProperty property = new ExpectedMembersProperty(op, new HashSet<>(entry.getValue()));
+            ExpectedUserIdsProperty property = new ExpectedUserIdsProperty(op, new HashSet<>(entry.getValue()));
             return Optional.of(property);
         }
 
@@ -109,12 +109,12 @@ public final class SetRoomSystemPropertiesRequest extends AbstractRequest {
      * @param property 待设置的邀请好友 ID 列表属性，不能为 null
      * @return this
      */
-    public SetRoomSystemPropertiesRequest setExpectedMembersProperty(ExpectedMembersProperty property) {
+    public SetRoomSystemPropertiesRequest setExpectedUserIdsProperty(ExpectedUserIdsProperty property) {
         Objects.requireNonNull(property);
 
         if (property.getPropertyValueToSet() != null) {
             HashMap<Keyword, Object> oldProps = new HashMap<>(getProperties());
-            oldProps.put(ExpectedMembersProperty.propertyKey, property.getSerializedPropertyValue());
+            oldProps.put(ExpectedUserIdsProperty.propertyKey, property.getSerializedPropertyValue());
             setProperties(oldProps);
         }
 
@@ -172,12 +172,12 @@ public final class SetRoomSystemPropertiesRequest extends AbstractRequest {
      * Operator.DROP 清空现有房间邀请好友列表。比如房间现有好友 ["a", "b", "c"]，执行
      * DROP 后，房间邀请好友列表结果为 [ ]
      */
-    public final static class ExpectedMembersProperty implements RoomSystemProperty<Set<String>> {
+    public final static class ExpectedUserIdsProperty implements RoomSystemProperty<Set<String>> {
         private static Keyword propertyKey = (Keyword) RT.keyword(null, "expectMembers");
         private final Operator operator;
         private final Set<String> valueToSet;
 
-        private ExpectedMembersProperty(Operator op, Set<String> valueToSet) {
+        private ExpectedUserIdsProperty(Operator op, Set<String> valueToSet) {
             this.operator = op;
             this.valueToSet = Collections.unmodifiableSet(new HashSet<>(valueToSet));
         }
@@ -189,10 +189,10 @@ public final class SetRoomSystemPropertiesRequest extends AbstractRequest {
          * @param valueToSet 待添加新的邀请好友 ID 列表
          * @return this
          */
-        public static ExpectedMembersProperty add(Set<String> valueToSet) {
+        public static ExpectedUserIdsProperty add(Set<String> valueToSet) {
             Objects.requireNonNull(valueToSet);
 
-            return new ExpectedMembersProperty(Operator.ADD, valueToSet);
+            return new ExpectedUserIdsProperty(Operator.ADD, valueToSet);
         }
 
         /**
@@ -202,10 +202,10 @@ public final class SetRoomSystemPropertiesRequest extends AbstractRequest {
          * @param valueToSet 待删除好友 ID 列表
          * @return this
          */
-        public static ExpectedMembersProperty remove(Set<String> valueToSet) {
+        public static ExpectedUserIdsProperty remove(Set<String> valueToSet) {
             Objects.requireNonNull(valueToSet);
 
-            return new ExpectedMembersProperty(Operator.REMOVE, valueToSet);
+            return new ExpectedUserIdsProperty(Operator.REMOVE, valueToSet);
         }
 
         /**
@@ -215,10 +215,10 @@ public final class SetRoomSystemPropertiesRequest extends AbstractRequest {
          * @param valueToSet 待删除好友 ID 列表
          * @return this
          */
-        public static ExpectedMembersProperty set(Set<String> valueToSet) {
+        public static ExpectedUserIdsProperty set(Set<String> valueToSet) {
             Objects.requireNonNull(valueToSet);
 
-            return new ExpectedMembersProperty(Operator.SET, valueToSet);
+            return new ExpectedUserIdsProperty(Operator.SET, valueToSet);
         }
 
         /**
@@ -227,8 +227,8 @@ public final class SetRoomSystemPropertiesRequest extends AbstractRequest {
          *
          * @return this
          */
-        public static ExpectedMembersProperty drop() {
-            return new ExpectedMembersProperty(Operator.DROP, Collections.emptySet());
+        public static ExpectedUserIdsProperty drop() {
+            return new ExpectedUserIdsProperty(Operator.DROP, Collections.emptySet());
         }
 
         @Override
