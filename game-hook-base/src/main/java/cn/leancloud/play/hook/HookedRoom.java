@@ -115,10 +115,26 @@ public interface HookedRoom {
      *
      * @param targetActorId 目标玩家 Actor Id，如果目标 Actor Id 并不在房间内则会抛出 IllegalArgumentException
      * @param valuesToSet 待修改的玩家自定义属性，不能为 null
+     */
+    void updatePlayerProperty(int targetActorId, Map<String, Object> valuesToSet);
+
+    /**
+     * 更改房间玩家自定义属性
+     *
+     * @param targetActorId 目标玩家 Actor Id，如果目标 Actor Id 并不在房间内则会抛出 IllegalArgumentException
+     * @param valuesToSet 待修改的玩家自定义属性，不能为 null
      * @param expectedValues 不能为 null。设置 CAS 操作用于匹配的玩家自定义属性。设置了用于匹配的玩家自定义属性后，只有当玩家自定义属性符合
      *                       匹配的值后更新玩家自定义属性操作才会生效。
      */
     void updatePlayerProperty(int targetActorId, Map<String, Object> valuesToSet, Map<String, Object> expectedValues);
+
+    /**
+     * 更改房间自定义属性
+     *
+     * @param valuesToSet 待修改的房间自定义属性, 不能为 null
+     *
+     */
+    void updateRoomProperty(Map<String, Object> valuesToSet);
 
     /**
      * 更改房间自定义属性
