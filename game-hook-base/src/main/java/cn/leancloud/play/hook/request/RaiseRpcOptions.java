@@ -22,7 +22,7 @@ public final class RaiseRpcOptions {
         return new RaiseRpcOptionsBuilder();
     }
 
-    private final byte eventId;
+    private final Byte eventId;
     private final CacheOption cacheOption;
 
     private RaiseRpcOptions(RaiseRpcOptionsBuilder builder) {
@@ -49,7 +49,7 @@ public final class RaiseRpcOptions {
     }
 
     public static class RaiseRpcOptionsBuilder implements Builder<RaiseRpcOptions> {
-        private byte eventId = Byte.MIN_VALUE;
+        private Byte eventId = null;
         private CacheOption cacheOption = CacheOption.NO_CACHE;
 
         /**
@@ -59,10 +59,6 @@ public final class RaiseRpcOptions {
          * @return this
          */
         public RaiseRpcOptionsBuilder withEventId(byte eventId) {
-            if (eventId < 0) {
-                throw new IllegalArgumentException();
-            }
-
             this.eventId = eventId;
             return this;
         }
