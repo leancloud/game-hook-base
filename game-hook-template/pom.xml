@@ -19,7 +19,7 @@
         <dependency>
             <groupId>cn.leancloud.play</groupId>
             <artifactId>game-hook-base</artifactId>
-            <version>1.4-SNAPSHOT</version>
+            <version>1.6-SNAPSHOT</version>
         </dependency>
     </dependencies>
 
