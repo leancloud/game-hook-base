@@ -145,13 +145,13 @@ public final class RaiseRpcRequest extends AbstractRequest {
      *
      * @return 自定义 Id
      */
-    public int getEventId() {
+    public byte getEventId() {
         Number id = getParameter(eventIdK);
         if (id != null) {
-            return id.intValue();
+            return id.byteValue();
         }
 
-        return -1;
+        return Byte.MIN_VALUE;
     }
 
     /**

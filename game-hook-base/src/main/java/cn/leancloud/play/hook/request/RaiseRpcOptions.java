@@ -22,7 +22,7 @@ public final class RaiseRpcOptions {
         return new RaiseRpcOptionsBuilder();
     }
 
-    private final int eventId;
+    private final byte eventId;
     private final CacheOption cacheOption;
 
     private RaiseRpcOptions(RaiseRpcOptionsBuilder builder) {
@@ -35,7 +35,7 @@ public final class RaiseRpcOptions {
      *
      * @return 自定义事件 Id
      */
-    public int getEventId() {
+    public byte getEventId() {
         return eventId;
     }
 
@@ -49,7 +49,7 @@ public final class RaiseRpcOptions {
     }
 
     public static class RaiseRpcOptionsBuilder implements Builder<RaiseRpcOptions> {
-        private int eventId = -1;
+        private byte eventId = Byte.MIN_VALUE;
         private CacheOption cacheOption = CacheOption.NO_CACHE;
 
         /**
@@ -58,7 +58,7 @@ public final class RaiseRpcOptions {
          * @param eventId 自定义事件 Id
          * @return this
          */
-        public RaiseRpcOptionsBuilder withEventId(int eventId) {
+        public RaiseRpcOptionsBuilder withEventId(byte eventId) {
             if (eventId < 0) {
                 throw new IllegalArgumentException();
             }
