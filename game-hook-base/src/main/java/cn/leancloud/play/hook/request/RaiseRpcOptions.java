@@ -55,7 +55,7 @@ public final class RaiseRpcOptions {
         /**
          * 发送事件带着自定义事件 Id
          *
-         * @param eventId 自定义时间 Id
+         * @param eventId 自定义事件 Id
          * @return this
          */
         public RaiseRpcOptionsBuilder withEventId(int eventId) {
