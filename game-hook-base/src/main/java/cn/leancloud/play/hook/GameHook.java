@@ -64,5 +64,5 @@ public interface GameHook {
      *
      * @param ctx context
      */
-    void onBeforeRaiseRpc(BeforeRaiseRpcContext ctx);
+    void onBeforeSendEvent(BeforeSendEventContext ctx);
 }

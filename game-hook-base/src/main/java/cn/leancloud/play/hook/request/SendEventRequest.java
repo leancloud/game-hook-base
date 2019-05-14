@@ -12,7 +12,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-public final class RaiseRpcRequest extends AbstractRequest {
+public final class SendEventRequest extends AbstractRequest {
     private static final byte[] EMPTY_BYTE_ARRAY = new byte[0];
     private static final Keyword cacheOptionK = (Keyword) RT.keyword(null, "cache-option");
     private static final Keyword receiverGroupK = (Keyword) RT.keyword(null, "receiver-group");
@@ -22,7 +22,7 @@ public final class RaiseRpcRequest extends AbstractRequest {
     private static final Keyword eventIdK = (Keyword) RT.keyword(null, "event-id");
     private static final Keyword fromActorIdK = (Keyword) RT.keyword(null, "from-actor-id");
 
-    public RaiseRpcRequest(Map<Keyword, Object> requestParams) {
+    public SendEventRequest(Map<Keyword, Object> requestParams) {
         super(requestParams);
     }
 
@@ -46,7 +46,7 @@ public final class RaiseRpcRequest extends AbstractRequest {
      * @param opt 缓存选项
      * @return this
      */
-    public RaiseRpcRequest setCacheOption(CacheOption opt) {
+    public SendEventRequest setCacheOption(CacheOption opt) {
         Objects.requireNonNull(opt);
 
         setParameter(cacheOptionK, (long) opt.getCode());
@@ -72,7 +72,7 @@ public final class RaiseRpcRequest extends AbstractRequest {
      *
      * @param group 事件目标接收组
      */
-    public RaiseRpcRequest setReceiverGroup(ReceiverGroup group) {
+    public SendEventRequest setReceiverGroup(ReceiverGroup group) {
         Objects.requireNonNull(group);
 
         setParameter(receiverGroupK, (long) group.getCode());
@@ -98,7 +98,7 @@ public final class RaiseRpcRequest extends AbstractRequest {
      * @param actorIds 目标玩家 Actor Id 列表
      * @return this
      */
-    public RaiseRpcRequest setToActorIds(List<Integer> actorIds) {
+    public SendEventRequest setToActorIds(List<Integer> actorIds) {
         Objects.requireNonNull(actorIds);
 
         setParameter(toActorsK, PersistentVector.create(actorIds));
@@ -130,7 +130,7 @@ public final class RaiseRpcRequest extends AbstractRequest {
      * @param data 事件内容
      * @return this
      */
-    public RaiseRpcRequest setData(byte[] data) {
+    public SendEventRequest setData(byte[] data) {
         Boolean isBin = getParameter(binK);
         if (isBin != null && isBin) {
             setParameter(dataK, data);
@@ -145,13 +145,13 @@ public final class RaiseRpcRequest extends AbstractRequest {
      *
      * @return 自定义 Id
      */
-    public Byte getEventId() {
+    public byte getEventId() {
         Number id = getParameter(eventIdK);
         if (id != null) {
             return id.byteValue();
         }
 
-        return null;
+        throw new IllegalArgumentException(String.format("eventId is required for %s", SendEventRequest.class));
     }
 
     /**
@@ -165,7 +165,7 @@ public final class RaiseRpcRequest extends AbstractRequest {
             return id.intValue();
         }
 
-        Log.error("No from actor id in {}. current params={}", RaiseRpcRequest.class.getSimpleName(), getAllParameters());
+        Log.error("No from actor id in {}. current params={}", SendEventRequest.class.getSimpleName(), getAllParameters());
         return -1;
     }
 }

@@ -50,7 +50,7 @@ public abstract class AbstractGameHook implements GameHook{
     }
 
     @Override
-    public void onBeforeRaiseRpc(BeforeRaiseRpcContext ctx) {
+    public void onBeforeSendEvent(BeforeSendEventContext ctx) {
         ctx.continueProcess();
     }
 }

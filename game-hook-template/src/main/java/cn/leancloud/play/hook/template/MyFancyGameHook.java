@@ -85,8 +85,8 @@ public class MyFancyGameHook extends AbstractGameHook {
     }
 
     @Override
-    public void onBeforeRaiseRpc(BeforeRaiseRpcContext ctx) {
-        RaiseRpcRequest req = ctx.getRequest();
+    public void onBeforeSendEvent(BeforeSendEventContext ctx) {
+        SendEventRequest req = ctx.getRequest();
 
         // do something with req
 

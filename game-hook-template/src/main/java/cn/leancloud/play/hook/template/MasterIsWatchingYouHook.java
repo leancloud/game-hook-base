@@ -3,10 +3,10 @@ package cn.leancloud.play.hook.template;
 import cn.leancloud.play.hook.AbstractGameHook;
 import cn.leancloud.play.hook.Actor;
 import cn.leancloud.play.hook.HookedRoom;
-import cn.leancloud.play.hook.context.BeforeRaiseRpcContext;
-import cn.leancloud.play.hook.request.RaiseRpcOptions;
-import cn.leancloud.play.hook.request.RaiseRpcRequest;
+import cn.leancloud.play.hook.context.BeforeSendEventContext;
 import cn.leancloud.play.hook.request.ReceiverGroup;
+import cn.leancloud.play.hook.request.SendEventOptions;
+import cn.leancloud.play.hook.request.SendEventRequest;
 
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
@@ -19,8 +19,8 @@ public class MasterIsWatchingYouHook extends AbstractGameHook {
     }
 
     @Override
-    public void onBeforeRaiseRpc(BeforeRaiseRpcContext ctx) {
-        RaiseRpcRequest req = ctx.getRequest();
+    public void onBeforeSendEvent(BeforeSendEventContext ctx) {
+        SendEventRequest req = ctx.getRequest();
         HookedRoom room = getHookedRoom();
         Actor master = room.getMaster();
         if (master == null) {
@@ -45,10 +45,11 @@ public class MasterIsWatchingYouHook extends AbstractGameHook {
 
         if (!masterIsInTargets) {
             String msg = String.format("actor %d is sending sneaky rpc", req.getFromActorId());
-            room.raiseRpcToReceiverGroup(ReceiverGroup.ALL,
+            room.sendEventToReceiverGroup(ReceiverGroup.ALL,
                     master.getActorId(),
+                    req.getEventId(),
                     msg.getBytes(StandardCharsets.UTF_8),
-                    RaiseRpcOptions.emptyOption);
+                    SendEventOptions.emptyOption);
         }
     }
 }
