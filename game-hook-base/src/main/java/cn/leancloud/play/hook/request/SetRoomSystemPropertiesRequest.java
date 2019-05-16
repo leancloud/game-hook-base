@@ -121,6 +121,40 @@ public final class SetRoomSystemPropertiesRequest extends AbstractRequest {
         return this;
     }
 
+    /**
+     * 修改本次设置房间系统属性请求，设置房间最大玩家数量属性。房间内玩家数量达到限制后，新玩家无法再加入本房间。
+     *
+     * @param property 待设置的房间最大玩家数量属性，不能为 null
+     * @return this
+     */
+    public SetRoomSystemPropertiesRequest setMaxPlayerCountProperty(MaxPlayerCountProperty property) {
+        Objects.requireNonNull(property);
+
+        if (property.getPropertyValueToSet() != null) {
+            HashMap<Keyword, Object> oldProps = new HashMap<>(getProperties());
+            oldProps.put(OpenRoomProperty.propertyKey, property.getSerializedPropertyValue());
+            setProperties(oldProps);
+        }
+
+        return this;
+    }
+
+    /**
+     * 获取请求内是否设置房间最大玩家数量属性。
+     *
+     * @return 房间可见性属性选项。使用 Optional 是因为请求内可能没有设置房间最大玩家数量属性，需要通过判断确认。
+     */
+    public Optional<MaxPlayerCountProperty> getMaxPlayerCountProperty() {
+        HashMap<Keyword, Object> oldProps = new HashMap<>(getProperties());
+        Integer valueToSet = (Integer) oldProps.get(MaxPlayerCountProperty.propertyKey);
+
+        if (valueToSet != null) {
+            return Optional.of(MaxPlayerCountProperty.set(valueToSet));
+        } else {
+            return Optional.empty();
+        }
+    }
+
     private void setProperties(Map<Keyword, Object> attr) {
         Objects.requireNonNull(attr);
         if (attr.isEmpty()) throw new IllegalArgumentException();
@@ -323,6 +357,38 @@ public final class SetRoomSystemPropertiesRequest extends AbstractRequest {
 
         @Override
         public Boolean getPropertyValueToSet() {
+            return valueToSet;
+        }
+    }
+
+    /**
+     * 房间最大玩家数量属性。房间玩家数量达到上限后则房间无法再加入新玩家。
+     */
+    public final static class MaxPlayerCountProperty implements RoomSystemProperty<Integer> {
+        private static Keyword propertyKey = (Keyword) RT.keyword(null, "maxMembers");
+        private final int valueToSet;
+
+        private MaxPlayerCountProperty(int valueToSet) {
+            this.valueToSet = valueToSet;
+        }
+
+        /**
+         * 设置房间最大玩家数量属性。
+         *
+         * @param playerCount 待设置的最大玩家数量
+         * @return this
+         */
+        public static MaxPlayerCountProperty set(int playerCount) {
+            return new MaxPlayerCountProperty(playerCount);
+        }
+
+        @Override
+        public Keyword getPropertyKey() {
+            return propertyKey;
+        }
+
+        @Override
+        public Integer getPropertyValueToSet() {
             return valueToSet;
         }
     }
