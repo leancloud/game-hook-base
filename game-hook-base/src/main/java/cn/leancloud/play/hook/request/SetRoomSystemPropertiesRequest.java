@@ -132,7 +132,7 @@ public final class SetRoomSystemPropertiesRequest extends AbstractRequest {
 
         if (property.getPropertyValueToSet() != null) {
             HashMap<Keyword, Object> oldProps = new HashMap<>(getProperties());
-            oldProps.put(OpenRoomProperty.propertyKey, property.getSerializedPropertyValue());
+            oldProps.put(MaxPlayerCountProperty.propertyKey, property.getSerializedPropertyValue());
             setProperties(oldProps);
         }
 
@@ -146,10 +146,10 @@ public final class SetRoomSystemPropertiesRequest extends AbstractRequest {
      */
     public Optional<MaxPlayerCountProperty> getMaxPlayerCountProperty() {
         HashMap<Keyword, Object> oldProps = new HashMap<>(getProperties());
-        Integer valueToSet = (Integer) oldProps.get(MaxPlayerCountProperty.propertyKey);
+        Number valueToSet = (Number) oldProps.get(MaxPlayerCountProperty.propertyKey);
 
         if (valueToSet != null) {
-            return Optional.of(MaxPlayerCountProperty.set(valueToSet));
+            return Optional.of(MaxPlayerCountProperty.set(valueToSet.intValue()));
         } else {
             return Optional.empty();
         }
