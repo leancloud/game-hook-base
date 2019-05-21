@@ -56,7 +56,7 @@ abstract class AbstractOperationContext<T extends RoomRequest> implements Contex
         if (isProcessed()) {
             throw new IllegalStateException("request already processed");
         } else if (Thread.currentThread() != bindingThread) {
-            String msg = "Context can only be operated by it's binding thread. Please use the scheduler in BindingRoom" +
+            String msg = "Context can only be operated by it's binding thread. Please use the scheduler in BoundRoom" +
                     "to submit a task to operate this Context.";
             throw new ConcurrentModificationException(msg);
         } else {

@@ -11,5 +11,5 @@ public interface PluginFactory {
      * @param initConfigs 创建 Plugin 的初始化配置参数
      * @return 新创建的 Plugin
      */
-    GamePlugin create(BindingRoom room, String pluginName, Map<String, Object> initConfigs);
+    GamePlugin create(BoundRoom room, String pluginName, Map<String, Object> initConfigs);
 }

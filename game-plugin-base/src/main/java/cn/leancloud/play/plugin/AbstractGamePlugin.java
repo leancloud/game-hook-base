@@ -3,14 +3,14 @@ package cn.leancloud.play.plugin;
 import cn.leancloud.play.plugin.context.*;
 
 public abstract class AbstractGamePlugin implements GamePlugin {
-    private final BindingRoom room;
+    private final BoundRoom room;
 
-    public AbstractGamePlugin(BindingRoom room) {
+    public AbstractGamePlugin(BoundRoom room) {
         this.room = room;
     }
 
     @Override
-    public BindingRoom getHookedRoom() {
+    public BoundRoom getHookedRoom() {
         return room;
     }
 

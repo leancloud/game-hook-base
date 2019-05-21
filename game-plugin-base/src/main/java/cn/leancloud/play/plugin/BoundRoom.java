@@ -11,7 +11,7 @@ import java.util.concurrent.ScheduledExecutorService;
 /**
  * 与 Plugin 绑定的房间实例，用于获取房间信息以及对房间进行操作。
  */
-public interface BindingRoom {
+public interface BoundRoom {
     /**
      * 获取一个 ScheduledExecutorService 用于将某个任务交给与当前房间绑定的线程来执行。在该线程上能保证任务运行期间，房间
      * 属性不会发生变化，但需要任务尽快执行完以避免过长时间的阻塞线程。
