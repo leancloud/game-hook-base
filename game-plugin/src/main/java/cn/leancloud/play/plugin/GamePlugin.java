@@ -8,7 +8,7 @@ public interface GamePlugin {
      *
      * @return 绑定的 Room 实例
      */
-    BoundRoom getHookedRoom();
+    BoundRoom getBoundRoom();
 
     /**
      * 创建房间前调用

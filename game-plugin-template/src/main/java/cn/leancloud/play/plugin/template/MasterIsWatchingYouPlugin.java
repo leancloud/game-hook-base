@@ -21,7 +21,7 @@ public class MasterIsWatchingYouPlugin extends AbstractGamePlugin {
     @Override
     public void onBeforeSendEvent(BeforeSendEventContext ctx) {
         SendEventRequest req = ctx.getRequest();
-        BoundRoom room = getHookedRoom();
+        BoundRoom room = getBoundRoom();
         Actor master = room.getMaster();
         if (master == null) {
             // no master in this room

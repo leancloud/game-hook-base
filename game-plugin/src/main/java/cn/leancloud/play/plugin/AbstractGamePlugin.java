@@ -10,7 +10,7 @@ public abstract class AbstractGamePlugin implements GamePlugin {
     }
 
     @Override
-    public BoundRoom getHookedRoom() {
+    public BoundRoom getBoundRoom() {
         return room;
     }
 
