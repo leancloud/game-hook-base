@@ -1,1 +1,1 @@
-# game-hook
+# game-plugin
