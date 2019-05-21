@@ -4,7 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public final class Log {
-    private static final Logger logger = LoggerFactory.getLogger("GameHookLog");
+    private static final Logger logger = LoggerFactory.getLogger("GamePluginLog");
 
     public static boolean isTraceEnabled() {
         return logger.isTraceEnabled();
