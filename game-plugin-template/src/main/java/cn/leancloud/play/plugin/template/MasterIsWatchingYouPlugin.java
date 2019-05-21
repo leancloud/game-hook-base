@@ -1,27 +1,27 @@
-package cn.leancloud.play.hook.template;
+package cn.leancloud.play.plugin.template;
 
-import cn.leancloud.play.hook.AbstractGameHook;
-import cn.leancloud.play.hook.Actor;
-import cn.leancloud.play.hook.HookedRoom;
-import cn.leancloud.play.hook.context.BeforeSendEventContext;
-import cn.leancloud.play.hook.request.ReceiverGroup;
-import cn.leancloud.play.hook.request.SendEventOptions;
-import cn.leancloud.play.hook.request.SendEventRequest;
+import cn.leancloud.play.plugin.AbstractGamePlugin;
+import cn.leancloud.play.plugin.Actor;
+import cn.leancloud.play.plugin.BoundRoom;
+import cn.leancloud.play.plugin.context.BeforeSendEventContext;
+import cn.leancloud.play.plugin.request.ReceiverGroup;
+import cn.leancloud.play.plugin.request.SendEventOptions;
+import cn.leancloud.play.plugin.request.SendEventRequest;
 
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class MasterIsWatchingYouHook extends AbstractGameHook {
-    public MasterIsWatchingYouHook(HookedRoom room) {
+public class MasterIsWatchingYouPlugin extends AbstractGamePlugin {
+    public MasterIsWatchingYouPlugin(BoundRoom room) {
         super(room);
     }
 
     @Override
     public void onBeforeSendEvent(BeforeSendEventContext ctx) {
         SendEventRequest req = ctx.getRequest();
-        HookedRoom room = getHookedRoom();
+        BoundRoom room = getHookedRoom();
         Actor master = room.getMaster();
         if (master == null) {
             // no master in this room

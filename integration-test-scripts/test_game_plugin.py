@@ -6,11 +6,11 @@ from tools.base import config
 
 
 @utils.integration_test()
-def test_game_hook():
+def test_game_plugin():
     if not config.TEST_WITH_HOOK:
         return
 
-    room_id = "master_is_watching_you_hook_room"
+    room_id = "master_is_watching_you_plugin_room"
     client_a, client_b, client_c = 'Alpha', 'Bravo', 'Charlie'
 
     ca = utils.open_session(
@@ -21,7 +21,7 @@ def test_game_hook():
         'op': 'start',
         'cid': room_id,
         'maxMember': 23,
-        'hookName': 'master is watching you hook'
+        'hookName': 'master is watching you plugin'
     }, [{
         'cmd': 'conv',
         'op': 'started',
@@ -56,4 +56,4 @@ def test_game_hook():
 
 
 if __name__ == '__main__':
-    test_game_hook()
+    test_game_plugin()

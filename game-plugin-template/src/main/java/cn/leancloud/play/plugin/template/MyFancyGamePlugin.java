@@ -1,14 +1,14 @@
-package cn.leancloud.play.hook.template;
+package cn.leancloud.play.plugin.template;
 
-import cn.leancloud.play.hook.AbstractGameHook;
-import cn.leancloud.play.hook.HookedRoom;
-import cn.leancloud.play.hook.context.*;
-import cn.leancloud.play.hook.request.*;
+import cn.leancloud.play.plugin.AbstractGamePlugin;
+import cn.leancloud.play.plugin.BoundRoom;
+import cn.leancloud.play.plugin.context.*;
+import cn.leancloud.play.plugin.request.*;
 
 import java.util.Map;
 
-public class MyFancyGameHook extends AbstractGameHook {
-    public MyFancyGameHook(HookedRoom room, Map<String, Object> initConfigs) {
+public class MyFancyGamePlugin extends AbstractGamePlugin {
+    public MyFancyGamePlugin(BoundRoom room, Map<String, Object> initConfigs) {
         super(room);
         // do some constructor stuff
     }
