@@ -3,9 +3,9 @@ package cn.leancloud.play.plugin.request;
 import clojure.lang.Keyword;
 import clojure.lang.PersistentVector;
 import clojure.lang.RT;
+import cn.leancloud.play.serialization.GameMap;
 import cn.leancloud.play.utils.Log;
 
-import java.nio.charset.StandardCharsets;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -13,11 +13,9 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 public final class SendEventRequest extends AbstractRequest {
-    private static final byte[] EMPTY_BYTE_ARRAY = new byte[0];
     private static final Keyword cacheOptionK = (Keyword) RT.keyword(null, "cache-option");
     private static final Keyword receiverGroupK = (Keyword) RT.keyword(null, "receiver-group");
     private static final Keyword toActorsK = (Keyword) RT.keyword(null, "to-actors");
-    private static final Keyword binK = (Keyword) RT.keyword(null, "bin");
     private static final Keyword dataK = (Keyword) RT.keyword(null, "data");
     private static final Keyword eventIdK = (Keyword) RT.keyword(null, "event-id");
     private static final Keyword fromActorIdK = (Keyword) RT.keyword(null, "from-actor-id");
@@ -110,17 +108,12 @@ public final class SendEventRequest extends AbstractRequest {
      *
      * @return 事件内容
      */
-    public byte[] getData() {
-        Boolean isBin = getParameter(binK);
+    public GameMap getEventData() {
         Object data = getParameter(dataK);
         if (data == null) {
-            return EMPTY_BYTE_ARRAY;
+            return GameMap.EMPTY_MAP;
         } else {
-            if (isBin != null && isBin) {
-                return (byte[]) data;
-            } else {
-                return ((String) data).getBytes(StandardCharsets.UTF_8);
-            }
+            return (GameMap)data;
         }
     }
 
@@ -130,13 +123,13 @@ public final class SendEventRequest extends AbstractRequest {
      * @param data 事件内容
      * @return this
      */
-    public SendEventRequest setData(byte[] data) {
-        Boolean isBin = getParameter(binK);
-        if (isBin != null && isBin) {
-            setParameter(dataK, data);
-        } else {
-            setParameter(dataK, new String(data, StandardCharsets.UTF_8));
+    public SendEventRequest setEventData(GameMap data) {
+        if (data == null) {
+            data = GameMap.EMPTY_MAP;
         }
+
+        setParameter(dataK, data);
+
         return this;
     }
 

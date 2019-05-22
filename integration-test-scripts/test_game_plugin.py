@@ -21,7 +21,7 @@ def test_game_plugin():
         'op': 'start',
         'cid': room_id,
         'maxMember': 23,
-        'hookName': 'master is watching you plugin'
+        'pluginName': 'master is watching you plugin'
     }, [{
         'cmd': 'conv',
         'op': 'started',
@@ -38,20 +38,21 @@ def test_game_plugin():
         map(lambda c: utils.join_room(c, room_id), [client_b, client_c]))
 
     # Charlie send a secret msg to Bravo, but it is caught by master Alpha
-    sneaky_msg = "I'm super man"
-    future = client.add_expect_msgs_for_all(
-        [ca, cb], [{
-            'cmd': 'direct',
-            'fromActorId': 3,
-            'msg': sneaky_msg,
-            'timestamp': MATCH_ANY
-        }, {
-            'cmd': 'direct',
-            'fromActorId': 1,
-            'msg': "actor 3 is sending sneaky rpc",
-            'timestamp': MATCH_ANY
-        }])
-    cc.send_msg({'cmd': 'direct', 'msg': sneaky_msg, 'toActorIds': [2]}, )
+    whisper = {'data': "I'm super man"}
+    future = client.add_expect_msgs_for_all([ca, cb], [{
+        'cmd': 'direct',
+        'fromActorId': 3,
+        'msg': whisper,
+        'timestamp': MATCH_ANY
+    }, {
+        'cmd': 'direct',
+        'fromActorId': 1,
+        'msg': {
+            'data': "actor 3 is sending sneaky rpc"
+        },
+        'timestamp': MATCH_ANY
+    }])
+    cc.send_msg({'cmd': 'direct', 'msg': whisper, 'toActorIds': [2]}, )
     future.get()
 
 
