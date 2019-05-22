@@ -3,6 +3,7 @@ package cn.leancloud.play.plugin;
 import cn.leancloud.play.plugin.request.SendEventOptions;
 import cn.leancloud.play.plugin.request.ReceiverGroup;
 import cn.leancloud.play.plugin.request.RoomSystemProperty;
+import cn.leancloud.play.serialization.GameMap;
 
 import java.util.List;
 import java.util.Map;
@@ -164,10 +165,10 @@ public interface BoundRoom {
      * @param toActorsIds 目标 Actor Id 列表，不能为 null
      * @param fromActorId 发送事件的 Actor Id，为 0 表示由系统发出
      * @param eventId     自定义事件 Id
-     * @param data        事件数据，不能为 null
+     * @param eventData   事件数据，不能为 null
      * @param options     发送事件配置选项，不能为 null，无配置选项请填写 SendEventOptions.emptyOption
      */
-    void sendEventToActors(List<Integer> toActorsIds, int fromActorId, byte eventId, byte[] data, SendEventOptions options);
+    void sendEventToActors(List<Integer> toActorsIds, int fromActorId, byte eventId, GameMap eventData, SendEventOptions options);
 
     /**
      * 发送事件给目标接收组
@@ -175,8 +176,8 @@ public interface BoundRoom {
      * @param toReceiverGroup 目标接收组，不能为 null
      * @param fromActorId     发送事件的 Actor Id，为 0 表示由系统发出
      * @param eventId         自定义事件 Id
-     * @param data            事件数据，不能为 null
+     * @param eventData       事件数据，不能为 null
      * @param options         发送事件配置选项，不能为 null，无配置选项请填写 SendEventOptions.emptyOption
      */
-    void sendEventToReceiverGroup(ReceiverGroup toReceiverGroup, int fromActorId, byte eventId, byte[] data, SendEventOptions options);
+    void sendEventToReceiverGroup(ReceiverGroup toReceiverGroup, int fromActorId, byte eventId, GameMap eventData, SendEventOptions options);
 }

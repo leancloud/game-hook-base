@@ -3,8 +3,15 @@ import json
 
 
 def try_decode_msg(msg):
+    if msg.get('msg') and isinstance(msg['msg'], dict):
+        return msg
+
     if msg.get('msg') and not isinstance(msg['msg'], str):
-        msg['msg'] = msg['msg'].decode('utf-8')
+        try:
+            msg['msg'] = msg['msg'].decode('utf-8')
+        except AttributeError:
+            pass
+
     return msg
 
 

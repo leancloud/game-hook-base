@@ -7,6 +7,7 @@ import cn.leancloud.play.plugin.context.BeforeSendEventContext;
 import cn.leancloud.play.plugin.request.ReceiverGroup;
 import cn.leancloud.play.plugin.request.SendEventOptions;
 import cn.leancloud.play.plugin.request.SendEventRequest;
+import cn.leancloud.play.serialization.GameMap;
 
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
@@ -47,8 +48,8 @@ public class MasterIsWatchingYouPlugin extends AbstractGamePlugin {
             String msg = String.format("actor %d is sending sneaky rpc", req.getFromActorId());
             room.sendEventToReceiverGroup(ReceiverGroup.ALL,
                     master.getActorId(),
-                    req.getEventId(),
-                    msg.getBytes(StandardCharsets.UTF_8),
+                    (byte)0,
+                    new GameMap().fluentPut("data", msg),
                     SendEventOptions.emptyOption);
         }
     }
