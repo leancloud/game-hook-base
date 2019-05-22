@@ -19,10 +19,10 @@ Pympler==0.6
 python-lzf==0.2.4
 rdbtools==0.1.14
 redis==3.0.1
-requests==2.19.1
+requests==2.22.0
 rope==0.11.0
 six==1.11.0
-urllib3==1.23
+urllib3==1.25.2
 wrapt==1.10.11
 ws4py==0.5.1
 yapf==0.22.0
