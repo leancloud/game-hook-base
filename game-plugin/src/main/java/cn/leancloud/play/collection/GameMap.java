@@ -346,8 +346,6 @@ public class GameMap implements Map<String, Object>, Cloneable, Serializable {
 
     @Override
     public String toString() {
-        return "GameMap{" +
-                "map=" + map +
-                '}';
+        return "GameMap{" + map + '}';
     }
 }

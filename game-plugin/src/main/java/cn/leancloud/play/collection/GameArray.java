@@ -11,18 +11,18 @@ import static cn.leancloud.play.collection.TypeUtils.*;
 public class GameArray implements List<Object>, Cloneable, RandomAccess, Serializable {
     public static final GameArray EMPTY_ARRAY = new GameArray(Collections.emptyList());
 
-    private static final long  serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
     private final List<Object> list;
 
-    public GameArray(){
+    public GameArray() {
         this.list = new ArrayList<>();
     }
 
-    public GameArray(List<Object> list){
+    public GameArray(List<Object> list) {
         this.list = list;
     }
 
-    public GameArray(int initialCapacity){
+    public GameArray(int initialCapacity) {
         this.list = new ArrayList<>(initialCapacity);
     }
 
@@ -34,11 +34,11 @@ public class GameArray implements List<Object>, Cloneable, RandomAccess, Seriali
 
         GameArray array = new GameArray(list.size());
 
-        for (Object v: list) {
+        for (Object v : list) {
             if (v instanceof Map) {
-                v = toGameMap((Map<Object, Object>)v);
+                v = toGameMap((Map<Object, Object>) v);
             } else if (v instanceof List) {
-                v = toGameArray((List<Object>)v);
+                v = toGameArray((List<Object>) v);
             }
 
             array.add(v);
@@ -117,7 +117,7 @@ public class GameArray implements List<Object>, Cloneable, RandomAccess, Seriali
         return list.addAll(index, c);
     }
 
-    public GameArray fluentAddAll(int index, Collection<?> c){
+    public GameArray fluentAddAll(int index, Collection<?> c) {
         list.addAll(index, c);
         return this;
     }
@@ -250,14 +250,14 @@ public class GameArray implements List<Object>, Cloneable, RandomAccess, Seriali
         }
 
         if (value instanceof Map) {
-            return new GameMap((Map)value);
+            return new GameMap((Map) value);
         }
 
         if (value instanceof byte[]) {
             // todo deserialize bytes to GameMap
         }
 
-        throw new SerializationException("can not cast to GameMap, value : '" + value +"'");
+        throw new SerializationException("can not cast to GameMap, value : '" + value + "'");
     }
 
     @SuppressWarnings("unchecked")
@@ -276,7 +276,7 @@ public class GameArray implements List<Object>, Cloneable, RandomAccess, Seriali
             // todo deserialize to GameArray
         }
 
-        throw new SerializationException("can not cast to GameArray, value : '" + value +"'");
+        throw new SerializationException("can not cast to GameArray, value : '" + value + "'");
     }
 
 //    public <T> T getObject(int index, Class<T> clazz) {
@@ -307,11 +307,12 @@ public class GameArray implements List<Object>, Cloneable, RandomAccess, Seriali
     public boolean getBooleanValue(int index) {
         Object value = get(index);
 
-        if (value == null) {
+        Boolean boolV = castToBoolean(value);
+        if (boolV == null) {
             return false;
         }
 
-        return castToBoolean(value);
+        return boolV;
     }
 
     public Byte getByte(int index) {
@@ -323,11 +324,22 @@ public class GameArray implements List<Object>, Cloneable, RandomAccess, Seriali
     public byte getByteValue(int index) {
         Object value = get(index);
 
+        Byte bValue = castToByte(value);
         if (value == null) {
             return 0;
         }
 
-        return castToByte(value);
+        return bValue;
+    }
+
+    public byte[] getBytes(int index) {
+        Object value = get(index);
+
+        if (value == null) {
+            return null;
+        }
+
+        return castToBytes(value);
     }
 
     public Short getShort(int index) {
@@ -339,11 +351,12 @@ public class GameArray implements List<Object>, Cloneable, RandomAccess, Seriali
     public short getShortValue(int index) {
         Object value = get(index);
 
-        if (value == null) {
+        Short sValue = castToShort(value);
+        if (sValue == null) {
             return 0;
         }
 
-        return castToShort(value);
+        return sValue;
     }
 
     public Integer getInteger(int index) {
@@ -355,11 +368,12 @@ public class GameArray implements List<Object>, Cloneable, RandomAccess, Seriali
     public int getIntValue(int index) {
         Object value = get(index);
 
-        if (value == null) {
+        Integer intValue = castToInt(value);
+        if (intValue == null) {
             return 0;
         }
 
-        return castToInt(value);
+        return intValue;
     }
 
     public Long getLong(int index) {
@@ -371,11 +385,12 @@ public class GameArray implements List<Object>, Cloneable, RandomAccess, Seriali
     public long getLongValue(int index) {
         Object value = get(index);
 
-        if (value == null) {
+        Long lVal = castToLong(value);
+        if (lVal == null) {
             return 0L;
         }
 
-        return castToLong(value);
+        return lVal;
     }
 
     public Float getFloat(int index) {
@@ -387,11 +402,12 @@ public class GameArray implements List<Object>, Cloneable, RandomAccess, Seriali
     public float getFloatValue(int index) {
         Object value = get(index);
 
-        if (value == null) {
+        Float fVal = castToFloat(value);
+        if (fVal == null) {
             return 0F;
         }
 
-        return castToFloat(value);
+        return fVal;
     }
 
     public Double getDouble(int index) {
@@ -403,11 +419,12 @@ public class GameArray implements List<Object>, Cloneable, RandomAccess, Seriali
     public double getDoubleValue(int index) {
         Object value = get(index);
 
-        if (value == null) {
+        Double dVal = castToDouble(value);
+        if (dVal == null) {
             return 0D;
         }
 
-        return castToDouble(value);
+        return dVal;
     }
 
     public BigDecimal getBigDecimal(int index) {
@@ -447,7 +464,7 @@ public class GameArray implements List<Object>, Cloneable, RandomAccess, Seriali
     @Override
     public String toString() {
         return "GameArray{" +
-                "list=" + list +
+                list +
                 '}';
     }
 }

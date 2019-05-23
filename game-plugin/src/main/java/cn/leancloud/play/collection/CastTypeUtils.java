@@ -6,6 +6,7 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.Array;
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 import java.util.Collection;
 import java.util.Map;
@@ -33,13 +34,30 @@ public class TypeUtils {
         }
         if (value instanceof String) {
             String strVal = (String) value;
-            if (strVal.length() == 0 //
-                    || "null".equals(strVal) //
-                    || "NULL".equals(strVal)) {
+            if (strVal.length() == 0) {
                 return null;
             }
             return Byte.parseByte(strVal);
         }
+        throw new SerializationException("can not cast to byte, value : " + value);
+    }
+
+    public static byte[] castToByteValueArray(Object value) {
+        if (value == null) {
+            return null;
+        }
+        if (value instanceof byte[]) {
+            return (byte[])value;
+        }
+
+        if (value instanceof String) {
+            String strVal = (String) value;
+            if (strVal.length() == 0) {
+                return null;
+            }
+            return ((String) value).getBytes(StandardCharsets.UTF_8);
+        }
+
         throw new SerializationException("can not cast to byte, value : " + value);
     }
 
