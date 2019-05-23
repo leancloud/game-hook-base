@@ -7,9 +7,8 @@ import cn.leancloud.play.plugin.context.BeforeSendEventContext;
 import cn.leancloud.play.plugin.request.ReceiverGroup;
 import cn.leancloud.play.plugin.request.SendEventOptions;
 import cn.leancloud.play.plugin.request.SendEventRequest;
-import cn.leancloud.play.serialization.GameMap;
+import cn.leancloud.play.collection.GameMap;
 
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 

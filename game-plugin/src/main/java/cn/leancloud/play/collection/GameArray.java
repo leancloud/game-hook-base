@@ -1,12 +1,12 @@
-package cn.leancloud.play.serialization;
+package cn.leancloud.play.collection;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.*;
 
-import static cn.leancloud.play.serialization.GameMap.toGameMap;
-import static cn.leancloud.play.serialization.TypeUtils.*;
+import static cn.leancloud.play.collection.GameMap.toGameMap;
+import static cn.leancloud.play.collection.TypeUtils.*;
 
 public class GameArray implements List<Object>, Cloneable, RandomAccess, Serializable {
     public static final GameArray EMPTY_ARRAY = new GameArray(Collections.emptyList());

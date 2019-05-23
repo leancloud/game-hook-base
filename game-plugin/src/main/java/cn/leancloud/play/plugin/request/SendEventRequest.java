@@ -3,7 +3,7 @@ package cn.leancloud.play.plugin.request;
 import clojure.lang.Keyword;
 import clojure.lang.PersistentVector;
 import clojure.lang.RT;
-import cn.leancloud.play.serialization.GameMap;
+import cn.leancloud.play.collection.GameMap;
 import cn.leancloud.play.utils.Log;
 
 import java.util.Collections;

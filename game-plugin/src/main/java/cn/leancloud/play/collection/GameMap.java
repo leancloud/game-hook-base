@@ -1,11 +1,11 @@
-package cn.leancloud.play.serialization;
+package cn.leancloud.play.collection;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.*;
 
-import static cn.leancloud.play.serialization.TypeUtils.*;
+import static cn.leancloud.play.collection.TypeUtils.*;
 
 public class GameMap implements Map<String, Object>, Cloneable, Serializable {
     public static final GameMap EMPTY_MAP = new GameMap(Collections.emptyMap());

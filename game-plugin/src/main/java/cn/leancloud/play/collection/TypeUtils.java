@@ -1,4 +1,4 @@
-package cn.leancloud.play.serialization;
+package cn.leancloud.play.collection;
 
 import clojure.lang.Keyword;
 

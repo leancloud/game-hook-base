@@ -3,7 +3,7 @@ package cn.leancloud.play.plugin;
 import cn.leancloud.play.plugin.request.SendEventOptions;
 import cn.leancloud.play.plugin.request.ReceiverGroup;
 import cn.leancloud.play.plugin.request.RoomSystemProperty;
-import cn.leancloud.play.serialization.GameMap;
+import cn.leancloud.play.collection.GameMap;
 
 import java.util.List;
 import java.util.Map;
