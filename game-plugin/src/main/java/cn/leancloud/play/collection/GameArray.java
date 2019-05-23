@@ -4,6 +4,7 @@ import cn.leancloud.play.utils.CastTypeException;
 import cn.leancloud.play.utils.CastTypeUtils;
 
 import java.io.Serializable;
+import java.lang.reflect.Type;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.*;
@@ -256,10 +257,6 @@ public final class GameArray implements List<Object>, Cloneable, RandomAccess, S
             return new GameMap((Map) value);
         }
 
-        if (value instanceof byte[]) {
-            // todo deserialize bytes to GameMap
-        }
-
         throw new CastTypeException("can not cast to GameMap, value : '" + value + "'");
     }
 
@@ -273,10 +270,6 @@ public final class GameArray implements List<Object>, Cloneable, RandomAccess, S
 
         if (value instanceof GameArray) {
             return (GameArray) value;
-        }
-
-        if (value instanceof byte[]) {
-            // todo deserialize to GameArray
         }
 
         throw new CastTypeException("can not cast to GameArray, value : '" + value + "'");

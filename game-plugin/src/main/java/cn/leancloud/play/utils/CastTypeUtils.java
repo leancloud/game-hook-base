@@ -10,6 +10,7 @@ import java.math.BigInteger;
 import java.util.Base64;
 import java.util.Collection;
 import java.util.Map;
+import java.util.Objects;
 
 public class CastTypeUtils {
 
@@ -201,6 +202,8 @@ public class CastTypeUtils {
 
     @SuppressWarnings({"rawtypes", "unchecked"})
     public static <T> T cast(Object obj, Class<T> clazz){
+        Objects.requireNonNull(clazz);
+
         if(obj == null){
             if(clazz == int.class){
                 return (T) Integer.valueOf(0);
@@ -219,9 +222,7 @@ public class CastTypeUtils {
             }
             return null;
         }
-        if(clazz == null){
-            throw new IllegalArgumentException("clazz is null");
-        }
+
         if(clazz == obj.getClass()){
             return (T) obj;
         }
@@ -231,7 +232,7 @@ public class CastTypeUtils {
             }
 
             if (clazz == GameMap.class) {
-                return (T) obj;
+                return (T) new GameMap((Map)obj);
             }
         }
 

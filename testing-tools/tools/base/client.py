@@ -97,10 +97,10 @@ def add_expect_msgs_for_all(clients, expect_msgs):
 
 class Client(WebSocketClient):
     def __init__(self, addr, peer_id, ping_interval_secs,
-                 cmd_manager, serializer, protocol="json.1"):
+                 cmd_manager, codec, protocol="json.1"):
         super(Client, self).__init__(addr, protocols=[protocol])
         self._peer_id = peer_id
-        self._serializer = serializer
+        self._serializer = codec
         self._cmd_manager = cmd_manager
         if ping_interval_secs is None:
             self._ping_interval_secs = 10
@@ -225,12 +225,12 @@ class ClientBuilder:
     def build(self):
         cmd_manager = commands.CommandsManager(
             self._appid, self._peerid)
-        serializer = JsonSerializer()
+        codec = JsonSerializer()
         return Client(self._addr,
                       self._peerid,
                       self._ping_interval_secs,
                       cmd_manager,
-                      serializer,
+                      codec,
                       protocol=self._protocol)
 
 
