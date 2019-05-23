@@ -1,17 +1,17 @@
-package cn.leancloud.play.collection;
+package cn.leancloud.play.utils;
 
 import clojure.lang.Keyword;
+import cn.leancloud.play.collection.GameMap;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Array;
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 import java.util.Collection;
 import java.util.Map;
 
-public class TypeUtils {
+public class CastTypeUtils {
 
     public static String castToString(Object value) {
         if (value == null) {
@@ -39,26 +39,7 @@ public class TypeUtils {
             }
             return Byte.parseByte(strVal);
         }
-        throw new SerializationException("can not cast to byte, value : " + value);
-    }
-
-    public static byte[] castToByteValueArray(Object value) {
-        if (value == null) {
-            return null;
-        }
-        if (value instanceof byte[]) {
-            return (byte[])value;
-        }
-
-        if (value instanceof String) {
-            String strVal = (String) value;
-            if (strVal.length() == 0) {
-                return null;
-            }
-            return ((String) value).getBytes(StandardCharsets.UTF_8);
-        }
-
-        throw new SerializationException("can not cast to byte, value : " + value);
+        throw new CastTypeException("can not cast to byte, value : " + value);
     }
 
     public static Character castToChar(Object value) {
@@ -69,7 +50,7 @@ public class TypeUtils {
             return (Character) value;
         }
 
-        throw new SerializationException("can not cast to char, value : " + value);
+        throw new CastTypeException("can not cast to char, value : " + value);
     }
 
     public static Short castToShort(Object value) {
@@ -80,7 +61,7 @@ public class TypeUtils {
             return ((Number) value).shortValue();
         }
 
-        throw new SerializationException("can not cast to short, value : " + value);
+        throw new CastTypeException("can not cast to short, value : " + value);
     }
 
     public static BigDecimal castToBigDecimal(Object value) {
@@ -98,7 +79,7 @@ public class TypeUtils {
             return null;
         }
 
-        throw new SerializationException("can not cast to BigDecimal, value : " + value);
+        throw new CastTypeException("can not cast to BigDecimal, value : " + value);
     }
 
     public static BigInteger castToBigInteger(Object value) {
@@ -112,7 +93,7 @@ public class TypeUtils {
             return BigInteger.valueOf(((Number) value).longValue());
         }
 
-        throw new SerializationException("can not cast to BigInteger, value : " + value);
+        throw new CastTypeException("can not cast to BigInteger, value : " + value);
     }
 
     public static Float castToFloat(Object value) {
@@ -123,7 +104,7 @@ public class TypeUtils {
             return ((Number) value).floatValue();
         }
 
-        throw new SerializationException("can not cast to float, value : " + value);
+        throw new CastTypeException("can not cast to float, value : " + value);
     }
 
     public static Double castToDouble(Object value) {
@@ -134,7 +115,7 @@ public class TypeUtils {
             return ((Number) value).doubleValue();
         }
 
-        throw new SerializationException("can not cast to double, value : " + value);
+        throw new CastTypeException("can not cast to double, value : " + value);
     }
 
     public static boolean isNumber(String str) {
@@ -159,7 +140,7 @@ public class TypeUtils {
             return ((Number) value).longValue();
         }
 
-        throw new SerializationException("can not cast to long, value : " + value);
+        throw new CastTypeException("can not cast to long, value : " + value);
     }
 
     public static Integer castToInt(Object value) {
@@ -173,7 +154,7 @@ public class TypeUtils {
             return ((Number) value).intValue();
         }
 
-        throw new SerializationException("can not cast to int, value : " + value);
+        throw new CastTypeException("can not cast to int, value : " + value);
     }
 
     public static byte[] castToBytes(Object value) {
@@ -184,7 +165,7 @@ public class TypeUtils {
             return Base64.getDecoder().decode((String) value);
         }
 
-        throw new SerializationException("can not cast to int, value : " + value);
+        throw new CastTypeException("can not cast to int, value : " + value);
     }
 
     public static Boolean castToBoolean(Object value) {
@@ -198,7 +179,7 @@ public class TypeUtils {
             return ((Number) value).intValue() == 1;
         }
 
-        throw new SerializationException("can not cast to boolean, value : " + value);
+        throw new CastTypeException("can not cast to boolean, value : " + value);
     }
 
     public static <A extends Annotation> A getAnnotation(Class<?> clazz, Class<A> annotationClass) {
@@ -307,7 +288,7 @@ public class TypeUtils {
             return (T) castToBigInteger(obj);
         }
 
-        throw new SerializationException("can not cast to : " + clazz.getName());
+        throw new CastTypeException("can not cast to : " + clazz.getName());
     }
 }
 

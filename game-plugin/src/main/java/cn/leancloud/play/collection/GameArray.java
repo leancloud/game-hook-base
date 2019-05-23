@@ -1,14 +1,17 @@
 package cn.leancloud.play.collection;
 
+import cn.leancloud.play.utils.CastTypeException;
+import cn.leancloud.play.utils.CastTypeUtils;
+
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.*;
 
 import static cn.leancloud.play.collection.GameMap.toGameMap;
-import static cn.leancloud.play.collection.TypeUtils.*;
+import static cn.leancloud.play.utils.CastTypeUtils.*;
 
-public class GameArray implements List<Object>, Cloneable, RandomAccess, Serializable {
+public final class GameArray implements List<Object>, Cloneable, RandomAccess, Serializable {
     public static final GameArray EMPTY_ARRAY = new GameArray(Collections.emptyList());
 
     private static final long serialVersionUID = 1L;
@@ -257,7 +260,7 @@ public class GameArray implements List<Object>, Cloneable, RandomAccess, Seriali
             // todo deserialize bytes to GameMap
         }
 
-        throw new SerializationException("can not cast to GameMap, value : '" + value + "'");
+        throw new CastTypeException("can not cast to GameMap, value : '" + value + "'");
     }
 
     @SuppressWarnings("unchecked")
@@ -276,23 +279,8 @@ public class GameArray implements List<Object>, Cloneable, RandomAccess, Seriali
             // todo deserialize to GameArray
         }
 
-        throw new SerializationException("can not cast to GameArray, value : '" + value + "'");
+        throw new CastTypeException("can not cast to GameArray, value : '" + value + "'");
     }
-
-//    public <T> T getObject(int index, Class<T> clazz) {
-//        Object obj = list.get(index);
-//        return TypeUtils.castToJavaBean(obj, clazz);
-//    }
-//
-//    public <T> T getObject(int index, Type type) {
-//        Object obj = list.get(index);
-//        if (type instanceof Class) {
-//            return (T) TypeUtils.castToJavaBean(obj, (Class) type);
-//        } else {
-//            String json = JSON.toJSONString(obj);
-//            return (T) JSON.parseObject(json, type);
-//        }
-//    }
 
     public Boolean getBoolean(int index) {
         Object value = get(index);
@@ -450,7 +438,7 @@ public class GameArray implements List<Object>, Cloneable, RandomAccess, Seriali
         List<T> list = new ArrayList<T>(this.size());
 
         for (Object item : this) {
-            T classItem = (T) TypeUtils.cast(item, clazz);
+            T classItem = (T) CastTypeUtils.cast(item, clazz);
             list.add(classItem);
         }
 
