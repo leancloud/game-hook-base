@@ -4,12 +4,10 @@ import cn.leancloud.play.utils.CastTypeException;
 import cn.leancloud.play.utils.CastTypeUtils;
 
 import java.io.Serializable;
-import java.lang.reflect.Type;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.*;
 
-import static cn.leancloud.play.collection.GameMap.toGameMap;
 import static cn.leancloud.play.utils.CastTypeUtils.*;
 
 public final class GameArray implements List<Object>, Cloneable, RandomAccess, Serializable {
@@ -36,19 +34,7 @@ public final class GameArray implements List<Object>, Cloneable, RandomAccess, S
             return GameArray.EMPTY_ARRAY;
         }
 
-        GameArray array = new GameArray(list.size());
-
-        for (Object v : list) {
-            if (v instanceof Map) {
-                v = toGameMap((Map<Object, Object>) v);
-            } else if (v instanceof List) {
-                v = toGameArray((List<Object>) v);
-            }
-
-            array.add(v);
-        }
-
-        return array;
+        return new GameArray(list);
     }
 
     @Override
@@ -254,7 +240,7 @@ public final class GameArray implements List<Object>, Cloneable, RandomAccess, S
         }
 
         if (value instanceof Map) {
-            return new GameMap((Map) value);
+            return GameMap.toGameMap((Map) value);
         }
 
         throw new CastTypeException("can not cast to GameMap, value : '" + value + "'");
@@ -272,7 +258,17 @@ public final class GameArray implements List<Object>, Cloneable, RandomAccess, S
             return (GameArray) value;
         }
 
+        if (value instanceof List) {
+            return toGameArray(list);
+        }
+
         throw new CastTypeException("can not cast to GameArray, value : '" + value + "'");
+    }
+
+    public <T> T getObject(int index, Class<T> clazz) {
+        Object value = list.get(index);
+
+        return CastTypeUtils.cast(value, clazz);
     }
 
     public Boolean getBoolean(int index) {

@@ -1,4 +1,4 @@
-package cn.leancloud.play.collection;
+package cn.leancloud.play.codec;
 
 public interface Codec {
     byte[] serialize(Object obj);
