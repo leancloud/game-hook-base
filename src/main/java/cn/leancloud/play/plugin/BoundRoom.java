@@ -1,12 +1,11 @@
 package cn.leancloud.play.plugin;
 
-import cn.leancloud.play.plugin.request.SendEventOptions;
+import cn.leancloud.play.collection.GameMap;
 import cn.leancloud.play.plugin.request.ReceiverGroup;
 import cn.leancloud.play.plugin.request.RoomSystemProperty;
-import cn.leancloud.play.collection.GameMap;
+import cn.leancloud.play.plugin.request.SendEventOptions;
 
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.ScheduledExecutorService;
 
 /**
@@ -41,14 +40,14 @@ public interface BoundRoom {
     Actor getMaster();
 
     /**
-     * 获取房间自定义属性
+     * 获取房间自定义属性。修改返回的属性无法实际修改房间属性，请使用 {@link #updateRoomProperty} 修改房间属性。
      *
      * @return 房间自定义属性
      */
-    Map<String, Object> getRoomProperties();
+    GameMap getRoomProperties();
 
     /**
-     * 获取房间所有玩家列表
+     * 获取房间所有玩家列表。
      *
      * @return 房间所有玩家列表
      */
@@ -112,12 +111,12 @@ public interface BoundRoom {
     List<String> getLobbyKeys();
 
     /**
-     * 更改房间玩家自定义属性
+     * 更改房间玩家自定义属性。
      *
      * @param targetActorId 目标玩家 Actor Id，如果目标 Actor Id 并不在房间内则会抛出 IllegalArgumentException
      * @param valuesToSet   待修改的玩家自定义属性，不能为 null
      */
-    void updatePlayerProperty(int targetActorId, Map<String, Object> valuesToSet);
+    void updatePlayerProperty(int targetActorId, GameMap valuesToSet);
 
     /**
      * 更改房间玩家自定义属性
@@ -127,14 +126,14 @@ public interface BoundRoom {
      * @param expectedValues 不能为 null。设置 CAS 操作用于匹配的玩家自定义属性。设置了用于匹配的玩家自定义属性后，只有当玩家自定义属性符合
      *                       匹配的值后更新玩家自定义属性操作才会生效。
      */
-    void updatePlayerProperty(int targetActorId, Map<String, Object> valuesToSet, Map<String, Object> expectedValues);
+    void updatePlayerProperty(int targetActorId, GameMap valuesToSet, GameMap expectedValues);
 
     /**
      * 更改房间自定义属性
      *
      * @param valuesToSet 待修改的房间自定义属性, 不能为 null
      */
-    void updateRoomProperty(Map<String, Object> valuesToSet);
+    void updateRoomProperty(GameMap valuesToSet);
 
     /**
      * 更改房间自定义属性
@@ -143,7 +142,7 @@ public interface BoundRoom {
      * @param expectedValues 不能为 null。进行 CAS 操作时使用，用于匹配的房间自定义属性。设置了用于匹配的自定义属性后，只有当房间自定义属性符合
      *                       匹配的值后更新房间自定义属性操作才会生效。
      */
-    void updateRoomProperty(Map<String, Object> valuesToSet, Map<String, Object> expectedValues);
+    void updateRoomProperty(GameMap valuesToSet, GameMap expectedValues);
 
     /**
      * 更改房间系统属性

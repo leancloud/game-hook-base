@@ -31,7 +31,7 @@ public final class GameArray implements List<Object>, Cloneable, RandomAccess, S
     @SuppressWarnings("unchecked")
     public static GameArray toGameArray(List<Object> list) {
         if (list == null) {
-            return GameArray.EMPTY_ARRAY;
+            return new GameArray();
         }
 
         return new GameArray(list);

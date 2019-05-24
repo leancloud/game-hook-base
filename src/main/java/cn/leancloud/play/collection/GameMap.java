@@ -13,28 +13,28 @@ import static cn.leancloud.play.utils.CastTypeUtils.*;
 public final class GameMap implements Map<String, Object>, Cloneable, Serializable {
     public static final GameMap EMPTY_MAP = new GameMap(Collections.emptyMap());
 
-    private static final long         serialVersionUID         = 1L;
-    private static final int          DEFAULT_INITIAL_CAPACITY = 16;
+    private static final long serialVersionUID = 1L;
+    private static final int DEFAULT_INITIAL_CAPACITY = 16;
 
 
     private final Map<String, Object> map;
 
-    public GameMap(){
+    public GameMap() {
         this(DEFAULT_INITIAL_CAPACITY);
     }
 
-    public GameMap(Map<Object, Object> map){
+    public GameMap(Map<Object, Object> map) {
         this.map = toGameMap(map);
     }
 
-    public GameMap(int initialCapacity){
+    public GameMap(int initialCapacity) {
         map = new HashMap<>(initialCapacity);
     }
 
     @SuppressWarnings("unchecked")
     public static GameMap toGameMap(Map<Object, Object> inputMap) {
         if (inputMap == null) {
-            return GameMap.EMPTY_MAP;
+            return new GameMap();
         }
 
         GameMap map = new GameMap(inputMap.size());
@@ -156,10 +156,10 @@ public final class GameMap implements Map<String, Object>, Cloneable, Serializab
         }
 
         if (value instanceof Map) {
-            return toGameMap((Map)value);
+            return toGameMap((Map) value);
         }
 
-        throw new CastTypeException("can not cast to GameMap, value : '" + value +"'");
+        throw new CastTypeException("can not cast to GameMap, value : '" + value + "'");
     }
 
     @SuppressWarnings("unchecked")
@@ -177,7 +177,7 @@ public final class GameMap implements Map<String, Object>, Cloneable, Serializab
             return GameArray.toGameArray((List) value);
         }
 
-        throw new CastTypeException("can not cast to GameArray, value : '" + value +"'");
+        throw new CastTypeException("can not cast to GameArray, value : '" + value + "'");
     }
 
     public <T> T getObject(String key, Class<T> clazz) {

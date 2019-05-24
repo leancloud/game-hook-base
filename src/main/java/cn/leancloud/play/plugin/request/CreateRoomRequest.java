@@ -4,6 +4,7 @@ import clojure.lang.Keyword;
 import clojure.lang.PersistentHashMap;
 import clojure.lang.PersistentVector;
 import clojure.lang.RT;
+import cn.leancloud.play.collection.GameMap;
 
 import java.util.Collections;
 import java.util.List;
@@ -175,8 +176,8 @@ public final class CreateRoomRequest extends AbstractRequest {
      *
      * @return 返回房间自定义属性，是不可变 Map
      */
-    public Map<String, Object> getRoomProperties() {
-        return getParameter(attrK, Collections.emptyMap());
+    public GameMap getRoomProperties() {
+        return getParameter(attrK, GameMap.EMPTY_MAP);
     }
 
     /**
@@ -186,7 +187,7 @@ public final class CreateRoomRequest extends AbstractRequest {
      *             所以本方法返回后再修改 attr 不会影响已存入请求内的房间自定义属性参数
      * @return this
      */
-    public CreateRoomRequest setRoomProperties(Map<String, Object> attr) {
+    public CreateRoomRequest setRoomProperties(GameMap attr) {
         Objects.requireNonNull(attr);
         if (attr.isEmpty()) throw new IllegalArgumentException();
 
