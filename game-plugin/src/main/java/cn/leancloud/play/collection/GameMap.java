@@ -1,13 +1,16 @@
-package cn.leancloud.play.serialization;
+package cn.leancloud.play.collection;
+
+import cn.leancloud.play.utils.CastTypeException;
+import cn.leancloud.play.utils.CastTypeUtils;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.*;
 
-import static cn.leancloud.play.serialization.TypeUtils.*;
+import static cn.leancloud.play.utils.CastTypeUtils.*;
 
-public class GameMap implements Map<String, Object>, Cloneable, Serializable {
+public final class GameMap implements Map<String, Object>, Cloneable, Serializable {
     public static final GameMap EMPTY_MAP = new GameMap(Collections.emptyMap());
 
     private static final long         serialVersionUID         = 1L;
@@ -40,11 +43,6 @@ public class GameMap implements Map<String, Object>, Cloneable, Serializable {
             Object key = entry.getKey();
             String keyInStr = castToString(key);
             Object v = entry.getValue();
-            if (v instanceof Map) {
-                v = toGameMap((Map<Object, Object>)v);
-            } else if (v instanceof List) {
-                v = GameArray.toGameArray((List<Object>)v);
-            }
 
             map.put(keyInStr, v);
         }
@@ -158,16 +156,13 @@ public class GameMap implements Map<String, Object>, Cloneable, Serializable {
         }
 
         if (value instanceof Map) {
-            return new GameMap((Map)value);
+            return toGameMap((Map)value);
         }
 
-        if (value instanceof byte[]) {
-            // todo deserialize bytes to GameMap
-        }
-
-        throw new SerializationException("can not cast to GameMap, value : '" + value +"'");
+        throw new CastTypeException("can not cast to GameMap, value : '" + value +"'");
     }
 
+    @SuppressWarnings("unchecked")
     public GameArray getGameArray(String key) {
         Object value = map.get(key);
         if (value == null) {
@@ -178,11 +173,17 @@ public class GameMap implements Map<String, Object>, Cloneable, Serializable {
             return (GameArray) value;
         }
 
-        if (value instanceof byte[]) {
-            // todo deserialize to GameArray
+        if (value instanceof List) {
+            return GameArray.toGameArray((List) value);
         }
 
-        throw new SerializationException("can not cast to GameArray, value : '" + value +"'");
+        throw new CastTypeException("can not cast to GameArray, value : '" + value +"'");
+    }
+
+    public <T> T getObject(String key, Class<T> clazz) {
+        Object obj = map.get(key);
+
+        return CastTypeUtils.cast(obj, clazz);
     }
 
     public Boolean getBoolean(String key) {
@@ -346,8 +347,6 @@ public class GameMap implements Map<String, Object>, Cloneable, Serializable {
 
     @Override
     public String toString() {
-        return "GameMap{" +
-                "map=" + map +
-                '}';
+        return "GameMap{" + map + '}';
     }
 }

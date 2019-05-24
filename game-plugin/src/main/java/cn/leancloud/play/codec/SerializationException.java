@@ -1,4 +1,4 @@
-package cn.leancloud.play.serialization;
+package cn.leancloud.play.codec;
 
 public class SerializationException extends RuntimeException {
     public SerializationException(){
