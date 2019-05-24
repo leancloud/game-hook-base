@@ -1,7 +1,6 @@
 package cn.leancloud.play.plugin.request;
 
 import clojure.lang.Keyword;
-import clojure.lang.PersistentHashMap;
 import clojure.lang.RT;
 import cn.leancloud.play.collection.GameMap;
 import cn.leancloud.play.utils.Log;
@@ -38,7 +37,7 @@ public final class SetPlayerPropertiesRequest extends AbstractRequest {
         Objects.requireNonNull(attr);
         if (attr.isEmpty()) throw new IllegalArgumentException();
 
-        setParameter(attrK, PersistentHashMap.create(attr));
+        setParameter(attrK, attr.clone());
         return this;
     }
 
@@ -64,7 +63,7 @@ public final class SetPlayerPropertiesRequest extends AbstractRequest {
         Objects.requireNonNull(casAttr);
         if (casAttr.isEmpty()) throw new IllegalArgumentException();
 
-        setParameter(expectAttrK, PersistentHashMap.create(casAttr));
+        setParameter(expectAttrK, casAttr.clone());
         return this;
     }
 

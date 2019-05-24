@@ -1,7 +1,6 @@
 package cn.leancloud.play.plugin.request;
 
 import clojure.lang.Keyword;
-import clojure.lang.PersistentHashMap;
 import clojure.lang.PersistentVector;
 import clojure.lang.RT;
 import cn.leancloud.play.collection.GameMap;
@@ -191,7 +190,7 @@ public final class CreateRoomRequest extends AbstractRequest {
         Objects.requireNonNull(attr);
         if (attr.isEmpty()) throw new IllegalArgumentException();
 
-        setParameter(attrK, PersistentHashMap.create(attr));
+        setParameter(attrK, attr.clone());
         return this;
     }
 }

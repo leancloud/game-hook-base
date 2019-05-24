@@ -27,7 +27,7 @@ public final class SetRoomPropertiesRequest extends AbstractRequest {
         Objects.requireNonNull(attr);
         if (attr.isEmpty()) throw new IllegalArgumentException();
 
-        setParameter(attrK, PersistentHashMap.create(attr));
+        setParameter(attrK, attr.clone());
         return this;
     }
 
@@ -62,7 +62,7 @@ public final class SetRoomPropertiesRequest extends AbstractRequest {
         Objects.requireNonNull(casAttr);
         if (casAttr.isEmpty()) throw new IllegalArgumentException();
 
-        setParameter(expectAttrK, PersistentHashMap.create(casAttr));
+        setParameter(expectAttrK, casAttr.clone());
         return this;
     }
 }
