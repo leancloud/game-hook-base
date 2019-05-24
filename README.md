@@ -1,1 +1,1 @@
-# game-plugin
+# multiplayer-server-plugin
