@@ -148,6 +148,7 @@ public interface BoundRoom {
      * 更改房间系统属性
      *
      * @param property 待修改的系统属性，不能为 null
+     * @param <V> 具体修改的房间系统属性类型
      */
     <V> void updateRoomSystemProperty(RoomSystemProperty<V> property);
 

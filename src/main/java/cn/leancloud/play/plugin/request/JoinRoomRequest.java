@@ -66,6 +66,7 @@ public final class JoinRoomRequest extends AbstractRequest {
      *
      * @param attr 匹配房间条件，不能是空也不能是 null。attr 会被拷贝一份后存入请求内，
      *             所以本方法返回后再修改 attr 不会影响已存入请求内的匹配条件
+     * @return this
      */
     public JoinRoomRequest setMatchProperties(GameMap attr) {
         Objects.requireNonNull(attr);
