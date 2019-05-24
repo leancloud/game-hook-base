@@ -2,7 +2,7 @@ package cn.leancloud.play.plugin;
 
 import cn.leancloud.play.plugin.context.*;
 
-public interface GamePlugin {
+public interface Plugin {
     /**
      * 获取与当前 Game Hook 绑定的 Room 实例
      *

@@ -31,8 +31,8 @@ public interface Context <T extends RoomRequest>{
     String getHookName();
 
     /**
-     * 当前 Game Hook 请求是否已经被处理过，即状态为 CONTINUED, SKIPPED, REJECTED
-     * @return Game Hook 是否已经被处理过
+     * 当前 Hook 请求是否已经被处理过，即状态为 CONTINUED, SKIPPED, REJECTED
+     * @return Hook 请求是否已经被处理过
      */
     boolean isProcessed();
 
