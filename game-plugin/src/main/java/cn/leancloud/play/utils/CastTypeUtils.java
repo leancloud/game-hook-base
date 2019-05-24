@@ -14,6 +14,8 @@ import java.util.Collection;
 import java.util.Map;
 import java.util.Objects;
 
+import static java.util.Base64.getDecoder;
+
 public class CastTypeUtils {
 
     public static String castToString(Object value) {
@@ -165,7 +167,7 @@ public class CastTypeUtils {
             return (byte[]) value;
         }
         if (value instanceof String) {
-            return Base64.getDecoder().decode((String) value);
+            return getDecoder().decode((String) value);
         }
 
         throw new CastTypeException("can not cast to int, value : " + value);
@@ -240,13 +242,6 @@ public class CastTypeUtils {
             // ignore other kind of Map
         }
 
-        if (obj instanceof byte[]) {
-            Codec codec = CodecsManager.getInstance().getCodec(clazz);
-            if (codec != null) {
-                return codec.deserialize((byte[]) obj);
-            }
-        }
-
         if (clazz.isArray()) {
             if (obj instanceof Collection) {
                 Collection collection = (Collection) obj;
@@ -266,6 +261,18 @@ public class CastTypeUtils {
 
         if (clazz.isAssignableFrom(obj.getClass())) {
             return (T) obj;
+        }
+
+        Codec codec = CodecsManager.getInstance().getCodec(clazz);
+        if (codec != null) {
+            if (obj instanceof byte[]) {
+                return codec.deserialize((byte[]) obj);
+            }
+
+            if (obj instanceof String) {
+                byte[] bytes = Base64.getDecoder().decode((String) obj);
+                return codec.deserialize(bytes);
+            }
         }
 
         if (clazz == boolean.class || clazz == Boolean.class) {
