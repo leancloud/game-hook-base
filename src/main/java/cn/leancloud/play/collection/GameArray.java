@@ -21,7 +21,11 @@ public final class GameArray implements List<Object>, Cloneable, RandomAccess, S
     }
 
     public GameArray(List<Object> list) {
-        this.list = list;
+        if (list == null) {
+            this.list = new ArrayList<>();
+        } else {
+            this.list = list;
+        }
     }
 
     public GameArray(int initialCapacity) {
@@ -31,7 +35,7 @@ public final class GameArray implements List<Object>, Cloneable, RandomAccess, S
     @SuppressWarnings("unchecked")
     public static GameArray toGameArray(List<Object> list) {
         if (list == null) {
-            return new GameArray();
+            return null;
         }
 
         return new GameArray(list);

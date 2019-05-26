@@ -24,7 +24,11 @@ public final class GameMap implements Map<String, Object>, Cloneable, Serializab
     }
 
     public GameMap(Map<Object, Object> map) {
-        this.map = toGameMap(map);
+        if (map == null) {
+            this.map = new GameMap();
+        } else {
+            this.map = toGameMap(map);
+        }
     }
 
     public GameMap(int initialCapacity) {
@@ -34,7 +38,7 @@ public final class GameMap implements Map<String, Object>, Cloneable, Serializab
     @SuppressWarnings("unchecked")
     public static GameMap toGameMap(Map<Object, Object> inputMap) {
         if (inputMap == null) {
-            return new GameMap();
+            return null;
         }
 
         GameMap map = new GameMap(inputMap.size());
