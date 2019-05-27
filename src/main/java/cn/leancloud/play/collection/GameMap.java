@@ -1,5 +1,6 @@
 package cn.leancloud.play.collection;
 
+import cn.leancloud.play.codec.CodecsManager;
 import cn.leancloud.play.utils.CastTypeException;
 import cn.leancloud.play.utils.CastTypeUtils;
 
@@ -163,6 +164,10 @@ public final class GameMap implements Map<String, Object>, Cloneable, Serializab
             return toGameMap((Map) value);
         }
 
+        if (value instanceof byte[]) {
+            return CodecsManager.getInstance().deserialize((byte[])value, GameMap.class);
+        }
+
         throw new CastTypeException("can not cast to GameMap, value : '" + value + "'");
     }
 
@@ -179,6 +184,10 @@ public final class GameMap implements Map<String, Object>, Cloneable, Serializab
 
         if (value instanceof List) {
             return GameArray.toGameArray((List) value);
+        }
+
+        if (value instanceof byte[]) {
+            return CodecsManager.getInstance().deserialize((byte[])value, GameArray.class);
         }
 
         throw new CastTypeException("can not cast to GameArray, value : '" + value + "'");
