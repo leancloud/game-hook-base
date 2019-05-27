@@ -72,14 +72,12 @@ final class GenericCollectionValueCodec {
                 return value.getFloatValue();
             case DOUBLE:
                 return value.getDoubleValue();
-            case OBJECT:
-                return value.getBytesValue().toByteArray();
             case STRING:
                 return value.getStringValue();
+            case OBJECT:
             case MAP:
-                return CodecsManager.getInstance().deserialize(value.getBytesValue().toByteArray(), GameMap.class);
             case ARRAY:
-                return CodecsManager.getInstance().deserialize(value.getBytesValue().toByteArray(), GameArray.class);
+                return value.getBytesValue().toByteArray();
             default:
                 throw new DeserializationException("Unknown GenericCollectionValue type: " + value.getType());
         }

@@ -245,11 +245,15 @@ public final class GameArray implements List<Object>, Cloneable, RandomAccess, S
         }
 
         if (value instanceof Map) {
-            return GameMap.toGameMap((Map) value);
+            GameMap m = GameMap.toGameMap((Map) value);
+            set(index, m);
+            return m;
         }
 
         if (value instanceof byte[]) {
-            return CodecsManager.getInstance().deserialize((byte[])value, GameMap.class);
+            GameMap m = CodecsManager.getInstance().deserialize((byte[])value, GameMap.class);
+            set(index, m);
+            return m;
         }
 
         throw new CastTypeException("can not cast to GameMap, value : '" + value + "'");
@@ -268,11 +272,15 @@ public final class GameArray implements List<Object>, Cloneable, RandomAccess, S
         }
 
         if (value instanceof List) {
-            return toGameArray(list);
+            GameArray array = toGameArray(list);
+            set(index, array);
+            return array;
         }
 
         if (value instanceof byte[]) {
-            return CodecsManager.getInstance().deserialize((byte[])value, GameArray.class);
+            GameArray array = CodecsManager.getInstance().deserialize((byte[])value, GameArray.class);
+            set(index, array);
+            return array;
         }
 
         throw new CastTypeException("can not cast to GameArray, value : '" + value + "'");

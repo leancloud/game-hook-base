@@ -161,11 +161,15 @@ public final class GameMap implements Map<String, Object>, Cloneable, Serializab
         }
 
         if (value instanceof Map) {
-            return toGameMap((Map) value);
+            GameMap m = toGameMap((Map) value);
+            put(key, m);
+            return m;
         }
 
         if (value instanceof byte[]) {
-            return CodecsManager.getInstance().deserialize((byte[])value, GameMap.class);
+            GameMap m = CodecsManager.getInstance().deserialize((byte[])value, GameMap.class);
+            put(key, m);
+            return m;
         }
 
         throw new CastTypeException("can not cast to GameMap, value : '" + value + "'");
@@ -183,11 +187,15 @@ public final class GameMap implements Map<String, Object>, Cloneable, Serializab
         }
 
         if (value instanceof List) {
-            return GameArray.toGameArray((List) value);
+            GameArray array = GameArray.toGameArray((List) value);
+            put(key, array);
+            return array;
         }
 
         if (value instanceof byte[]) {
-            return CodecsManager.getInstance().deserialize((byte[])value, GameArray.class);
+            GameArray array = CodecsManager.getInstance().deserialize((byte[])value, GameArray.class);
+            put(key, array);
+            return array;
         }
 
         throw new CastTypeException("can not cast to GameArray, value : '" + value + "'");
