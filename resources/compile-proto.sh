@@ -4,3 +4,5 @@ cd $BASE_DIR
 
 # generate protobuf codes
 protoc3 --proto_path=./proto --java_out=../src/main/java/ ./proto/generic_collection.proto
+
+protoc3 --proto_path=./proto --python_out=./ ./proto/generic_collection.proto
