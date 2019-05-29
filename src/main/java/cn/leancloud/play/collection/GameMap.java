@@ -1,5 +1,6 @@
 package cn.leancloud.play.collection;
 
+import cn.leancloud.play.codec.CodecsManager;
 import cn.leancloud.play.utils.CastTypeException;
 import cn.leancloud.play.utils.CastTypeUtils;
 
@@ -13,28 +14,32 @@ import static cn.leancloud.play.utils.CastTypeUtils.*;
 public final class GameMap implements Map<String, Object>, Cloneable, Serializable {
     public static final GameMap EMPTY_MAP = new GameMap(Collections.emptyMap());
 
-    private static final long         serialVersionUID         = 1L;
-    private static final int          DEFAULT_INITIAL_CAPACITY = 16;
+    private static final long serialVersionUID = 1L;
+    private static final int DEFAULT_INITIAL_CAPACITY = 16;
 
 
     private final Map<String, Object> map;
 
-    public GameMap(){
+    public GameMap() {
         this(DEFAULT_INITIAL_CAPACITY);
     }
 
-    public GameMap(Map<Object, Object> map){
-        this.map = toGameMap(map);
+    public GameMap(Map<Object, Object> map) {
+        if (map == null) {
+            this.map = new GameMap();
+        } else {
+            this.map = toGameMap(map);
+        }
     }
 
-    public GameMap(int initialCapacity){
+    public GameMap(int initialCapacity) {
         map = new HashMap<>(initialCapacity);
     }
 
     @SuppressWarnings("unchecked")
     public static GameMap toGameMap(Map<Object, Object> inputMap) {
         if (inputMap == null) {
-            return GameMap.EMPTY_MAP;
+            return null;
         }
 
         GameMap map = new GameMap(inputMap.size());
@@ -156,10 +161,18 @@ public final class GameMap implements Map<String, Object>, Cloneable, Serializab
         }
 
         if (value instanceof Map) {
-            return toGameMap((Map)value);
+            GameMap m = toGameMap((Map) value);
+            put(key, m);
+            return m;
         }
 
-        throw new CastTypeException("can not cast to GameMap, value : '" + value +"'");
+        if (value instanceof byte[]) {
+            GameMap m = CodecsManager.getInstance().deserialize((byte[])value, GameMap.class);
+            put(key, m);
+            return m;
+        }
+
+        throw new CastTypeException("can not cast to GameMap, value : '" + value + "'");
     }
 
     @SuppressWarnings("unchecked")
@@ -174,10 +187,18 @@ public final class GameMap implements Map<String, Object>, Cloneable, Serializab
         }
 
         if (value instanceof List) {
-            return GameArray.toGameArray((List) value);
+            GameArray array = GameArray.toGameArray((List) value);
+            put(key, array);
+            return array;
         }
 
-        throw new CastTypeException("can not cast to GameArray, value : '" + value +"'");
+        if (value instanceof byte[]) {
+            GameArray array = CodecsManager.getInstance().deserialize((byte[])value, GameArray.class);
+            put(key, array);
+            return array;
+        }
+
+        throw new CastTypeException("can not cast to GameArray, value : '" + value + "'");
     }
 
     public <T> T getObject(String key, Class<T> clazz) {

@@ -1,6 +1,6 @@
 package cn.leancloud.play.plugin;
 
-import java.util.Map;
+import cn.leancloud.play.collection.GameMap;
 
 /**
  * 每一个加入房间的玩家都是一个 Actor，本接口用于获取 Actor 在房间内的信息
@@ -21,9 +21,9 @@ public interface Actor {
     String getUserId();
 
     /**
-     * 获取玩家在房间内的自定义属性
+     * 获取玩家在房间内的自定义属性。修改返回的属性无法实际修改玩家属性，请使用 {@link BoundRoom#updatePlayerProperty} 修改玩家属性。
      *
      * @return 玩家自定义属性
      */
-    Map<String, Object> getProperties();
+    GameMap getProperties();
 }

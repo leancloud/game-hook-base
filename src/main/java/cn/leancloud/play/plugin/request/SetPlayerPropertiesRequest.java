@@ -1,11 +1,10 @@
 package cn.leancloud.play.plugin.request;
 
 import clojure.lang.Keyword;
-import clojure.lang.PersistentHashMap;
 import clojure.lang.RT;
+import cn.leancloud.play.collection.GameMap;
 import cn.leancloud.play.utils.Log;
 
-import java.util.Collections;
 import java.util.Map;
 import java.util.Objects;
 
@@ -23,8 +22,8 @@ public final class SetPlayerPropertiesRequest extends AbstractRequest {
      *
      * @return 返回房间玩家自定义属性，是不可变 Map
      */
-    public Map<String, Object> getProperties() {
-        return getParameter(attrK, Collections.emptyMap());
+    public GameMap getProperties() {
+        return getParameter(attrK, GameMap.EMPTY_MAP);
     }
 
     /**
@@ -34,11 +33,11 @@ public final class SetPlayerPropertiesRequest extends AbstractRequest {
      *             所以本方法返回后再修改 attr 不会影响已存入请求内的房间玩家自定义属性参数
      * @return this
      */
-    public SetPlayerPropertiesRequest setProperties(Map<String, Object> attr) {
+    public SetPlayerPropertiesRequest setProperties(GameMap attr) {
         Objects.requireNonNull(attr);
         if (attr.isEmpty()) throw new IllegalArgumentException();
 
-        setParameter(attrK, PersistentHashMap.create(attr));
+        setParameter(attrK, attr.clone());
         return this;
     }
 
@@ -48,8 +47,8 @@ public final class SetPlayerPropertiesRequest extends AbstractRequest {
      *
      * @return 用于匹配的玩家自定义属性
      */
-    public Map<String, Object> getExpectedValues() {
-        return getParameter(expectAttrK, Collections.emptyMap());
+    public GameMap getExpectedValues() {
+        return getParameter(expectAttrK, GameMap.EMPTY_MAP);
     }
 
     /**
@@ -60,11 +59,11 @@ public final class SetPlayerPropertiesRequest extends AbstractRequest {
      *                所以本方法返回后再修改 casAttr 不会影响已存入请求内的属性参数
      * @return this
      */
-    public SetPlayerPropertiesRequest setExpectedValues(Map<String, Object> casAttr) {
+    public SetPlayerPropertiesRequest setExpectedValues(GameMap casAttr) {
         Objects.requireNonNull(casAttr);
         if (casAttr.isEmpty()) throw new IllegalArgumentException();
 
-        setParameter(expectAttrK, PersistentHashMap.create(casAttr));
+        setParameter(expectAttrK, casAttr.clone());
         return this;
     }
 

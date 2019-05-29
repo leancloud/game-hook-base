@@ -69,6 +69,7 @@ public final class SendEventRequest extends AbstractRequest {
      * 设置事件目标接收组
      *
      * @param group 事件目标接收组
+     * @return this
      */
     public SendEventRequest setReceiverGroup(ReceiverGroup group) {
         Objects.requireNonNull(group);
@@ -113,7 +114,7 @@ public final class SendEventRequest extends AbstractRequest {
         if (data == null) {
             return GameMap.EMPTY_MAP;
         } else {
-            return (GameMap)data;
+            return (GameMap) data;
         }
     }
 

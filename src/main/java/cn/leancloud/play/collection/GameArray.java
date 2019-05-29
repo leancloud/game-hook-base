@@ -1,5 +1,6 @@
 package cn.leancloud.play.collection;
 
+import cn.leancloud.play.codec.CodecsManager;
 import cn.leancloud.play.utils.CastTypeException;
 import cn.leancloud.play.utils.CastTypeUtils;
 
@@ -21,7 +22,11 @@ public final class GameArray implements List<Object>, Cloneable, RandomAccess, S
     }
 
     public GameArray(List<Object> list) {
-        this.list = list;
+        if (list == null) {
+            this.list = new ArrayList<>();
+        } else {
+            this.list = list;
+        }
     }
 
     public GameArray(int initialCapacity) {
@@ -31,7 +36,7 @@ public final class GameArray implements List<Object>, Cloneable, RandomAccess, S
     @SuppressWarnings("unchecked")
     public static GameArray toGameArray(List<Object> list) {
         if (list == null) {
-            return GameArray.EMPTY_ARRAY;
+            return null;
         }
 
         return new GameArray(list);
@@ -240,7 +245,15 @@ public final class GameArray implements List<Object>, Cloneable, RandomAccess, S
         }
 
         if (value instanceof Map) {
-            return GameMap.toGameMap((Map) value);
+            GameMap m = GameMap.toGameMap((Map) value);
+            set(index, m);
+            return m;
+        }
+
+        if (value instanceof byte[]) {
+            GameMap m = CodecsManager.getInstance().deserialize((byte[])value, GameMap.class);
+            set(index, m);
+            return m;
         }
 
         throw new CastTypeException("can not cast to GameMap, value : '" + value + "'");
@@ -259,7 +272,15 @@ public final class GameArray implements List<Object>, Cloneable, RandomAccess, S
         }
 
         if (value instanceof List) {
-            return toGameArray(list);
+            GameArray array = toGameArray(list);
+            set(index, array);
+            return array;
+        }
+
+        if (value instanceof byte[]) {
+            GameArray array = CodecsManager.getInstance().deserialize((byte[])value, GameArray.class);
+            set(index, array);
+            return array;
         }
 
         throw new CastTypeException("can not cast to GameArray, value : '" + value + "'");
