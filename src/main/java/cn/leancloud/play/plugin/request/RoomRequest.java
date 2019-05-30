@@ -20,11 +20,11 @@ public interface RoomRequest {
     String getUserId();
 
     /**
-     * 获取所有请求参数，返回结果为不可变 Map，如要修改某个参数请使用参数对应的 setters 方法
+     * Game Server 使用的用于获取所有请求参数的方法，返回结果为不可变 Map。Plugin 实现者无需关心该方法也请勿使用它。
      *
      * @return 所有请求参数
      */
-    Map<Keyword, Object> getAllParameters();
+    Map<Keyword, Object> getAllInternalParameters();
 
     /**
      * 内部使用，设置 Read Only 后本请求不能再修改请求参数

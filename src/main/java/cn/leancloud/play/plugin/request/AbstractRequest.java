@@ -36,7 +36,7 @@ public abstract class AbstractRequest implements RoomRequest{
 
     @Override
     @SuppressWarnings("unchecked")
-    public Map<Keyword, Object> getAllParameters() {
+    public Map<Keyword, Object> getAllInternalParameters() {
         if (modifiedParams.isEmpty()) {
             return originParams;
         } else {

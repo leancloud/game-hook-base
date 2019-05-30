@@ -79,7 +79,7 @@ public final class SetPlayerPropertiesRequest extends AbstractRequest {
         } else {
 
             Log.error("No target actor id in {}. current params={}",
-                    SetPlayerPropertiesRequest.class.getSimpleName(), getAllParameters());
+                    SetPlayerPropertiesRequest.class.getSimpleName(), getAllInternalParameters());
             return -1;
         }
     }

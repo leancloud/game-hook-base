@@ -3,6 +3,7 @@ package cn.leancloud.play.plugin.request;
 import clojure.lang.Keyword;
 import clojure.lang.PersistentVector;
 import clojure.lang.RT;
+import cn.leancloud.play.codec.CodecsManager;
 import cn.leancloud.play.collection.GameMap;
 import cn.leancloud.play.utils.Log;
 
@@ -159,7 +160,7 @@ public final class SendEventRequest extends AbstractRequest {
             return id.intValue();
         }
 
-        Log.error("No from actor id in {}. current params={}", SendEventRequest.class.getSimpleName(), getAllParameters());
+        Log.error("No from actor id in {}. current params={}", SendEventRequest.class.getSimpleName(), getAllInternalParameters());
         return -1;
     }
 }
