@@ -1,6 +1,6 @@
 package cn.leancloud.play.plugin;
 
-import cn.leancloud.play.collection.GameMap;
+import cn.leancloud.play.collection.PlayObject;
 
 /**
  * 每一个加入房间的玩家都是一个 Actor，本接口用于获取 Actor 在房间内的信息
@@ -25,5 +25,5 @@ public interface Actor {
      *
      * @return 玩家自定义属性
      */
-    GameMap getProperties();
+    PlayObject getProperties();
 }

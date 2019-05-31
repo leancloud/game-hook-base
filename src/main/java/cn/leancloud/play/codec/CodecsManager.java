@@ -1,7 +1,7 @@
 package cn.leancloud.play.codec;
 
-import cn.leancloud.play.collection.GameArray;
-import cn.leancloud.play.collection.GameMap;
+import cn.leancloud.play.collection.PlayArray;
+import cn.leancloud.play.collection.PlayObject;
 
 import java.util.IdentityHashMap;
 import java.util.Objects;
@@ -15,8 +15,8 @@ public final class CodecsManager {
     private final IdentityHashMap<Class<?>, Codec> registeredCodec = new IdentityHashMap<>();
 
     static {
-        CodecsManager.getInstance().registerCodec(GameMap.class, new GameMapCodec());
-        CodecsManager.getInstance().registerCodec(GameArray.class, new GameArrayCodec());
+        CodecsManager.getInstance().registerCodec(PlayObject.class, new PlayObjectCodec());
+        CodecsManager.getInstance().registerCodec(PlayArray.class, new PlayArrayCodec());
     }
 
     public void registerCodec(Class<?> type, Codec codec) {

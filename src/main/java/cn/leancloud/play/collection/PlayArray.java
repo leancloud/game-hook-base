@@ -11,17 +11,17 @@ import java.util.*;
 
 import static cn.leancloud.play.utils.CastTypeUtils.*;
 
-public final class GameArray implements List<Object>, Cloneable, RandomAccess, Serializable {
-    public static final GameArray EMPTY_ARRAY = new GameArray(Collections.emptyList());
+public final class PlayArray implements List<Object>, Cloneable, RandomAccess, Serializable {
+    public static final PlayArray EMPTY_ARRAY = new PlayArray(Collections.emptyList());
 
     private static final long serialVersionUID = 1L;
     private final List<Object> list;
 
-    public GameArray() {
+    public PlayArray() {
         this.list = new ArrayList<>();
     }
 
-    public GameArray(List<Object> list) {
+    public PlayArray(List<Object> list) {
         if (list == null) {
             this.list = new ArrayList<>();
         } else {
@@ -29,17 +29,17 @@ public final class GameArray implements List<Object>, Cloneable, RandomAccess, S
         }
     }
 
-    public GameArray(int initialCapacity) {
+    public PlayArray(int initialCapacity) {
         this.list = new ArrayList<>(initialCapacity);
     }
 
     @SuppressWarnings("unchecked")
-    public static GameArray toGameArray(List<Object> list) {
+    public static PlayArray toPlayArray(List<Object> list) {
         if (list == null) {
             return null;
         }
 
-        return new GameArray(list);
+        return new PlayArray(list);
     }
 
     @Override
@@ -77,7 +77,7 @@ public final class GameArray implements List<Object>, Cloneable, RandomAccess, S
         return list.add(o);
     }
 
-    public GameArray fluentAdd(Object o) {
+    public PlayArray fluentAdd(Object o) {
         list.add(o);
         return this;
     }
@@ -87,7 +87,7 @@ public final class GameArray implements List<Object>, Cloneable, RandomAccess, S
         return list.remove(o);
     }
 
-    public GameArray fluentRemove(Object o) {
+    public PlayArray fluentRemove(Object o) {
         list.remove(o);
         return this;
     }
@@ -102,7 +102,7 @@ public final class GameArray implements List<Object>, Cloneable, RandomAccess, S
         return list.addAll(c);
     }
 
-    public GameArray fluentAddAll(Collection<?> c) {
+    public PlayArray fluentAddAll(Collection<?> c) {
         list.addAll(c);
         return this;
     }
@@ -112,7 +112,7 @@ public final class GameArray implements List<Object>, Cloneable, RandomAccess, S
         return list.addAll(index, c);
     }
 
-    public GameArray fluentAddAll(int index, Collection<?> c) {
+    public PlayArray fluentAddAll(int index, Collection<?> c) {
         list.addAll(index, c);
         return this;
     }
@@ -122,7 +122,7 @@ public final class GameArray implements List<Object>, Cloneable, RandomAccess, S
         return list.removeAll(c);
     }
 
-    public GameArray fluentRemoveAll(Collection<?> c) {
+    public PlayArray fluentRemoveAll(Collection<?> c) {
         list.removeAll(c);
         return this;
     }
@@ -132,7 +132,7 @@ public final class GameArray implements List<Object>, Cloneable, RandomAccess, S
         return list.retainAll(c);
     }
 
-    public GameArray fluentRetainAll(Collection<?> c) {
+    public PlayArray fluentRetainAll(Collection<?> c) {
         list.retainAll(c);
         return this;
     }
@@ -142,7 +142,7 @@ public final class GameArray implements List<Object>, Cloneable, RandomAccess, S
         list.clear();
     }
 
-    public GameArray fluentClear() {
+    public PlayArray fluentClear() {
         list.clear();
         return this;
     }
@@ -195,7 +195,7 @@ public final class GameArray implements List<Object>, Cloneable, RandomAccess, S
         return list.set(index, element);
     }
 
-    public GameArray fluentSet(int index, Object element) {
+    public PlayArray fluentSet(int index, Object element) {
         set(index, element);
         return this;
     }
@@ -205,7 +205,7 @@ public final class GameArray implements List<Object>, Cloneable, RandomAccess, S
         list.add(index, element);
     }
 
-    public GameArray fluentAdd(int index, Object element) {
+    public PlayArray fluentAdd(int index, Object element) {
         list.add(index, element);
         return this;
     }
@@ -215,14 +215,14 @@ public final class GameArray implements List<Object>, Cloneable, RandomAccess, S
         return list.remove(index);
     }
 
-    public GameArray fluentRemove(int index) {
+    public PlayArray fluentRemove(int index) {
         list.remove(index);
         return this;
     }
 
     @Override
     public Object clone() {
-        return new GameArray(new ArrayList<>(list));
+        return new PlayArray(new ArrayList<>(list));
     }
 
     public boolean equals(Object obj) {
@@ -234,56 +234,56 @@ public final class GameArray implements List<Object>, Cloneable, RandomAccess, S
     }
 
     @SuppressWarnings("unchecked")
-    public GameMap getGameMap(int index) {
+    public PlayObject getPlayObject(int index) {
         Object value = list.get(index);
         if (value == null) {
             return null;
         }
 
-        if (value instanceof GameMap) {
-            return (GameMap) value;
+        if (value instanceof PlayObject) {
+            return (PlayObject) value;
         }
 
         if (value instanceof Map) {
-            GameMap m = GameMap.toGameMap((Map) value);
+            PlayObject m = PlayObject.toPlayObject((Map) value);
             set(index, m);
             return m;
         }
 
         if (value instanceof byte[]) {
-            GameMap m = CodecsManager.getInstance().deserialize((byte[])value, GameMap.class);
+            PlayObject m = CodecsManager.getInstance().deserialize((byte[])value, PlayObject.class);
             set(index, m);
             return m;
         }
 
-        throw new CastTypeException("can not cast to GameMap, value : '" + value + "'");
+        throw new CastTypeException("can not cast to PlayObject, value : '" + value + "'");
     }
 
     @SuppressWarnings("unchecked")
-    public GameArray getGameArray(int index) {
+    public PlayArray getPlayArray(int index) {
         Object value = list.get(index);
 
         if (value == null) {
             return null;
         }
 
-        if (value instanceof GameArray) {
-            return (GameArray) value;
+        if (value instanceof PlayArray) {
+            return (PlayArray) value;
         }
 
         if (value instanceof List) {
-            GameArray array = toGameArray(list);
+            PlayArray array = toPlayArray(list);
             set(index, array);
             return array;
         }
 
         if (value instanceof byte[]) {
-            GameArray array = CodecsManager.getInstance().deserialize((byte[])value, GameArray.class);
+            PlayArray array = CodecsManager.getInstance().deserialize((byte[])value, PlayArray.class);
             set(index, array);
             return array;
         }
 
-        throw new CastTypeException("can not cast to GameArray, value : '" + value + "'");
+        throw new CastTypeException("can not cast to PlayArray, value : '" + value + "'");
     }
 
     public <T> T getObject(int index, Class<T> clazz) {
@@ -461,7 +461,7 @@ public final class GameArray implements List<Object>, Cloneable, RandomAccess, S
 
     @Override
     public String toString() {
-        return "GameArray{" +
+        return "PlayArray{" +
                 list +
                 '}';
     }

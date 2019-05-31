@@ -1,9 +1,8 @@
 package cn.leancloud.play.plugin.request;
 
 import clojure.lang.Keyword;
-import clojure.lang.PersistentHashMap;
 import clojure.lang.RT;
-import cn.leancloud.play.collection.GameMap;
+import cn.leancloud.play.collection.PlayObject;
 
 import java.util.Map;
 import java.util.Objects;
@@ -23,7 +22,7 @@ public final class SetRoomPropertiesRequest extends AbstractRequest {
      *             所以本方法返回后再修改 attr 不会影响已存入请求内的房间自定义属性参数
      * @return this
      */
-    public SetRoomPropertiesRequest setProperties(GameMap attr) {
+    public SetRoomPropertiesRequest setProperties(PlayObject attr) {
         Objects.requireNonNull(attr);
         if (attr.isEmpty()) throw new IllegalArgumentException();
 
@@ -36,8 +35,8 @@ public final class SetRoomPropertiesRequest extends AbstractRequest {
      *
      * @return 返回房间玩家自定义属性，是不可变 Map
      */
-    public GameMap getProperties() {
-        return getParameter(attrK, GameMap.EMPTY_MAP);
+    public PlayObject getProperties() {
+        return getParameter(attrK, PlayObject.EMPTY_OBJECT);
     }
 
     /**
@@ -46,8 +45,8 @@ public final class SetRoomPropertiesRequest extends AbstractRequest {
      *
      * @return 用于匹配的房间自定义属性
      */
-    public GameMap getExpectedValues() {
-        return getParameter(expectAttrK, GameMap.EMPTY_MAP);
+    public PlayObject getExpectedValues() {
+        return getParameter(expectAttrK, PlayObject.EMPTY_OBJECT);
     }
 
     /**
@@ -58,7 +57,7 @@ public final class SetRoomPropertiesRequest extends AbstractRequest {
      *                所以本方法返回后再修改 casAttr 不会影响已存入请求内的属性参数
      * @return this
      */
-    public SetRoomPropertiesRequest setExpectedValues(GameMap casAttr) {
+    public SetRoomPropertiesRequest setExpectedValues(PlayObject casAttr) {
         Objects.requireNonNull(casAttr);
         if (casAttr.isEmpty()) throw new IllegalArgumentException();
 
