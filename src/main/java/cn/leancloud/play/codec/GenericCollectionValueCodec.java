@@ -1,7 +1,7 @@
 package cn.leancloud.play.codec;
 
-import cn.leancloud.play.collection.GameArray;
-import cn.leancloud.play.collection.GameMap;
+import cn.leancloud.play.collection.PlayArray;
+import cn.leancloud.play.collection.PlayObject;
 import cn.leancloud.play.proto.GenericCollectionValue;
 import com.google.protobuf.ByteString;
 
@@ -38,10 +38,10 @@ final class GenericCollectionValueCodec {
         } else if (inputObject instanceof String) {
             v.setType(GenericCollectionValue.Type.STRING);
             v.setStringValue((String) inputObject);
-        } else if (inputObject instanceof GameMap) {
+        } else if (inputObject instanceof PlayObject) {
             v.setType(GenericCollectionValue.Type.MAP);
             v.setBytesValue(ByteString.copyFrom(CodecsManager.getInstance().serialize(inputObject)));
-        } else if (inputObject instanceof GameArray) {
+        } else if (inputObject instanceof PlayArray) {
             v.setType(GenericCollectionValue.Type.ARRAY);
             v.setBytesValue(ByteString.copyFrom(CodecsManager.getInstance().serialize(inputObject)));
         } else {

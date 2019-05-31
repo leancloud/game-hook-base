@@ -1,6 +1,6 @@
 package cn.leancloud.play.plugin;
 
-import cn.leancloud.play.collection.GameMap;
+import cn.leancloud.play.collection.PlayObject;
 import cn.leancloud.play.plugin.request.ReceiverGroup;
 import cn.leancloud.play.plugin.request.RoomSystemProperty;
 import cn.leancloud.play.plugin.request.SendEventOptions;
@@ -44,7 +44,7 @@ public interface BoundRoom {
      *
      * @return 房间自定义属性
      */
-    GameMap getRoomProperties();
+    PlayObject getRoomProperties();
 
     /**
      * 获取房间所有玩家列表。
@@ -116,7 +116,7 @@ public interface BoundRoom {
      * @param targetActorId 目标玩家 Actor Id，如果目标 Actor Id 并不在房间内则会抛出 IllegalArgumentException
      * @param valuesToSet   待修改的玩家自定义属性，不能为 null
      */
-    void updatePlayerProperty(int targetActorId, GameMap valuesToSet);
+    void updatePlayerProperty(int targetActorId, PlayObject valuesToSet);
 
     /**
      * 更改房间玩家自定义属性
@@ -126,14 +126,14 @@ public interface BoundRoom {
      * @param expectedValues 不能为 null。设置 CAS 操作用于匹配的玩家自定义属性。设置了用于匹配的玩家自定义属性后，只有当玩家自定义属性符合
      *                       匹配的值后更新玩家自定义属性操作才会生效。
      */
-    void updatePlayerProperty(int targetActorId, GameMap valuesToSet, GameMap expectedValues);
+    void updatePlayerProperty(int targetActorId, PlayObject valuesToSet, PlayObject expectedValues);
 
     /**
      * 更改房间自定义属性
      *
      * @param valuesToSet 待修改的房间自定义属性, 不能为 null
      */
-    void updateRoomProperty(GameMap valuesToSet);
+    void updateRoomProperty(PlayObject valuesToSet);
 
     /**
      * 更改房间自定义属性
@@ -142,7 +142,7 @@ public interface BoundRoom {
      * @param expectedValues 不能为 null。进行 CAS 操作时使用，用于匹配的房间自定义属性。设置了用于匹配的自定义属性后，只有当房间自定义属性符合
      *                       匹配的值后更新房间自定义属性操作才会生效。
      */
-    void updateRoomProperty(GameMap valuesToSet, GameMap expectedValues);
+    void updateRoomProperty(PlayObject valuesToSet, PlayObject expectedValues);
 
     /**
      * 更改房间系统属性
@@ -168,7 +168,7 @@ public interface BoundRoom {
      * @param eventData   事件数据，不能为 null
      * @param options     发送事件配置选项，不能为 null，无配置选项请填写 SendEventOptions.emptyOption
      */
-    void sendEventToActors(List<Integer> toActorsIds, int fromActorId, byte eventId, GameMap eventData, SendEventOptions options);
+    void sendEventToActors(List<Integer> toActorsIds, int fromActorId, byte eventId, PlayObject eventData, SendEventOptions options);
 
     /**
      * 发送事件给目标接收组
@@ -179,5 +179,5 @@ public interface BoundRoom {
      * @param eventData       事件数据，不能为 null
      * @param options         发送事件配置选项，不能为 null，无配置选项请填写 SendEventOptions.emptyOption
      */
-    void sendEventToReceiverGroup(ReceiverGroup toReceiverGroup, int fromActorId, byte eventId, GameMap eventData, SendEventOptions options);
+    void sendEventToReceiverGroup(ReceiverGroup toReceiverGroup, int fromActorId, byte eventId, PlayObject eventData, SendEventOptions options);
 }

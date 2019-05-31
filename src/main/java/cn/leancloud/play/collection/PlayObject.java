@@ -11,8 +11,8 @@ import java.util.*;
 
 import static cn.leancloud.play.utils.CastTypeUtils.*;
 
-public final class GameMap implements Map<String, Object>, Cloneable, Serializable {
-    public static final GameMap EMPTY_MAP = new GameMap(Collections.emptyMap());
+public final class PlayObject implements Map<String, Object>, Cloneable, Serializable {
+    public static final PlayObject EMPTY_OBJECT = new PlayObject(Collections.emptyMap());
 
     private static final long serialVersionUID = 1L;
     private static final int DEFAULT_INITIAL_CAPACITY = 16;
@@ -20,29 +20,29 @@ public final class GameMap implements Map<String, Object>, Cloneable, Serializab
 
     private final Map<String, Object> map;
 
-    public GameMap() {
+    public PlayObject() {
         this(DEFAULT_INITIAL_CAPACITY);
     }
 
-    public GameMap(Map<Object, Object> map) {
+    public PlayObject(Map<Object, Object> map) {
         if (map == null) {
-            this.map = new GameMap();
+            this.map = new PlayObject();
         } else {
-            this.map = toGameMap(map);
+            this.map = toPlayObject(map);
         }
     }
 
-    public GameMap(int initialCapacity) {
+    public PlayObject(int initialCapacity) {
         map = new HashMap<>(initialCapacity);
     }
 
     @SuppressWarnings("unchecked")
-    public static GameMap toGameMap(Map<Object, Object> inputMap) {
+    public static PlayObject toPlayObject(Map<Object, Object> inputMap) {
         if (inputMap == null) {
             return null;
         }
 
-        GameMap map = new GameMap(inputMap.size());
+        PlayObject map = new PlayObject(inputMap.size());
 
         for (Map.Entry<Object, Object> entry : inputMap.entrySet()) {
             Object key = entry.getKey();
@@ -86,7 +86,7 @@ public final class GameMap implements Map<String, Object>, Cloneable, Serializab
         return map.put(key, value);
     }
 
-    public GameMap fluentPut(String key, Object value) {
+    public PlayObject fluentPut(String key, Object value) {
         map.put(key, value);
         return this;
     }
@@ -96,7 +96,7 @@ public final class GameMap implements Map<String, Object>, Cloneable, Serializab
         return map.remove(key);
     }
 
-    public GameMap fluentRemove(Object key) {
+    public PlayObject fluentRemove(Object key) {
         map.remove(key);
         return this;
     }
@@ -106,7 +106,7 @@ public final class GameMap implements Map<String, Object>, Cloneable, Serializab
         map.putAll(m);
     }
 
-    public GameMap fluentPutAll(Map<? extends String, ?> m) {
+    public PlayObject fluentPutAll(Map<? extends String, ?> m) {
         map.putAll(m);
         return this;
     }
@@ -116,7 +116,7 @@ public final class GameMap implements Map<String, Object>, Cloneable, Serializab
         map.clear();
     }
 
-    public GameMap fluentClear() {
+    public PlayObject fluentClear() {
         map.clear();
         return this;
     }
@@ -138,7 +138,7 @@ public final class GameMap implements Map<String, Object>, Cloneable, Serializab
 
     @Override
     public Object clone() {
-        return new GameMap(new HashMap<>(map));
+        return new PlayObject(new HashMap<>(map));
     }
 
     public boolean equals(Object obj) {
@@ -150,55 +150,55 @@ public final class GameMap implements Map<String, Object>, Cloneable, Serializab
     }
 
     @SuppressWarnings("unchecked")
-    public GameMap getGameMap(String key) {
+    public PlayObject getPlayObject(String key) {
         Object value = map.get(key);
         if (value == null) {
             return null;
         }
 
-        if (value instanceof GameMap) {
-            return (GameMap) value;
+        if (value instanceof PlayObject) {
+            return (PlayObject) value;
         }
 
         if (value instanceof Map) {
-            GameMap m = toGameMap((Map) value);
+            PlayObject m = toPlayObject((Map) value);
             put(key, m);
             return m;
         }
 
         if (value instanceof byte[]) {
-            GameMap m = CodecsManager.getInstance().deserialize((byte[])value, GameMap.class);
+            PlayObject m = CodecsManager.getInstance().deserialize((byte[])value, PlayObject.class);
             put(key, m);
             return m;
         }
 
-        throw new CastTypeException("can not cast to GameMap, value : '" + value + "'");
+        throw new CastTypeException("can not cast to PlayObject, value : '" + value + "'");
     }
 
     @SuppressWarnings("unchecked")
-    public GameArray getGameArray(String key) {
+    public PlayArray getPlayArray(String key) {
         Object value = map.get(key);
         if (value == null) {
             return null;
         }
 
-        if (value instanceof GameArray) {
-            return (GameArray) value;
+        if (value instanceof PlayArray) {
+            return (PlayArray) value;
         }
 
         if (value instanceof List) {
-            GameArray array = GameArray.toGameArray((List) value);
+            PlayArray array = PlayArray.toPlayArray((List) value);
             put(key, array);
             return array;
         }
 
         if (value instanceof byte[]) {
-            GameArray array = CodecsManager.getInstance().deserialize((byte[])value, GameArray.class);
+            PlayArray array = CodecsManager.getInstance().deserialize((byte[])value, PlayArray.class);
             put(key, array);
             return array;
         }
 
-        throw new CastTypeException("can not cast to GameArray, value : '" + value + "'");
+        throw new CastTypeException("can not cast to PlayArray, value : '" + value + "'");
     }
 
     public <T> T getObject(String key, Class<T> clazz) {
@@ -368,6 +368,6 @@ public final class GameMap implements Map<String, Object>, Cloneable, Serializab
 
     @Override
     public String toString() {
-        return "GameMap{" + map + '}';
+        return "PlayObject{" + map + '}';
     }
 }

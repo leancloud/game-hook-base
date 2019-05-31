@@ -3,7 +3,7 @@ package cn.leancloud.play.utils;
 import clojure.lang.Keyword;
 import cn.leancloud.play.codec.Codec;
 import cn.leancloud.play.codec.CodecsManager;
-import cn.leancloud.play.collection.GameMap;
+import cn.leancloud.play.collection.PlayObject;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Array;
@@ -235,8 +235,8 @@ public class CastTypeUtils {
                 return (T) obj;
             }
 
-            if (clazz == GameMap.class) {
-                return (T) GameMap.toGameMap((Map) obj);
+            if (clazz == PlayObject.class) {
+                return (T) PlayObject.toPlayObject((Map) obj);
             }
 
             // ignore other kind of Map

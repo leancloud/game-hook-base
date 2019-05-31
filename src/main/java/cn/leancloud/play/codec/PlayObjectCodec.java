@@ -1,21 +1,25 @@
 package cn.leancloud.play.codec;
 
-import cn.leancloud.play.collection.GameArray;
+import cn.leancloud.play.collection.PlayObject;
 import cn.leancloud.play.proto.GenericCollection;
-import cn.leancloud.play.proto.GenericCollectionValue;
 import com.google.protobuf.InvalidProtocolBufferException;
+
+import java.util.Map;
 
 import static cn.leancloud.play.codec.GenericCollectionValueCodec.deserializeValue;
 import static cn.leancloud.play.codec.GenericCollectionValueCodec.serializeValue;
 
-public final class GameArrayCodec implements Codec {
+public final class PlayObjectCodec implements Codec {
     @Override
     public byte[] serialize(Object obj) {
-        GameArray array = (GameArray) obj;
+        PlayObject map = (PlayObject) obj;
 
         GenericCollection.Builder collection = GenericCollection.newBuilder();
-        for (Object element: array) {
-            collection.addListValue(serializeValue(element));
+        for (Map.Entry<String, Object> entry : map.entrySet()) {
+            GenericCollection.MapEntry.Builder e = GenericCollection.MapEntry.newBuilder();
+            e.setKey(entry.getKey());
+            e.setVal(serializeValue(entry.getValue()));
+            collection.addMapEntryValue(e);
         }
 
         return collection.build().toByteArray();
@@ -25,14 +29,15 @@ public final class GameArrayCodec implements Codec {
     @Override
     public <T> T deserialize(byte[] bytes) {
         try {
-            GameArray m = new GameArray();
+            PlayObject m = new PlayObject();
             GenericCollection collection = GenericCollection.parseFrom(bytes);
-            for (GenericCollectionValue v : collection.getListValueList()) {
-                m.add(deserializeValue(v));
+            for (GenericCollection.MapEntry e : collection.getMapEntryValueList()) {
+                String k = e.getKey();
+                m.put(k, deserializeValue(e.getVal()));
             }
             return (T) m;
         } catch (InvalidProtocolBufferException ex) {
-            throw new DeserializationException("Can't deserialize bytes to GameArray", ex);
+            throw new DeserializationException("Can't deserialize bytes to PlayObject", ex);
         }
     }
 }

@@ -3,7 +3,7 @@ package cn.leancloud.play.plugin.request;
 import clojure.lang.Keyword;
 import clojure.lang.PersistentVector;
 import clojure.lang.RT;
-import cn.leancloud.play.collection.GameMap;
+import cn.leancloud.play.collection.PlayObject;
 
 import java.util.Collections;
 import java.util.List;
@@ -57,8 +57,8 @@ public final class JoinRoomRequest extends AbstractRequest {
      *
      * @return 匹配房间条件
      */
-    public GameMap getMatchProperties() {
-        return getParameter(expectAttrK, GameMap.EMPTY_MAP);
+    public PlayObject getMatchProperties() {
+        return getParameter(expectAttrK, PlayObject.EMPTY_OBJECT);
     }
 
     /**
@@ -68,7 +68,7 @@ public final class JoinRoomRequest extends AbstractRequest {
      *             所以本方法返回后再修改 attr 不会影响已存入请求内的匹配条件
      * @return this
      */
-    public JoinRoomRequest setMatchProperties(GameMap attr) {
+    public JoinRoomRequest setMatchProperties(PlayObject attr) {
         Objects.requireNonNull(attr);
         if (attr.isEmpty()) throw new IllegalArgumentException();
 
@@ -81,8 +81,8 @@ public final class JoinRoomRequest extends AbstractRequest {
      *
      * @return 返回房间玩家自定义属性，是不可变 Map
      */
-    public GameMap getActorProperties() {
-        return getParameter(attrK, GameMap.EMPTY_MAP);
+    public PlayObject getActorProperties() {
+        return getParameter(attrK, PlayObject.EMPTY_OBJECT);
     }
 
     /**
@@ -92,7 +92,7 @@ public final class JoinRoomRequest extends AbstractRequest {
      *             所以本方法返回后再修改 attr 不会影响已存入请求内的房间玩家自定义属性参数
      * @return this
      */
-    public JoinRoomRequest setActorProperties(GameMap attr) {
+    public JoinRoomRequest setActorProperties(PlayObject attr) {
         Objects.requireNonNull(attr);
         if (attr.isEmpty()) throw new IllegalArgumentException();
 

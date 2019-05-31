@@ -3,8 +3,7 @@ package cn.leancloud.play.plugin.request;
 import clojure.lang.Keyword;
 import clojure.lang.PersistentVector;
 import clojure.lang.RT;
-import cn.leancloud.play.codec.CodecsManager;
-import cn.leancloud.play.collection.GameMap;
+import cn.leancloud.play.collection.PlayObject;
 import cn.leancloud.play.utils.Log;
 
 import java.util.Collections;
@@ -110,12 +109,12 @@ public final class SendEventRequest extends AbstractRequest {
      *
      * @return 事件内容
      */
-    public GameMap getEventData() {
+    public PlayObject getEventData() {
         Object data = getParameter(dataK);
         if (data == null) {
-            return GameMap.EMPTY_MAP;
+            return PlayObject.EMPTY_OBJECT;
         } else {
-            return (GameMap) data;
+            return (PlayObject) data;
         }
     }
 
@@ -125,9 +124,9 @@ public final class SendEventRequest extends AbstractRequest {
      * @param data 事件内容
      * @return this
      */
-    public SendEventRequest setEventData(GameMap data) {
+    public SendEventRequest setEventData(PlayObject data) {
         if (data == null) {
-            data = GameMap.EMPTY_MAP;
+            data = PlayObject.EMPTY_OBJECT;
         }
 
         setParameter(dataK, data);
