@@ -7,8 +7,6 @@ import cn.leancloud.play.collection.PlayObject;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Array;
-import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.util.Base64;
 import java.util.Collection;
 import java.util.Map;
@@ -67,38 +65,6 @@ public class CastTypeUtils {
         }
 
         throw new CastTypeException("can not cast to short, value : " + value);
-    }
-
-    public static BigDecimal castToBigDecimal(Object value) {
-        if (value == null) {
-            return null;
-        }
-        if (value instanceof BigDecimal) {
-            return (BigDecimal) value;
-        }
-        if (value instanceof BigInteger) {
-            return new BigDecimal((BigInteger) value);
-        }
-
-        if (value instanceof Map && ((Map) value).size() == 0) {
-            return null;
-        }
-
-        throw new CastTypeException("can not cast to BigDecimal, value : " + value);
-    }
-
-    public static BigInteger castToBigInteger(Object value) {
-        if (value == null) {
-            return null;
-        }
-        if (value instanceof BigInteger) {
-            return (BigInteger) value;
-        }
-        if (value instanceof Float || value instanceof Double) {
-            return BigInteger.valueOf(((Number) value).longValue());
-        }
-
-        throw new CastTypeException("can not cast to BigInteger, value : " + value);
     }
 
     public static Float castToFloat(Object value) {
@@ -301,12 +267,6 @@ public class CastTypeUtils {
         }
         if (clazz == String.class) {
             return (T) castToString(obj);
-        }
-        if (clazz == BigDecimal.class) {
-            return (T) castToBigDecimal(obj);
-        }
-        if (clazz == BigInteger.class) {
-            return (T) castToBigInteger(obj);
         }
 
         throw new CastTypeException("can not cast to : " + clazz.getName());

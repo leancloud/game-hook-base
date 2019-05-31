@@ -5,8 +5,6 @@ import cn.leancloud.play.utils.CastTypeException;
 import cn.leancloud.play.utils.CastTypeUtils;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.util.*;
 
 import static cn.leancloud.play.utils.CastTypeUtils.*;
@@ -338,18 +336,6 @@ public final class PlayObject implements Map<String, Object>, Cloneable, Seriali
         }
 
         return doubleValue;
-    }
-
-    public BigDecimal getBigDecimal(String key) {
-        Object value = get(key);
-
-        return castToBigDecimal(value);
-    }
-
-    public BigInteger getBigInteger(String key) {
-        Object value = get(key);
-
-        return castToBigInteger(value);
     }
 
     public String getString(String key) {

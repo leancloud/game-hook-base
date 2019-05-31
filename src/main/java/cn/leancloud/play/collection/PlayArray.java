@@ -5,8 +5,6 @@ import cn.leancloud.play.utils.CastTypeException;
 import cn.leancloud.play.utils.CastTypeUtils;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.util.*;
 
 import static cn.leancloud.play.utils.CastTypeUtils.*;
@@ -423,18 +421,6 @@ public final class PlayArray implements List<Object>, Cloneable, RandomAccess, S
         }
 
         return dVal;
-    }
-
-    public BigDecimal getBigDecimal(int index) {
-        Object value = get(index);
-
-        return castToBigDecimal(value);
-    }
-
-    public BigInteger getBigInteger(int index) {
-        Object value = get(index);
-
-        return castToBigInteger(value);
     }
 
     public String getString(int index) {
