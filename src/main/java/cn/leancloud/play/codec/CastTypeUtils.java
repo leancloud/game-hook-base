@@ -230,7 +230,7 @@ public class CastTypeUtils {
         if (codec != null) {
             if (obj instanceof ObjectThunk) {
                 ObjectThunk thunk = (ObjectThunk)obj;
-                if (CodecsManager.getInstance().getRegisteredObjectTypeId(clazz) == thunk.getObjectTypeId()) {
+                if (CodecsManager.getInstance().getObjectTypeId(clazz) == thunk.getObjectTypeId()) {
                     return thunk.resolve(codec);
                 }
             }

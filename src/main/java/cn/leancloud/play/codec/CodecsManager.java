@@ -37,7 +37,7 @@ public final class CodecsManager {
         return registeredCodec.get(type);
     }
 
-    Byte getRegisteredObjectTypeId(Class<?> type){
+    Byte getObjectTypeId(Class<?> type){
         return registeredObjectTypeId.get(type);
     }
 

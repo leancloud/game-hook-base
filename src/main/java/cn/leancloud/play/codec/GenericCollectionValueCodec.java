@@ -51,8 +51,9 @@ final class GenericCollectionValueCodec {
             v.setObjectTypeId(thunk.getObjectTypeId());
         } else {
             v.setType(GenericCollectionValue.Type.OBJECT);
-            v.setBytesValue(ByteString.copyFrom(CodecsManager.getInstance().serialize(inputObject)));
-            v.setObjectTypeId(CodecsManager.getInstance().getRegisteredObjectTypeId(inputObject.getClass()));
+            CodecsManager codecsManager = CodecsManager.getInstance();
+            v.setBytesValue(ByteString.copyFrom(codecsManager.serialize(inputObject)));
+            v.setObjectTypeId(codecsManager.getObjectTypeId(inputObject.getClass()));
         }
 
         return v.build();
