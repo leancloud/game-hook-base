@@ -1,13 +1,13 @@
 package cn.leancloud.play.collection;
 
 import cn.leancloud.play.codec.CodecsManager;
-import cn.leancloud.play.utils.CastTypeException;
-import cn.leancloud.play.utils.CastTypeUtils;
+import cn.leancloud.play.codec.CastTypeException;
+import cn.leancloud.play.codec.CastTypeUtils;
 
 import java.io.Serializable;
 import java.util.*;
 
-import static cn.leancloud.play.utils.CastTypeUtils.*;
+import static cn.leancloud.play.codec.CastTypeUtils.*;
 
 public final class PlayArray implements List<Object>, Cloneable, RandomAccess, Serializable {
     public static final PlayArray EMPTY_ARRAY = new PlayArray(Collections.emptyList());

@@ -44,9 +44,16 @@ final class GenericCollectionValueCodec {
         } else if (inputObject instanceof PlayArray) {
             v.setType(GenericCollectionValue.Type.ARRAY);
             v.setBytesValue(ByteString.copyFrom(CodecsManager.getInstance().serialize(inputObject)));
+        } else if (inputObject instanceof ObjectThunk) {
+            v.setType(GenericCollectionValue.Type.OBJECT);
+            ObjectThunk thunk = (ObjectThunk)inputObject;
+            v.setBytesValue(thunk.getObjectInByteString());
+            v.setObjectTypeId(thunk.getObjectTypeId());
         } else {
             v.setType(GenericCollectionValue.Type.OBJECT);
-            v.setBytesValue(ByteString.copyFrom(CodecsManager.getInstance().serialize(inputObject)));
+            CodecsManager codecsManager = CodecsManager.getInstance();
+            v.setBytesValue(ByteString.copyFrom(codecsManager.serialize(inputObject)));
+            v.setObjectTypeId(codecsManager.getObjectTypeId(inputObject.getClass()));
         }
 
         return v.build();
@@ -75,6 +82,7 @@ final class GenericCollectionValueCodec {
             case STRING:
                 return value.getStringValue();
             case OBJECT:
+                return new ObjectThunk((byte)value.getObjectTypeId(), value.getBytesValue());
             case MAP:
             case ARRAY:
                 return value.getBytesValue().toByteArray();

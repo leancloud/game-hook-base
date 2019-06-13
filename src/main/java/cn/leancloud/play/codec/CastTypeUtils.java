@@ -1,13 +1,10 @@
-package cn.leancloud.play.utils;
+package cn.leancloud.play.codec;
 
 import clojure.lang.Keyword;
-import cn.leancloud.play.codec.Codec;
-import cn.leancloud.play.codec.CodecsManager;
 import cn.leancloud.play.collection.PlayObject;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Array;
-import java.util.Base64;
 import java.util.Collection;
 import java.util.Map;
 import java.util.Objects;
@@ -231,13 +228,11 @@ public class CastTypeUtils {
 
         Codec codec = CodecsManager.getInstance().getCodec(clazz);
         if (codec != null) {
-            if (obj instanceof byte[]) {
-                return codec.deserialize((byte[]) obj);
-            }
-
-            if (obj instanceof String) {
-                byte[] bytes = Base64.getDecoder().decode((String) obj);
-                return codec.deserialize(bytes);
+            if (obj instanceof ObjectThunk) {
+                ObjectThunk thunk = (ObjectThunk)obj;
+                if (CodecsManager.getInstance().getObjectTypeId(clazz) == thunk.getObjectTypeId()) {
+                    return thunk.resolve(codec);
+                }
             }
         }
 
@@ -269,7 +264,7 @@ public class CastTypeUtils {
             return (T) castToString(obj);
         }
 
-        throw new CastTypeException("can not cast to : " + clazz.getName());
+        throw new CastTypeException("can not cast to: " + clazz.getName());
     }
 }
 

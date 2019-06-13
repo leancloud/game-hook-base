@@ -1,13 +1,11 @@
 package cn.leancloud.play.collection;
 
-import cn.leancloud.play.codec.CodecsManager;
-import cn.leancloud.play.utils.CastTypeException;
-import cn.leancloud.play.utils.CastTypeUtils;
+import cn.leancloud.play.codec.*;
 
 import java.io.Serializable;
 import java.util.*;
 
-import static cn.leancloud.play.utils.CastTypeUtils.*;
+import static cn.leancloud.play.codec.CastTypeUtils.*;
 
 public final class PlayObject implements Map<String, Object>, Cloneable, Serializable {
     public static final PlayObject EMPTY_OBJECT = new PlayObject(Collections.emptyMap());
@@ -201,7 +199,6 @@ public final class PlayObject implements Map<String, Object>, Cloneable, Seriali
 
     public <T> T getObject(String key, Class<T> clazz) {
         Object obj = map.get(key);
-
         return CastTypeUtils.cast(obj, clazz);
     }
 
