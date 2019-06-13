@@ -16,6 +16,7 @@ public  final class GenericCollectionValue extends
   }
   private GenericCollectionValue() {
     type_ = 0;
+    objectTypeId_ = 0;
   }
 
   @java.lang.Override
@@ -83,6 +84,11 @@ public  final class GenericCollectionValue extends
           case 65: {
             valueCase_ = 8;
             value_ = input.readDouble();
+            break;
+          }
+          case 72: {
+
+            objectTypeId_ = input.readInt32();
             break;
           }
         }
@@ -478,6 +484,15 @@ public  final class GenericCollectionValue extends
     return 0D;
   }
 
+  public static final int OBJECTTYPEID_FIELD_NUMBER = 9;
+  private int objectTypeId_;
+  /**
+   * <code>optional int32 objectTypeId = 9;</code>
+   */
+  public int getObjectTypeId() {
+    return objectTypeId_;
+  }
+
   private byte memoizedIsInitialized = -1;
   public final boolean isInitialized() {
     byte isInitialized = memoizedIsInitialized;
@@ -519,6 +534,9 @@ public  final class GenericCollectionValue extends
     if (valueCase_ == 8) {
       output.writeDouble(
           8, (double)((java.lang.Double) value_));
+    }
+    if (objectTypeId_ != 0) {
+      output.writeInt32(9, objectTypeId_);
     }
   }
 
@@ -564,6 +582,10 @@ public  final class GenericCollectionValue extends
         .computeDoubleSize(
             8, (double)((java.lang.Double) value_));
     }
+    if (objectTypeId_ != 0) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeInt32Size(9, objectTypeId_);
+    }
     memoizedSize = size;
     return size;
   }
@@ -581,6 +603,8 @@ public  final class GenericCollectionValue extends
 
     boolean result = true;
     result = result && type_ == other.type_;
+    result = result && (getObjectTypeId()
+        == other.getObjectTypeId());
     result = result && getValueCase().equals(
         other.getValueCase());
     if (!result) return false;
@@ -632,6 +656,8 @@ public  final class GenericCollectionValue extends
     hash = (19 * hash) + getDescriptorForType().hashCode();
     hash = (37 * hash) + TYPE_FIELD_NUMBER;
     hash = (53 * hash) + type_;
+    hash = (37 * hash) + OBJECTTYPEID_FIELD_NUMBER;
+    hash = (53 * hash) + getObjectTypeId();
     switch (valueCase_) {
       case 2:
         hash = (37 * hash) + INTVALUE_FIELD_NUMBER;
@@ -788,6 +814,8 @@ public  final class GenericCollectionValue extends
       super.clear();
       type_ = 0;
 
+      objectTypeId_ = 0;
+
       valueCase_ = 0;
       value_ = null;
       return this;
@@ -834,6 +862,7 @@ public  final class GenericCollectionValue extends
       if (valueCase_ == 8) {
         result.value_ = value_;
       }
+      result.objectTypeId_ = objectTypeId_;
       result.valueCase_ = valueCase_;
       onBuilt();
       return result;
@@ -878,6 +907,9 @@ public  final class GenericCollectionValue extends
       if (other == cn.leancloud.play.proto.GenericCollectionValue.getDefaultInstance()) return this;
       if (other.type_ != 0) {
         setTypeValue(other.getTypeValue());
+      }
+      if (other.getObjectTypeId() != 0) {
+        setObjectTypeId(other.getObjectTypeId());
       }
       switch (other.getValueCase()) {
         case INTVALUE: {
@@ -1259,6 +1291,32 @@ public  final class GenericCollectionValue extends
         value_ = null;
         onChanged();
       }
+      return this;
+    }
+
+    private int objectTypeId_ ;
+    /**
+     * <code>optional int32 objectTypeId = 9;</code>
+     */
+    public int getObjectTypeId() {
+      return objectTypeId_;
+    }
+    /**
+     * <code>optional int32 objectTypeId = 9;</code>
+     */
+    public Builder setObjectTypeId(int value) {
+      
+      objectTypeId_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>optional int32 objectTypeId = 9;</code>
+     */
+    public Builder clearObjectTypeId() {
+      
+      objectTypeId_ = 0;
+      onChanged();
       return this;
     }
     public final Builder setUnknownFields(

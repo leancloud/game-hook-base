@@ -56,5 +56,10 @@ public interface GenericCollectionValueOrBuilder extends
    */
   double getDoubleValue();
 
+  /**
+   * <code>optional int32 objectTypeId = 9;</code>
+   */
+  int getObjectTypeId();
+
   public cn.leancloud.play.proto.GenericCollectionValue.ValueCase getValueCase();
 }

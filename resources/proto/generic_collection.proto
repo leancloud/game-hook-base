@@ -31,6 +31,7 @@ message GenericCollectionValue {
         float floatValue = 7;
         double doubleValue = 8;
     }
+    int32 objectTypeId = 9;
 }
 
 message GenericCollection {
