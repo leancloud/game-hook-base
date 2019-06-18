@@ -1,6 +1,7 @@
 package cn.leancloud.play.collection;
 
 import cn.leancloud.play.codec.*;
+import cn.leancloud.play.proto.GenericCollectionValue;
 
 import java.io.Serializable;
 import java.util.*;
@@ -152,23 +153,9 @@ public final class PlayObject implements Map<String, Object>, Cloneable, Seriali
             return null;
         }
 
-        if (value instanceof PlayObject) {
-            return (PlayObject) value;
-        }
-
-        if (value instanceof Map) {
-            PlayObject m = toPlayObject((Map) value);
-            put(key, m);
-            return m;
-        }
-
-        if (value instanceof byte[]) {
-            PlayObject m = CodecsManager.getInstance().deserialize((byte[])value, PlayObject.class);
-            put(key, m);
-            return m;
-        }
-
-        throw new CastTypeException("can not cast to PlayObject, value : '" + value + "'");
+        PlayObject m = castToPlayObject(value);
+        put(key, m);
+        return m;
     }
 
     @SuppressWarnings("unchecked")
@@ -178,23 +165,9 @@ public final class PlayObject implements Map<String, Object>, Cloneable, Seriali
             return null;
         }
 
-        if (value instanceof PlayArray) {
-            return (PlayArray) value;
-        }
-
-        if (value instanceof List) {
-            PlayArray array = PlayArray.toPlayArray((List) value);
-            put(key, array);
-            return array;
-        }
-
-        if (value instanceof byte[]) {
-            PlayArray array = CodecsManager.getInstance().deserialize((byte[])value, PlayArray.class);
-            put(key, array);
-            return array;
-        }
-
-        throw new CastTypeException("can not cast to PlayArray, value : '" + value + "'");
+        PlayArray array = castToPlayArray(value);
+        put(key, array);
+        return array;
     }
 
     public <T> T getObject(String key, Class<T> clazz) {

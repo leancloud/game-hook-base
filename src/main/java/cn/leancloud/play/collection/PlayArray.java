@@ -1,8 +1,7 @@
 package cn.leancloud.play.collection;
 
-import cn.leancloud.play.codec.CodecsManager;
-import cn.leancloud.play.codec.CastTypeException;
-import cn.leancloud.play.codec.CastTypeUtils;
+import cn.leancloud.play.codec.*;
+import cn.leancloud.play.proto.GenericCollectionValue;
 
 import java.io.Serializable;
 import java.util.*;
@@ -238,23 +237,9 @@ public final class PlayArray implements List<Object>, Cloneable, RandomAccess, S
             return null;
         }
 
-        if (value instanceof PlayObject) {
-            return (PlayObject) value;
-        }
-
-        if (value instanceof Map) {
-            PlayObject m = PlayObject.toPlayObject((Map) value);
-            set(index, m);
-            return m;
-        }
-
-        if (value instanceof byte[]) {
-            PlayObject m = CodecsManager.getInstance().deserialize((byte[])value, PlayObject.class);
-            set(index, m);
-            return m;
-        }
-
-        throw new CastTypeException("can not cast to PlayObject, value : '" + value + "'");
+        PlayObject m = castToPlayObject(value);
+        set(index, m);
+        return m;
     }
 
     @SuppressWarnings("unchecked")
@@ -265,23 +250,9 @@ public final class PlayArray implements List<Object>, Cloneable, RandomAccess, S
             return null;
         }
 
-        if (value instanceof PlayArray) {
-            return (PlayArray) value;
-        }
-
-        if (value instanceof List) {
-            PlayArray array = toPlayArray(list);
-            set(index, array);
-            return array;
-        }
-
-        if (value instanceof byte[]) {
-            PlayArray array = CodecsManager.getInstance().deserialize((byte[])value, PlayArray.class);
-            set(index, array);
-            return array;
-        }
-
-        throw new CastTypeException("can not cast to PlayArray, value : '" + value + "'");
+        PlayArray array = castToPlayArray(value);
+        set(index, array);
+        return array;
     }
 
     public <T> T getObject(int index, Class<T> clazz) {

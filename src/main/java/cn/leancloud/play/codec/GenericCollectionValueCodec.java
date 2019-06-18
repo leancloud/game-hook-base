@@ -44,6 +44,10 @@ final class GenericCollectionValueCodec {
         } else if (inputObject instanceof PlayArray) {
             v.setType(GenericCollectionValue.Type.ARRAY);
             v.setBytesValue(ByteString.copyFrom(CodecsManager.getInstance().serialize(inputObject)));
+        } else if (inputObject instanceof CollectionThunk){
+            CollectionThunk thunk = (CollectionThunk)inputObject;
+            v.setType(thunk.getType());
+            v.setBytesValue(thunk.getByteString());
         } else if (inputObject instanceof ObjectThunk) {
             v.setType(GenericCollectionValue.Type.OBJECT);
             ObjectThunk thunk = (ObjectThunk)inputObject;
@@ -84,8 +88,9 @@ final class GenericCollectionValueCodec {
             case OBJECT:
                 return new ObjectThunk((byte)value.getObjectTypeId(), value.getBytesValue());
             case MAP:
+                return new CollectionThunk(GenericCollectionValue.Type.MAP, value.getBytesValue());
             case ARRAY:
-                return value.getBytesValue().toByteArray();
+                return new CollectionThunk(GenericCollectionValue.Type.ARRAY, value.getBytesValue());
             default:
                 throw new DeserializationException("Unknown GenericCollectionValue type: " + value.getType());
         }
