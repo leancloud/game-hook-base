@@ -1,4 +1,4 @@
-package cn.leancloud.play.utils;
+package cn.leancloud.play.codec;
 
 public class CastTypeException extends RuntimeException {
     public CastTypeException(){

@@ -1,14 +1,13 @@
-package cn.leancloud.play.utils;
+package cn.leancloud.play.codec;
 
 import clojure.lang.Keyword;
-import cn.leancloud.play.codec.Codec;
-import cn.leancloud.play.codec.CodecsManager;
+import cn.leancloud.play.collection.PlayArray;
 import cn.leancloud.play.collection.PlayObject;
+import cn.leancloud.play.proto.GenericCollectionValue;
 
-import java.lang.annotation.Annotation;
 import java.lang.reflect.Array;
-import java.util.Base64;
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
@@ -153,21 +152,48 @@ public class CastTypeUtils {
         throw new CastTypeException("can not cast to boolean, value : " + value);
     }
 
-    public static <A extends Annotation> A getAnnotation(Class<?> clazz, Class<A> annotationClass) {
-        A a = clazz.getAnnotation(annotationClass);
-        if (a != null) {
-            return a;
+    @SuppressWarnings({"rawtypes", "unchecked"})
+    public static PlayObject castToPlayObject(Object value) {
+        if (value instanceof PlayObject) {
+            return (PlayObject) value;
         }
 
-        if (clazz.getAnnotations().length > 0) {
-            for (Annotation annotation : clazz.getAnnotations()) {
-                a = annotation.annotationType().getAnnotation(annotationClass);
-                if (a != null) {
-                    return a;
-                }
-            }
+        if (value instanceof Map) {
+            return PlayObject.toPlayObject((Map) value);
         }
-        return null;
+
+        if (value instanceof CollectionThunk) {
+            CollectionThunk thunk = (CollectionThunk)value;
+            return thunk.getPlayObject();
+        }
+
+        if (value instanceof byte[]) {
+            return CodecsManager.getInstance().deserialize((byte[])value, PlayObject.class);
+        }
+
+        throw new CastTypeException("can not cast to PlayObject, value : '" + value + "'");
+    }
+
+    @SuppressWarnings({"rawtypes", "unchecked"})
+    public static PlayArray castToPlayArray(Object value){
+        if (value instanceof PlayArray) {
+            return (PlayArray) value;
+        }
+
+        if (value instanceof List) {
+            return PlayArray.toPlayArray((List)value);
+        }
+
+        if (value instanceof CollectionThunk) {
+            CollectionThunk thunk = (CollectionThunk)value;
+            return thunk.getPlayArray();
+        }
+
+        if (value instanceof byte[]) {
+            return CodecsManager.getInstance().deserialize((byte[])value, PlayArray.class);
+        }
+
+        throw new CastTypeException("can not cast to PlayArray, value : '" + value + "'");
     }
 
     @SuppressWarnings({"rawtypes", "unchecked"})
@@ -208,6 +234,18 @@ public class CastTypeUtils {
             // ignore other kind of Map
         }
 
+        if (obj instanceof List) {
+            if (clazz == List.class) {
+                return (T) obj;
+            }
+
+            if (clazz == PlayArray.class) {
+                return (T) PlayArray.toPlayArray((List) obj);
+            }
+
+            // ignore other kind of List
+        }
+
         if (clazz.isArray()) {
             if (obj instanceof Collection) {
                 Collection collection = (Collection) obj;
@@ -231,13 +269,11 @@ public class CastTypeUtils {
 
         Codec codec = CodecsManager.getInstance().getCodec(clazz);
         if (codec != null) {
-            if (obj instanceof byte[]) {
-                return codec.deserialize((byte[]) obj);
-            }
-
-            if (obj instanceof String) {
-                byte[] bytes = Base64.getDecoder().decode((String) obj);
-                return codec.deserialize(bytes);
+            if (obj instanceof ObjectThunk) {
+                ObjectThunk thunk = (ObjectThunk)obj;
+                if (CodecsManager.getInstance().getObjectTypeId(clazz) == thunk.getObjectTypeId()) {
+                    return thunk.resolve(codec);
+                }
             }
         }
 
@@ -269,7 +305,7 @@ public class CastTypeUtils {
             return (T) castToString(obj);
         }
 
-        throw new CastTypeException("can not cast to : " + clazz.getName());
+        throw new CastTypeException("can not cast to: " + clazz.getName());
     }
 }
 
