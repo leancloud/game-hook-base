@@ -24,15 +24,15 @@ message GenericCollectionValue {
 
     Type type = 1;
     oneof value {
-        int32 intValue = 2;
-        int64 longIntValue = 3;
-        bool boolValue = 4;
-        string stringValue = 5;
-        bytes bytesValue = 6;
-        float floatValue = 7;
-        double doubleValue = 8;
+        int32 int_value = 2;
+        int64 long_int_value = 3;
+        bool bool_value = 4;
+        string string_value = 5;
+        bytes bytes_value = 6;
+        float float_value = 7;
+        double double_value = 8;
     }
-    int32 objectTypeId = 9;
+    int32 object_type_id = 9;
 }
 
 message GenericCollection {
@@ -41,6 +41,6 @@ message GenericCollection {
         GenericCollectionValue val = 2;
     }
 
-    repeated GenericCollectionValue listValue = 1;
-    repeated MapEntry mapEntryValue = 2;
+    repeated GenericCollectionValue list_value = 1;
+    repeated MapEntry map_entry_value = 2;
 }
