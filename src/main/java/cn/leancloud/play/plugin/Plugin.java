@@ -22,7 +22,7 @@ public interface Plugin {
      *
      * @param ctx context
      */
-    void onCloseRoom(CloseRoomContext ctx);
+    void onDestroyRoom(DestroyRoomContext ctx);
 
     /**
      * 加入房间前调用

@@ -39,24 +39,24 @@ public final class GenericCollectionOuterClass {
   static {
     java.lang.String[] descriptorData = {
       "\n\030generic_collection.proto\022\027cn.leancloud" +
-      ".play.proto\"\251\003\n\026GenericCollectionValue\022B" +
+      ".play.proto\"\263\003\n\026GenericCollectionValue\022B" +
       "\n\004type\030\001 \001(\01624.cn.leancloud.play.proto.G" +
-      "enericCollectionValue.Type\022\022\n\010intValue\030\002" +
-      " \001(\005H\000\022\026\n\014longIntValue\030\003 \001(\003H\000\022\023\n\tboolVa" +
-      "lue\030\004 \001(\010H\000\022\025\n\013stringValue\030\005 \001(\tH\000\022\024\n\nby" +
-      "tesValue\030\006 \001(\014H\000\022\024\n\nfloatValue\030\007 \001(\002H\000\022\025" +
-      "\n\013doubleValue\030\010 \001(\001H\000\022\024\n\014objectTypeId\030\t " +
-      "\001(\005\"\220\001\n\004Type\022\010\n\004NULL\020\000\022\t\n\005BYTES\020\001\022\010\n\004BYT" +
-      "E\020\002\022\t\n\005SHORT\020\003\022\007\n\003INT\020\004\022\010\n\004LONG\020\005\022\010\n\004BOO",
-      "L\020\006\022\t\n\005FLOAT\020\007\022\n\n\006DOUBLE\020\010\022\n\n\006OBJECT\020\t\022\n" +
-      "\n\006STRING\020\n\022\007\n\003MAP\020\013\022\t\n\005ARRAY\020\014B\007\n\005value\"" +
-      "\372\001\n\021GenericCollection\022B\n\tlistValue\030\001 \003(\013" +
-      "2/.cn.leancloud.play.proto.GenericCollec" +
-      "tionValue\022J\n\rmapEntryValue\030\002 \003(\01323.cn.le" +
-      "ancloud.play.proto.GenericCollection.Map" +
-      "Entry\032U\n\010MapEntry\022\013\n\003key\030\001 \001(\t\022<\n\003val\030\002 " +
-      "\001(\0132/.cn.leancloud.play.proto.GenericCol" +
-      "lectionValueB\002P\001b\006proto3"
+      "enericCollectionValue.Type\022\023\n\tint_value\030" +
+      "\002 \001(\005H\000\022\030\n\016long_int_value\030\003 \001(\003H\000\022\024\n\nboo" +
+      "l_value\030\004 \001(\010H\000\022\026\n\014string_value\030\005 \001(\tH\000\022" +
+      "\025\n\013bytes_value\030\006 \001(\014H\000\022\025\n\013float_value\030\007 " +
+      "\001(\002H\000\022\026\n\014double_value\030\010 \001(\001H\000\022\026\n\016object_" +
+      "type_id\030\t \001(\005\"\220\001\n\004Type\022\010\n\004NULL\020\000\022\t\n\005BYTE" +
+      "S\020\001\022\010\n\004BYTE\020\002\022\t\n\005SHORT\020\003\022\007\n\003INT\020\004\022\010\n\004LON",
+      "G\020\005\022\010\n\004BOOL\020\006\022\t\n\005FLOAT\020\007\022\n\n\006DOUBLE\020\010\022\n\n\006" +
+      "OBJECT\020\t\022\n\n\006STRING\020\n\022\007\n\003MAP\020\013\022\t\n\005ARRAY\020\014" +
+      "B\007\n\005value\"\375\001\n\021GenericCollection\022C\n\nlist_" +
+      "value\030\001 \003(\0132/.cn.leancloud.play.proto.Ge" +
+      "nericCollectionValue\022L\n\017map_entry_value\030" +
+      "\002 \003(\01323.cn.leancloud.play.proto.GenericC" +
+      "ollection.MapEntry\032U\n\010MapEntry\022\013\n\003key\030\001 " +
+      "\001(\t\022<\n\003val\030\002 \001(\0132/.cn.leancloud.play.pro" +
+      "to.GenericCollectionValueB\002P\001b\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {

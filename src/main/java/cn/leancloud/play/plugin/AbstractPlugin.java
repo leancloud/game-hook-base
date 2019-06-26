@@ -20,7 +20,7 @@ public abstract class AbstractPlugin implements Plugin {
     }
 
     @Override
-    public void onCloseRoom(CloseRoomContext ctx) {
+    public void onDestroyRoom(DestroyRoomContext ctx) {
         ctx.continueProcess();
     }
 

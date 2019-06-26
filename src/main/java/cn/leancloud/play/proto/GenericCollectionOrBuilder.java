@@ -8,49 +8,49 @@ public interface GenericCollectionOrBuilder extends
     com.google.protobuf.MessageOrBuilder {
 
   /**
-   * <code>repeated .cn.leancloud.play.proto.GenericCollectionValue listValue = 1;</code>
+   * <code>repeated .cn.leancloud.play.proto.GenericCollectionValue list_value = 1;</code>
    */
   java.util.List<cn.leancloud.play.proto.GenericCollectionValue> 
       getListValueList();
   /**
-   * <code>repeated .cn.leancloud.play.proto.GenericCollectionValue listValue = 1;</code>
+   * <code>repeated .cn.leancloud.play.proto.GenericCollectionValue list_value = 1;</code>
    */
   cn.leancloud.play.proto.GenericCollectionValue getListValue(int index);
   /**
-   * <code>repeated .cn.leancloud.play.proto.GenericCollectionValue listValue = 1;</code>
+   * <code>repeated .cn.leancloud.play.proto.GenericCollectionValue list_value = 1;</code>
    */
   int getListValueCount();
   /**
-   * <code>repeated .cn.leancloud.play.proto.GenericCollectionValue listValue = 1;</code>
+   * <code>repeated .cn.leancloud.play.proto.GenericCollectionValue list_value = 1;</code>
    */
   java.util.List<? extends cn.leancloud.play.proto.GenericCollectionValueOrBuilder> 
       getListValueOrBuilderList();
   /**
-   * <code>repeated .cn.leancloud.play.proto.GenericCollectionValue listValue = 1;</code>
+   * <code>repeated .cn.leancloud.play.proto.GenericCollectionValue list_value = 1;</code>
    */
   cn.leancloud.play.proto.GenericCollectionValueOrBuilder getListValueOrBuilder(
       int index);
 
   /**
-   * <code>repeated .cn.leancloud.play.proto.GenericCollection.MapEntry mapEntryValue = 2;</code>
+   * <code>repeated .cn.leancloud.play.proto.GenericCollection.MapEntry map_entry_value = 2;</code>
    */
   java.util.List<cn.leancloud.play.proto.GenericCollection.MapEntry> 
       getMapEntryValueList();
   /**
-   * <code>repeated .cn.leancloud.play.proto.GenericCollection.MapEntry mapEntryValue = 2;</code>
+   * <code>repeated .cn.leancloud.play.proto.GenericCollection.MapEntry map_entry_value = 2;</code>
    */
   cn.leancloud.play.proto.GenericCollection.MapEntry getMapEntryValue(int index);
   /**
-   * <code>repeated .cn.leancloud.play.proto.GenericCollection.MapEntry mapEntryValue = 2;</code>
+   * <code>repeated .cn.leancloud.play.proto.GenericCollection.MapEntry map_entry_value = 2;</code>
    */
   int getMapEntryValueCount();
   /**
-   * <code>repeated .cn.leancloud.play.proto.GenericCollection.MapEntry mapEntryValue = 2;</code>
+   * <code>repeated .cn.leancloud.play.proto.GenericCollection.MapEntry map_entry_value = 2;</code>
    */
   java.util.List<? extends cn.leancloud.play.proto.GenericCollection.MapEntryOrBuilder> 
       getMapEntryValueOrBuilderList();
   /**
-   * <code>repeated .cn.leancloud.play.proto.GenericCollection.MapEntry mapEntryValue = 2;</code>
+   * <code>repeated .cn.leancloud.play.proto.GenericCollection.MapEntry map_entry_value = 2;</code>
    */
   cn.leancloud.play.proto.GenericCollection.MapEntryOrBuilder getMapEntryValueOrBuilder(
       int index);

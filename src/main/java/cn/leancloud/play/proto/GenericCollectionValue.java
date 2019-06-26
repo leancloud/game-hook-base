@@ -315,13 +315,13 @@ public  final class GenericCollectionValue extends
   private java.lang.Object value_;
   public enum ValueCase
       implements com.google.protobuf.Internal.EnumLite {
-    INTVALUE(2),
-    LONGINTVALUE(3),
-    BOOLVALUE(4),
-    STRINGVALUE(5),
-    BYTESVALUE(6),
-    FLOATVALUE(7),
-    DOUBLEVALUE(8),
+    INT_VALUE(2),
+    LONG_INT_VALUE(3),
+    BOOL_VALUE(4),
+    STRING_VALUE(5),
+    BYTES_VALUE(6),
+    FLOAT_VALUE(7),
+    DOUBLE_VALUE(8),
     VALUE_NOT_SET(0);
     private final int value;
     private ValueCase(int value) {
@@ -337,13 +337,13 @@ public  final class GenericCollectionValue extends
 
     public static ValueCase forNumber(int value) {
       switch (value) {
-        case 2: return INTVALUE;
-        case 3: return LONGINTVALUE;
-        case 4: return BOOLVALUE;
-        case 5: return STRINGVALUE;
-        case 6: return BYTESVALUE;
-        case 7: return FLOATVALUE;
-        case 8: return DOUBLEVALUE;
+        case 2: return INT_VALUE;
+        case 3: return LONG_INT_VALUE;
+        case 4: return BOOL_VALUE;
+        case 5: return STRING_VALUE;
+        case 6: return BYTES_VALUE;
+        case 7: return FLOAT_VALUE;
+        case 8: return DOUBLE_VALUE;
         case 0: return VALUE_NOT_SET;
         default: return null;
       }
@@ -375,9 +375,9 @@ public  final class GenericCollectionValue extends
     return result == null ? cn.leancloud.play.proto.GenericCollectionValue.Type.UNRECOGNIZED : result;
   }
 
-  public static final int INTVALUE_FIELD_NUMBER = 2;
+  public static final int INT_VALUE_FIELD_NUMBER = 2;
   /**
-   * <code>optional int32 intValue = 2;</code>
+   * <code>optional int32 int_value = 2;</code>
    */
   public int getIntValue() {
     if (valueCase_ == 2) {
@@ -386,9 +386,9 @@ public  final class GenericCollectionValue extends
     return 0;
   }
 
-  public static final int LONGINTVALUE_FIELD_NUMBER = 3;
+  public static final int LONG_INT_VALUE_FIELD_NUMBER = 3;
   /**
-   * <code>optional int64 longIntValue = 3;</code>
+   * <code>optional int64 long_int_value = 3;</code>
    */
   public long getLongIntValue() {
     if (valueCase_ == 3) {
@@ -397,9 +397,9 @@ public  final class GenericCollectionValue extends
     return 0L;
   }
 
-  public static final int BOOLVALUE_FIELD_NUMBER = 4;
+  public static final int BOOL_VALUE_FIELD_NUMBER = 4;
   /**
-   * <code>optional bool boolValue = 4;</code>
+   * <code>optional bool bool_value = 4;</code>
    */
   public boolean getBoolValue() {
     if (valueCase_ == 4) {
@@ -408,9 +408,9 @@ public  final class GenericCollectionValue extends
     return false;
   }
 
-  public static final int STRINGVALUE_FIELD_NUMBER = 5;
+  public static final int STRING_VALUE_FIELD_NUMBER = 5;
   /**
-   * <code>optional string stringValue = 5;</code>
+   * <code>optional string string_value = 5;</code>
    */
   public java.lang.String getStringValue() {
     java.lang.Object ref = "";
@@ -430,7 +430,7 @@ public  final class GenericCollectionValue extends
     }
   }
   /**
-   * <code>optional string stringValue = 5;</code>
+   * <code>optional string string_value = 5;</code>
    */
   public com.google.protobuf.ByteString
       getStringValueBytes() {
@@ -451,9 +451,9 @@ public  final class GenericCollectionValue extends
     }
   }
 
-  public static final int BYTESVALUE_FIELD_NUMBER = 6;
+  public static final int BYTES_VALUE_FIELD_NUMBER = 6;
   /**
-   * <code>optional bytes bytesValue = 6;</code>
+   * <code>optional bytes bytes_value = 6;</code>
    */
   public com.google.protobuf.ByteString getBytesValue() {
     if (valueCase_ == 6) {
@@ -462,9 +462,9 @@ public  final class GenericCollectionValue extends
     return com.google.protobuf.ByteString.EMPTY;
   }
 
-  public static final int FLOATVALUE_FIELD_NUMBER = 7;
+  public static final int FLOAT_VALUE_FIELD_NUMBER = 7;
   /**
-   * <code>optional float floatValue = 7;</code>
+   * <code>optional float float_value = 7;</code>
    */
   public float getFloatValue() {
     if (valueCase_ == 7) {
@@ -473,9 +473,9 @@ public  final class GenericCollectionValue extends
     return 0F;
   }
 
-  public static final int DOUBLEVALUE_FIELD_NUMBER = 8;
+  public static final int DOUBLE_VALUE_FIELD_NUMBER = 8;
   /**
-   * <code>optional double doubleValue = 8;</code>
+   * <code>optional double double_value = 8;</code>
    */
   public double getDoubleValue() {
     if (valueCase_ == 8) {
@@ -484,10 +484,10 @@ public  final class GenericCollectionValue extends
     return 0D;
   }
 
-  public static final int OBJECTTYPEID_FIELD_NUMBER = 9;
+  public static final int OBJECT_TYPE_ID_FIELD_NUMBER = 9;
   private int objectTypeId_;
   /**
-   * <code>optional int32 objectTypeId = 9;</code>
+   * <code>optional int32 object_type_id = 9;</code>
    */
   public int getObjectTypeId() {
     return objectTypeId_;
@@ -656,38 +656,38 @@ public  final class GenericCollectionValue extends
     hash = (19 * hash) + getDescriptorForType().hashCode();
     hash = (37 * hash) + TYPE_FIELD_NUMBER;
     hash = (53 * hash) + type_;
-    hash = (37 * hash) + OBJECTTYPEID_FIELD_NUMBER;
+    hash = (37 * hash) + OBJECT_TYPE_ID_FIELD_NUMBER;
     hash = (53 * hash) + getObjectTypeId();
     switch (valueCase_) {
       case 2:
-        hash = (37 * hash) + INTVALUE_FIELD_NUMBER;
+        hash = (37 * hash) + INT_VALUE_FIELD_NUMBER;
         hash = (53 * hash) + getIntValue();
         break;
       case 3:
-        hash = (37 * hash) + LONGINTVALUE_FIELD_NUMBER;
+        hash = (37 * hash) + LONG_INT_VALUE_FIELD_NUMBER;
         hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
             getLongIntValue());
         break;
       case 4:
-        hash = (37 * hash) + BOOLVALUE_FIELD_NUMBER;
+        hash = (37 * hash) + BOOL_VALUE_FIELD_NUMBER;
         hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
             getBoolValue());
         break;
       case 5:
-        hash = (37 * hash) + STRINGVALUE_FIELD_NUMBER;
+        hash = (37 * hash) + STRING_VALUE_FIELD_NUMBER;
         hash = (53 * hash) + getStringValue().hashCode();
         break;
       case 6:
-        hash = (37 * hash) + BYTESVALUE_FIELD_NUMBER;
+        hash = (37 * hash) + BYTES_VALUE_FIELD_NUMBER;
         hash = (53 * hash) + getBytesValue().hashCode();
         break;
       case 7:
-        hash = (37 * hash) + FLOATVALUE_FIELD_NUMBER;
+        hash = (37 * hash) + FLOAT_VALUE_FIELD_NUMBER;
         hash = (53 * hash) + java.lang.Float.floatToIntBits(
             getFloatValue());
         break;
       case 8:
-        hash = (37 * hash) + DOUBLEVALUE_FIELD_NUMBER;
+        hash = (37 * hash) + DOUBLE_VALUE_FIELD_NUMBER;
         hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
             java.lang.Double.doubleToLongBits(getDoubleValue()));
         break;
@@ -912,33 +912,33 @@ public  final class GenericCollectionValue extends
         setObjectTypeId(other.getObjectTypeId());
       }
       switch (other.getValueCase()) {
-        case INTVALUE: {
+        case INT_VALUE: {
           setIntValue(other.getIntValue());
           break;
         }
-        case LONGINTVALUE: {
+        case LONG_INT_VALUE: {
           setLongIntValue(other.getLongIntValue());
           break;
         }
-        case BOOLVALUE: {
+        case BOOL_VALUE: {
           setBoolValue(other.getBoolValue());
           break;
         }
-        case STRINGVALUE: {
+        case STRING_VALUE: {
           valueCase_ = 5;
           value_ = other.value_;
           onChanged();
           break;
         }
-        case BYTESVALUE: {
+        case BYTES_VALUE: {
           setBytesValue(other.getBytesValue());
           break;
         }
-        case FLOATVALUE: {
+        case FLOAT_VALUE: {
           setFloatValue(other.getFloatValue());
           break;
         }
-        case DOUBLEVALUE: {
+        case DOUBLE_VALUE: {
           setDoubleValue(other.getDoubleValue());
           break;
         }
@@ -1032,7 +1032,7 @@ public  final class GenericCollectionValue extends
     }
 
     /**
-     * <code>optional int32 intValue = 2;</code>
+     * <code>optional int32 int_value = 2;</code>
      */
     public int getIntValue() {
       if (valueCase_ == 2) {
@@ -1041,7 +1041,7 @@ public  final class GenericCollectionValue extends
       return 0;
     }
     /**
-     * <code>optional int32 intValue = 2;</code>
+     * <code>optional int32 int_value = 2;</code>
      */
     public Builder setIntValue(int value) {
       valueCase_ = 2;
@@ -1050,7 +1050,7 @@ public  final class GenericCollectionValue extends
       return this;
     }
     /**
-     * <code>optional int32 intValue = 2;</code>
+     * <code>optional int32 int_value = 2;</code>
      */
     public Builder clearIntValue() {
       if (valueCase_ == 2) {
@@ -1062,7 +1062,7 @@ public  final class GenericCollectionValue extends
     }
 
     /**
-     * <code>optional int64 longIntValue = 3;</code>
+     * <code>optional int64 long_int_value = 3;</code>
      */
     public long getLongIntValue() {
       if (valueCase_ == 3) {
@@ -1071,7 +1071,7 @@ public  final class GenericCollectionValue extends
       return 0L;
     }
     /**
-     * <code>optional int64 longIntValue = 3;</code>
+     * <code>optional int64 long_int_value = 3;</code>
      */
     public Builder setLongIntValue(long value) {
       valueCase_ = 3;
@@ -1080,7 +1080,7 @@ public  final class GenericCollectionValue extends
       return this;
     }
     /**
-     * <code>optional int64 longIntValue = 3;</code>
+     * <code>optional int64 long_int_value = 3;</code>
      */
     public Builder clearLongIntValue() {
       if (valueCase_ == 3) {
@@ -1092,7 +1092,7 @@ public  final class GenericCollectionValue extends
     }
 
     /**
-     * <code>optional bool boolValue = 4;</code>
+     * <code>optional bool bool_value = 4;</code>
      */
     public boolean getBoolValue() {
       if (valueCase_ == 4) {
@@ -1101,7 +1101,7 @@ public  final class GenericCollectionValue extends
       return false;
     }
     /**
-     * <code>optional bool boolValue = 4;</code>
+     * <code>optional bool bool_value = 4;</code>
      */
     public Builder setBoolValue(boolean value) {
       valueCase_ = 4;
@@ -1110,7 +1110,7 @@ public  final class GenericCollectionValue extends
       return this;
     }
     /**
-     * <code>optional bool boolValue = 4;</code>
+     * <code>optional bool bool_value = 4;</code>
      */
     public Builder clearBoolValue() {
       if (valueCase_ == 4) {
@@ -1122,7 +1122,7 @@ public  final class GenericCollectionValue extends
     }
 
     /**
-     * <code>optional string stringValue = 5;</code>
+     * <code>optional string string_value = 5;</code>
      */
     public java.lang.String getStringValue() {
       java.lang.Object ref = "";
@@ -1142,7 +1142,7 @@ public  final class GenericCollectionValue extends
       }
     }
     /**
-     * <code>optional string stringValue = 5;</code>
+     * <code>optional string string_value = 5;</code>
      */
     public com.google.protobuf.ByteString
         getStringValueBytes() {
@@ -1163,7 +1163,7 @@ public  final class GenericCollectionValue extends
       }
     }
     /**
-     * <code>optional string stringValue = 5;</code>
+     * <code>optional string string_value = 5;</code>
      */
     public Builder setStringValue(
         java.lang.String value) {
@@ -1176,7 +1176,7 @@ public  final class GenericCollectionValue extends
       return this;
     }
     /**
-     * <code>optional string stringValue = 5;</code>
+     * <code>optional string string_value = 5;</code>
      */
     public Builder clearStringValue() {
       if (valueCase_ == 5) {
@@ -1187,7 +1187,7 @@ public  final class GenericCollectionValue extends
       return this;
     }
     /**
-     * <code>optional string stringValue = 5;</code>
+     * <code>optional string string_value = 5;</code>
      */
     public Builder setStringValueBytes(
         com.google.protobuf.ByteString value) {
@@ -1202,7 +1202,7 @@ public  final class GenericCollectionValue extends
     }
 
     /**
-     * <code>optional bytes bytesValue = 6;</code>
+     * <code>optional bytes bytes_value = 6;</code>
      */
     public com.google.protobuf.ByteString getBytesValue() {
       if (valueCase_ == 6) {
@@ -1211,7 +1211,7 @@ public  final class GenericCollectionValue extends
       return com.google.protobuf.ByteString.EMPTY;
     }
     /**
-     * <code>optional bytes bytesValue = 6;</code>
+     * <code>optional bytes bytes_value = 6;</code>
      */
     public Builder setBytesValue(com.google.protobuf.ByteString value) {
       if (value == null) {
@@ -1223,7 +1223,7 @@ public  final class GenericCollectionValue extends
       return this;
     }
     /**
-     * <code>optional bytes bytesValue = 6;</code>
+     * <code>optional bytes bytes_value = 6;</code>
      */
     public Builder clearBytesValue() {
       if (valueCase_ == 6) {
@@ -1235,7 +1235,7 @@ public  final class GenericCollectionValue extends
     }
 
     /**
-     * <code>optional float floatValue = 7;</code>
+     * <code>optional float float_value = 7;</code>
      */
     public float getFloatValue() {
       if (valueCase_ == 7) {
@@ -1244,7 +1244,7 @@ public  final class GenericCollectionValue extends
       return 0F;
     }
     /**
-     * <code>optional float floatValue = 7;</code>
+     * <code>optional float float_value = 7;</code>
      */
     public Builder setFloatValue(float value) {
       valueCase_ = 7;
@@ -1253,7 +1253,7 @@ public  final class GenericCollectionValue extends
       return this;
     }
     /**
-     * <code>optional float floatValue = 7;</code>
+     * <code>optional float float_value = 7;</code>
      */
     public Builder clearFloatValue() {
       if (valueCase_ == 7) {
@@ -1265,7 +1265,7 @@ public  final class GenericCollectionValue extends
     }
 
     /**
-     * <code>optional double doubleValue = 8;</code>
+     * <code>optional double double_value = 8;</code>
      */
     public double getDoubleValue() {
       if (valueCase_ == 8) {
@@ -1274,7 +1274,7 @@ public  final class GenericCollectionValue extends
       return 0D;
     }
     /**
-     * <code>optional double doubleValue = 8;</code>
+     * <code>optional double double_value = 8;</code>
      */
     public Builder setDoubleValue(double value) {
       valueCase_ = 8;
@@ -1283,7 +1283,7 @@ public  final class GenericCollectionValue extends
       return this;
     }
     /**
-     * <code>optional double doubleValue = 8;</code>
+     * <code>optional double double_value = 8;</code>
      */
     public Builder clearDoubleValue() {
       if (valueCase_ == 8) {
@@ -1296,13 +1296,13 @@ public  final class GenericCollectionValue extends
 
     private int objectTypeId_ ;
     /**
-     * <code>optional int32 objectTypeId = 9;</code>
+     * <code>optional int32 object_type_id = 9;</code>
      */
     public int getObjectTypeId() {
       return objectTypeId_;
     }
     /**
-     * <code>optional int32 objectTypeId = 9;</code>
+     * <code>optional int32 object_type_id = 9;</code>
      */
     public Builder setObjectTypeId(int value) {
       
@@ -1311,7 +1311,7 @@ public  final class GenericCollectionValue extends
       return this;
     }
     /**
-     * <code>optional int32 objectTypeId = 9;</code>
+     * <code>optional int32 object_type_id = 9;</code>
      */
     public Builder clearObjectTypeId() {
       

@@ -17,47 +17,47 @@ public interface GenericCollectionValueOrBuilder extends
   cn.leancloud.play.proto.GenericCollectionValue.Type getType();
 
   /**
-   * <code>optional int32 intValue = 2;</code>
+   * <code>optional int32 int_value = 2;</code>
    */
   int getIntValue();
 
   /**
-   * <code>optional int64 longIntValue = 3;</code>
+   * <code>optional int64 long_int_value = 3;</code>
    */
   long getLongIntValue();
 
   /**
-   * <code>optional bool boolValue = 4;</code>
+   * <code>optional bool bool_value = 4;</code>
    */
   boolean getBoolValue();
 
   /**
-   * <code>optional string stringValue = 5;</code>
+   * <code>optional string string_value = 5;</code>
    */
   java.lang.String getStringValue();
   /**
-   * <code>optional string stringValue = 5;</code>
+   * <code>optional string string_value = 5;</code>
    */
   com.google.protobuf.ByteString
       getStringValueBytes();
 
   /**
-   * <code>optional bytes bytesValue = 6;</code>
+   * <code>optional bytes bytes_value = 6;</code>
    */
   com.google.protobuf.ByteString getBytesValue();
 
   /**
-   * <code>optional float floatValue = 7;</code>
+   * <code>optional float float_value = 7;</code>
    */
   float getFloatValue();
 
   /**
-   * <code>optional double doubleValue = 8;</code>
+   * <code>optional double double_value = 8;</code>
    */
   double getDoubleValue();
 
   /**
-   * <code>optional int32 objectTypeId = 9;</code>
+   * <code>optional int32 object_type_id = 9;</code>
    */
   int getObjectTypeId();
 
