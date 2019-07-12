@@ -4,44 +4,40 @@ import cn.leancloud.play.collection.PlayArray;
 import cn.leancloud.play.collection.PlayObject;
 
 import java.util.IdentityHashMap;
+import java.util.List;
 import java.util.Objects;
 
 public final class CodecsManager {
-    private static final CodecsManager instance = new CodecsManager();
-
-    private final IdentityHashMap<Class<?>, Codec> registeredCodec = new IdentityHashMap<>();
-    private final IdentityHashMap<Class<?>, Byte> registeredObjectTypeId = new IdentityHashMap<>();
+    private static final IdentityHashMap<Class<?>, Codec> registeredCodec = new IdentityHashMap<>();
+    private static final IdentityHashMap<Class<?>, Byte> registeredObjectTypeId = new IdentityHashMap<>();
 
     static {
-        CodecsManager.getInstance().registerCodec(PlayObject.class, new PlayObjectCodec());
-        CodecsManager.getInstance().registerCodec(PlayArray.class, new PlayArrayCodec());
+        CodecsManager.registerCodec(PlayObject.class, new PlayObjectCodec());
+        CodecsManager.registerCodec(PlayArray.class, new ListCodec());
+        CodecsManager.registerCodec(List.class, new ListCodec());
     }
 
-    public static CodecsManager getInstance() {
-        return instance;
-    }
-
-    public void registerCodec(Class<?> type, byte objectTypeId, Codec codec) {
+    public static void registerCodec(Class<?> type, byte objectTypeId, Codec codec) {
         registerCodec(type, codec);
         registeredObjectTypeId.put(type, objectTypeId);
     }
 
-    private void registerCodec(Class<?> type, Codec codec) {
+    private static void registerCodec(Class<?> type, Codec codec) {
         Objects.requireNonNull(type);
         Objects.requireNonNull(codec);
 
         registeredCodec.put(type, codec);
     }
 
-    Codec getCodec(Class<?> type) {
+    static Codec getCodec(Class<?> type) {
         return registeredCodec.get(type);
     }
 
-    Byte getObjectTypeId(Class<?> type){
+    static Byte getObjectTypeId(Class<?> type){
         return registeredObjectTypeId.get(type);
     }
 
-    public byte[] serialize(Object obj) {
+    public static byte[] serialize(Object obj) {
         Codec codec = getCodec(obj.getClass());
         if (codec != null) {
             return codec.serialize(obj);
@@ -50,7 +46,7 @@ public final class CodecsManager {
         throw new SerializationException(String.format("No codec for class %s", obj.getClass().getName()));
     }
 
-    public <T> T deserialize(byte[] bytes, Class<T> clazz) {
+    public static <T> T deserialize(byte[] bytes, Class<T> clazz) {
         Codec codec = getCodec(clazz);
 
         if (codec != null) {

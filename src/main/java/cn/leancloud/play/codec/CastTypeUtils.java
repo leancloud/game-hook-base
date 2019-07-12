@@ -168,7 +168,7 @@ public class CastTypeUtils {
         }
 
         if (value instanceof byte[]) {
-            return CodecsManager.getInstance().deserialize((byte[])value, PlayObject.class);
+            return CodecsManager.deserialize((byte[])value, PlayObject.class);
         }
 
         throw new CastTypeException("can not cast to PlayObject, value : '" + value + "'");
@@ -190,7 +190,7 @@ public class CastTypeUtils {
         }
 
         if (value instanceof byte[]) {
-            return CodecsManager.getInstance().deserialize((byte[])value, PlayArray.class);
+            return CodecsManager.deserialize((byte[])value, PlayArray.class);
         }
 
         throw new CastTypeException("can not cast to PlayArray, value : '" + value + "'");
@@ -267,11 +267,11 @@ public class CastTypeUtils {
             return (T) obj;
         }
 
-        Codec codec = CodecsManager.getInstance().getCodec(clazz);
+        Codec codec = CodecsManager.getCodec(clazz);
         if (codec != null) {
             if (obj instanceof ObjectThunk) {
                 ObjectThunk thunk = (ObjectThunk)obj;
-                if (CodecsManager.getInstance().getObjectTypeId(clazz) == thunk.getObjectTypeId()) {
+                if (CodecsManager.getObjectTypeId(clazz) == thunk.getObjectTypeId()) {
                     return thunk.resolve(codec);
                 }
             }

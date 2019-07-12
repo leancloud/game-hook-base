@@ -24,7 +24,7 @@ final class CollectionThunk {
 
     PlayObject getPlayObject() {
         if (getType() == GenericCollectionValue.Type.MAP) {
-            return CodecsManager.getInstance().deserialize(getByteString().toByteArray(), PlayObject.class);
+            return CodecsManager.deserialize(getByteString().toByteArray(), PlayObject.class);
         } else {
             throw new CastTypeException("can not cast to PlayObject, actual collection type: '" + getType().name() + "'");
         }
@@ -32,7 +32,7 @@ final class CollectionThunk {
 
     PlayArray getPlayArray() {
         if (getType() == GenericCollectionValue.Type.ARRAY) {
-            return CodecsManager.getInstance().deserialize(getByteString().toByteArray(), PlayArray.class);
+            return CodecsManager.deserialize(getByteString().toByteArray(), PlayArray.class);
         } else {
             throw new CastTypeException("can not cast to PlayArray, actual collection type: '" + getType().name() + "'");
         }

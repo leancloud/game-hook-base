@@ -22,7 +22,7 @@ final class ObjectThunk {
         if (resolvedObject == null) {
             return originalObjectInByteString;
         } else {
-            return ByteString.copyFrom(CodecsManager.getInstance().serialize(resolvedObject));
+            return ByteString.copyFrom(CodecsManager.serialize(resolvedObject));
         }
     }
 

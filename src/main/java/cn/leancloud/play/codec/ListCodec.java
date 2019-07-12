@@ -5,13 +5,15 @@ import cn.leancloud.play.proto.GenericCollection;
 import cn.leancloud.play.proto.GenericCollectionValue;
 import com.google.protobuf.InvalidProtocolBufferException;
 
+import java.util.List;
+
 import static cn.leancloud.play.codec.GenericCollectionValueCodec.deserializeValue;
 import static cn.leancloud.play.codec.GenericCollectionValueCodec.serializeValue;
 
-public final class PlayArrayCodec implements Codec {
+public class ListCodec implements Codec{
     @Override
     public byte[] serialize(Object obj) {
-        PlayArray array = (PlayArray) obj;
+        List array = (List) obj;
 
         GenericCollection.Builder collection = GenericCollection.newBuilder();
         for (Object element: array) {
