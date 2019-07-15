@@ -62,6 +62,22 @@ public interface BoundRoom {
     List<Actor> getActorByActorIds(List<Integer> actorIds);
 
     /**
+     * 根据 Actor Id 获取房间玩家 Actor 实例
+     *
+     * @param actorId 目标 Actor Id，可以是不在房间内的 Actor Id，但不存在的玩家将会返回 null
+     * @return 返回查询到的玩家 Actor 实例
+     */
+    Actor getActorByActorId(int actorId);
+
+    /**
+     * 根据 User Id 获取房间玩家 Actor 实例
+     *
+     * @param userId 目标 User Id，可以是不在房间内的 User Id，但不存在的玩家将会返回 null
+     * @return 返回查询到的玩家 Actor 实例
+     */
+    Actor getActorByUserId(String userId);
+
+    /**
      * 获取房间最大玩家数量限制
      *
      * @return 最大玩家数量限制
