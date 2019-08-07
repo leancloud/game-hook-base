@@ -26,4 +26,9 @@ public interface Actor {
      * @return 玩家自定义属性
      */
     PlayObject getProperties();
+
+    /**
+     * 判断玩家是否完成加入房间 `fully-joined`。
+     */
+    boolean isFullyJoined();
 }
