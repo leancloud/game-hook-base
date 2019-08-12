@@ -131,6 +131,10 @@ public interface BoundRoom {
      *
      * @param targetActorId 目标玩家 Actor Id，如果目标 Actor Id 并不在房间内则会抛出 IllegalArgumentException
      * @param valuesToSet   待修改的玩家自定义属性，不能为 null
+     * @throws NullPointerException     当 valuesToSet 为 null 时抛此异常
+     * @throws IllegalArgumentException 当 valuesToSet 执行 isEmpty() 为 true 时抛此异常
+     * @throws IllegalArgumentException 当 targetActorId 不在本房间时抛此异常
+     * @throws IllegalStateException    在 {@link Plugin#onCreateRoom} 调用时房间还未初始化完成，该 Hook 内调用本方法会抛此异常
      */
     void updatePlayerProperty(int targetActorId, PlayObject valuesToSet);
 
@@ -141,6 +145,10 @@ public interface BoundRoom {
      * @param valuesToSet    待修改的玩家自定义属性，不能为 null
      * @param expectedValues 不能为 null。设置 CAS 操作用于匹配的玩家自定义属性。设置了用于匹配的玩家自定义属性后，只有当玩家自定义属性符合
      *                       匹配的值后更新玩家自定义属性操作才会生效。
+     * @throws NullPointerException     当 valuesToSet 为 null 时抛此异常
+     * @throws IllegalArgumentException 当 valuesToSet 执行 isEmpty() 为 true 时抛此异常
+     * @throws IllegalArgumentException 当 targetActorId 不在本房间时抛此异常
+     * @throws IllegalStateException    在 {@link Plugin#onCreateRoom} 调用时房间还未初始化完成，该 Hook 内调用本方法会抛此异常
      */
     void updatePlayerProperty(int targetActorId, PlayObject valuesToSet, PlayObject expectedValues);
 
@@ -148,6 +156,8 @@ public interface BoundRoom {
      * 更改房间自定义属性
      *
      * @param valuesToSet 待修改的房间自定义属性, 不能为 null
+     * @throws NullPointerException  当 valuesToSet 为 null 时抛此异常
+     * @throws IllegalStateException 在 {@link Plugin#onCreateRoom} 调用时房间还未初始化完成，该 Hook 内调用本方法会抛此异常
      */
     void updateRoomProperty(PlayObject valuesToSet);
 
@@ -157,6 +167,9 @@ public interface BoundRoom {
      * @param valuesToSet    待修改的房间自定义属性, 不能为 null
      * @param expectedValues 不能为 null。进行 CAS 操作时使用，用于匹配的房间自定义属性。设置了用于匹配的自定义属性后，只有当房间自定义属性符合
      *                       匹配的值后更新房间自定义属性操作才会生效。
+     * @throws NullPointerException     当 valuesToSet 为 null 时抛此异常
+     * @throws IllegalArgumentException 当 valuesToSet 执行 isEmpty() 为 true 时抛此异常
+     * @throws IllegalStateException    在 {@link Plugin#onCreateRoom} 调用时房间还未初始化完成，该 Hook 内调用本方法会抛此异常
      */
     void updateRoomProperty(PlayObject valuesToSet, PlayObject expectedValues);
 
@@ -165,6 +178,8 @@ public interface BoundRoom {
      *
      * @param property 待修改的系统属性，不能为 null
      * @param <V>      具体修改的房间系统属性类型
+     * @throws NullPointerException  当 property 为 null 时抛此异常
+     * @throws IllegalStateException 在 {@link Plugin#onCreateRoom} 调用时房间还未初始化完成，该 Hook 内调用本方法会抛此异常
      */
     <V> void updateRoomSystemProperty(RoomSystemProperty<V> property);
 
@@ -172,6 +187,7 @@ public interface BoundRoom {
      * 将某玩家从房间移除
      *
      * @param actorId 待移除的玩家 Actor Id，如果目标 Actor Id 并不在房间内则本次请求无效果
+     * @throws IllegalStateException 在 {@link Plugin#onCreateRoom} 调用时房间还未初始化完成，该 Hook 内调用本方法会抛此异常
      */
     void removeActor(int actorId);
 
