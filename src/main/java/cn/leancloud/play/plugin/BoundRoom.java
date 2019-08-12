@@ -164,7 +164,7 @@ public interface BoundRoom {
      * 更改房间系统属性
      *
      * @param property 待修改的系统属性，不能为 null
-     * @param <V> 具体修改的房间系统属性类型
+     * @param <V>      具体修改的房间系统属性类型
      */
     <V> void updateRoomSystemProperty(RoomSystemProperty<V> property);
 
@@ -178,11 +178,14 @@ public interface BoundRoom {
     /**
      * 发送事件给目标 Actor。
      *
-     * @param toActorsIds 目标 Actor Id 列表，不能为 null
+     * @param toActorsIds 目标 Actor Id 列表，不能为 null。如果列表中有部分 Actor 不在本房间则消息只会发送至在本房间的 Actor。
      * @param fromActorId 发送事件的 Actor Id，为 0 表示由系统发出
      * @param eventId     自定义事件 Id
      * @param eventData   事件数据，不能为 null
      * @param options     发送事件配置选项，不能为 null，无配置选项请填写 SendEventOptions.emptyOption
+     * @throws NullPointerException     当 toActorIds 或 eventData 为 null 时抛此异常
+     * @throws IllegalArgumentException 当 fromActorId 不在本房间，或所有 toActorIds 都不在本房间时抛此异常
+     * @throws IllegalStateException    在 {@link Plugin#onCreateRoom} 调用时房间还未初始化完成，该 Hook 内调用本方法会抛此异常
      */
     void sendEventToActors(List<Integer> toActorsIds, int fromActorId, byte eventId, PlayObject eventData, SendEventOptions options);
 
@@ -194,6 +197,9 @@ public interface BoundRoom {
      * @param eventId         自定义事件 Id
      * @param eventData       事件数据，不能为 null
      * @param options         发送事件配置选项，不能为 null，无配置选项请填写 SendEventOptions.emptyOption
+     * @throws NullPointerException     当 toReceiverGroup 或 eventData 为 null 时抛此异常
+     * @throws IllegalArgumentException 当 fromActorId 不在本房间时抛此异常
+     * @throws IllegalStateException    在 {@link Plugin#onCreateRoom} 调用时房间还未初始化完成，该 Hook 内调用本方法会抛此异常
      */
     void sendEventToReceiverGroup(ReceiverGroup toReceiverGroup, int fromActorId, byte eventId, PlayObject eventData, SendEventOptions options);
 }
