@@ -30,6 +30,20 @@ public final class JoinRoomRequest extends AbstractRequest {
     }
 
     /**
+     * 设置房间指定的玩家 ID 列表。这个参数主要用于为某些能加入到房间中的特定玩家「占位」。
+     *
+     * @param expectUsers 指定的玩家 ID 列表，列表不能为空，不能是 null。expectUsers 参数会拷贝一份
+     *                    后存入请求内，所以本方法返回后再修改 expectUsers 不会影响已存入请求内的列表
+     * @return this
+     */
+    public JoinRoomRequest setExpectUsers(List<String> expectUsers) {
+        Objects.requireNonNull(expectUsers);
+        if (expectUsers.isEmpty()) throw new IllegalArgumentException();
+        setParameter(expectMK, PersistentVector.create(expectUsers));
+        return this;
+    }
+
+    /**
      * 是否是再次加入房间，即玩家之前在房间中，之后因断线而离开房间，此时再次重加入回原来所在房间
      *
      * @return 是否是再次加入房间
