@@ -218,4 +218,18 @@ public interface BoundRoom {
      * @throws IllegalStateException    在 {@link Plugin#onCreateRoom} 调用时房间还未初始化完成，该 Hook 内调用本方法会抛此异常
      */
     void sendEventToReceiverGroup(ReceiverGroup toReceiverGroup, int fromActorId, byte eventId, PlayObject eventData, SendEventOptions options);
+
+    /**
+     * 发送事件给目标接收组
+     *
+     * @param toInterestGroup 目标兴趣组
+     * @param fromActorId     发送事件的 Actor Id，为 0 表示由系统发出
+     * @param eventId         自定义事件 Id
+     * @param eventData       事件数据，不能为 null
+     * @param options         发送事件配置选项，不能为 null，无配置选项请填写 SendEventOptions.emptyOption
+     * @throws NullPointerException     当 toInterestGroup 或 eventData 为 null 时抛此异常
+     * @throws IllegalArgumentException 当 fromActorId 不在本房间时抛此异常
+     * @throws IllegalStateException    在 {@link Plugin#onCreateRoom} 调用时房间还未初始化完成，该 Hook 内调用本方法会抛此异常
+     */
+    void sendEventToInterestGroup(byte toInterestGroup, int fromActorId, byte eventId, PlayObject eventData, SendEventOptions options);
 }
