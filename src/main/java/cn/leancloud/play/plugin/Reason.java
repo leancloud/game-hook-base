@@ -76,7 +76,7 @@ public final class Reason {
 
     @Override
     public String toString() {
-        return "cn.leancloud.play.plugin.Reason{" +
+        return "Reason{" +
                 "appCode=" + appCode +
                 ", message='" + msg + '\'' +
                 '}';

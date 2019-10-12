@@ -8,11 +8,11 @@ import cn.leancloud.play.utils.Log;
 import java.util.Map;
 
 public final class LeaveRoomRequest extends AbstractRequest {
-    private static final Keyword isByMasterK = (Keyword) RT.keyword(null, "by-master?");
-    private static final Keyword fromActorIdK = (Keyword) RT.keyword(null, "init-by-actor");
-    private static final Keyword targetActorIdK = (Keyword) RT.keyword(null, "target-actor-id");
-    private static final Keyword appCodeK = (Keyword) RT.keyword(null, "app-code");
-    private static final Keyword appMsgK = (Keyword) RT.keyword(null, "app-msg");
+    private static final Keyword isByMasterK = RT.keyword(null, "by-master?");
+    private static final Keyword fromActorIdK = RT.keyword(null, "init-by-actor");
+    private static final Keyword targetActorIdK = RT.keyword(null, "target-actor-id");
+    private static final Keyword appCodeK = RT.keyword(null, "app-code");
+    private static final Keyword appMsgK = RT.keyword(null, "app-msg");
 
     public LeaveRoomRequest(Map<Keyword, Object> requestParams) {
         super(requestParams);
@@ -58,7 +58,7 @@ public final class LeaveRoomRequest extends AbstractRequest {
      *
      * @return 自定义离开房间原因
      */
-    public Reason getLeaveRoomReason(){
+    public Reason getLeaveRoomReason() {
         Number appCode = getParameter(appCodeK);
         if (appCode != null) {
             String appMsg = getParameter(appMsgK);
@@ -77,5 +77,17 @@ public final class LeaveRoomRequest extends AbstractRequest {
     public boolean byMaster() {
         Boolean byMaster = getParameter(isByMasterK);
         return byMaster != null && byMaster;
+    }
+
+    @Override
+    public String toString() {
+        return "LeaveRoomRequest{" +
+                ", roomName=" + getRoomName() +
+                ", userId=" + getUserId() +
+                ", fromActorId=" + getFromActorId() +
+                ", targetActorId=" + getTargetActorId() +
+                ", leaveRoomReason=" + getLeaveRoomReason() +
+                ", kickByMaster=" + byMaster() +
+                "}";
     }
 }

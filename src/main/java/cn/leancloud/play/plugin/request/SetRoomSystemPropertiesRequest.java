@@ -8,7 +8,7 @@ import clojure.lang.RT;
 import java.util.*;
 
 public final class SetRoomSystemPropertiesRequest extends AbstractRequest {
-    private static final Keyword sysAttrK = (Keyword) RT.keyword(null, "sys-attr");
+    private static final Keyword sysAttrK = RT.keyword(null, "sys-attr");
 
     public SetRoomSystemPropertiesRequest(Map<Keyword, Object> requestParams) {
         super(requestParams);
@@ -191,23 +191,23 @@ public final class SetRoomSystemPropertiesRequest extends AbstractRequest {
 
     /**
      * 房间邀请好友列表属性。加入邀请好友列表后，相当于帮好友在房间内做了 "占位"，即使房间满了好友也能加入房间。
-     *
+     * <p>
      * 修改房间邀请好友列表我们支持四种操作，对应四种 {@link Operator}：
-     *
+     * <p>
      * Operator.ADD 在现有房间邀请好友列表上增加新的待邀请好友。比如房间现有好友 ["a", "b", "c"]，
      * 执行 ADD ["c", "d"] 后，房间邀请好友列表结果为 ["a", "b", "c", "d"]
-     *
+     * <p>
      * Operator.REMOVE 在现有房间邀请好友列表上删除一组好友 ID。比如房间现有好友 ["a", "b", "c"]，
      * 执行 REMOVE ["c", "d"] 后，房间邀请好友列表结果为 ["a", "b"]
-     *
+     * <p>
      * Operator.SET 用新的邀请列表替换现有房间邀请好友列表。比如房间现有好友 ["a", "b", "c"]，执行
      * SET ["c", "d"] 后，房间邀请好友列表结果为 ["c", "d"]
-     *
+     * <p>
      * Operator.DROP 清空现有房间邀请好友列表。比如房间现有好友 ["a", "b", "c"]，执行
      * DROP 后，房间邀请好友列表结果为 [ ]
      */
     public final static class ExpectedUserIdsProperty implements RoomSystemProperty<Set<String>> {
-        private static Keyword propertyKey = (Keyword) RT.keyword(null, "expectMembers");
+        private static Keyword propertyKey = RT.keyword(null, "expectMembers");
         private final Operator operator;
         private final Set<String> valueToSet;
 
@@ -296,7 +296,7 @@ public final class SetRoomSystemPropertiesRequest extends AbstractRequest {
      * 房间可见性属性。房间默认为可见状态，如果房间不可见则表示新用户不能通过在大厅自动匹配房间方式加入房间。
      */
     public final static class ExposeRoomProperty implements RoomSystemProperty<Boolean> {
-        private static Keyword propertyKey = (Keyword) RT.keyword(null, "visible");
+        private static Keyword propertyKey = RT.keyword(null, "visible");
         private final boolean valueToSet;
 
         private ExposeRoomProperty(Boolean valueToSet) {
@@ -331,7 +331,7 @@ public final class SetRoomSystemPropertiesRequest extends AbstractRequest {
      * 房间开闭属性。房间默认为开放状态，如果房间关闭则表示不能有新用户加入房间。
      */
     public final static class OpenRoomProperty implements RoomSystemProperty<Boolean> {
-        private static Keyword propertyKey = (Keyword) RT.keyword(null, "open");
+        private static Keyword propertyKey = RT.keyword(null, "open");
         private final boolean valueToSet;
 
         private OpenRoomProperty(Boolean valueToSet) {
@@ -365,7 +365,7 @@ public final class SetRoomSystemPropertiesRequest extends AbstractRequest {
      * 房间最大玩家数量属性。房间玩家数量达到上限后则房间无法再加入新玩家。
      */
     public final static class MaxPlayerCountProperty implements RoomSystemProperty<Integer> {
-        private static Keyword propertyKey = (Keyword) RT.keyword(null, "maxMembers");
+        private static Keyword propertyKey = RT.keyword(null, "maxMembers");
         private final int valueToSet;
 
         private MaxPlayerCountProperty(int valueToSet) {
@@ -391,5 +391,13 @@ public final class SetRoomSystemPropertiesRequest extends AbstractRequest {
         public Integer getPropertyValueToSet() {
             return valueToSet;
         }
+    }
+
+    @Override
+    public String toString() {
+        return "SetRoomSystemPropertiesRequest{" +
+                ", roomName=" + getRoomName() +
+                ", userId=" + getUserId() +
+                "}";
     }
 }

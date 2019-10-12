@@ -8,8 +8,8 @@ import java.util.Map;
 import java.util.Objects;
 
 public final class SetRoomPropertiesRequest extends AbstractRequest {
-    private static final Keyword expectAttrK = (Keyword) RT.keyword(null, "expect-attr");
-    private static final Keyword attrK = (Keyword) RT.keyword(null, "attr");
+    private static final Keyword expectAttrK = RT.keyword(null, "expect-attr");
+    private static final Keyword attrK = RT.keyword(null, "attr");
 
     public SetRoomPropertiesRequest(Map<Keyword, Object> requestParams) {
         super(requestParams);
@@ -63,5 +63,15 @@ public final class SetRoomPropertiesRequest extends AbstractRequest {
 
         setParameter(expectAttrK, casAttr.clone());
         return this;
+    }
+
+    @Override
+    public String toString() {
+        return "SetRoomPropertiesRequest{" +
+                ", roomName=" + getRoomName() +
+                ", userId=" + getUserId() +
+                ", properties=" + getProperties() +
+                ", expectedValues=" + getExpectedValues() +
+                "}";
     }
 }

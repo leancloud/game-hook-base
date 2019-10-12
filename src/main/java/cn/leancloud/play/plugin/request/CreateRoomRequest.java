@@ -12,13 +12,14 @@ import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 public final class CreateRoomRequest extends AbstractRequest {
-    private static final Keyword maxMembersK = (Keyword) RT.keyword(null, "max-members");
-    private static final Keyword emptyRoomTtlK = (Keyword) RT.keyword(null, "empty-room-ttl");
-    private static final Keyword playerTtlK = (Keyword) RT.keyword(null, "player-ttl");
-    private static final Keyword expectMK = (Keyword) RT.keyword(null, "expect-m");
-    private static final Keyword isVisibleK = (Keyword) RT.keyword(null, "visible?");
-    private static final Keyword lobbyKeysK = (Keyword) RT.keyword(null, "lobby-keys");
-    private static final Keyword attrK = (Keyword) RT.keyword(null, "attr");
+    private static final Keyword maxMembersK = RT.keyword(null, "max-members");
+    private static final Keyword emptyRoomTtlK = RT.keyword(null, "empty-room-ttl");
+    private static final Keyword playerTtlK = RT.keyword(null, "player-ttl");
+    private static final Keyword expectMK = RT.keyword(null, "expect-m");
+    private static final Keyword isVisibleK = RT.keyword(null, "visible?");
+    private static final Keyword lobbyKeysK = RT.keyword(null, "lobby-keys");
+    private static final Keyword attrK = RT.keyword(null, "attr");
+    private static final Keyword flagK = RT.keyword(null, "conv-flag");
 
     public CreateRoomRequest(Map<Keyword, Object> requestParams) {
         super(requestParams);
@@ -97,7 +98,7 @@ public final class CreateRoomRequest extends AbstractRequest {
      *
      * @return 房间指定的玩家 ID 列表
      */
-    public List<String> getExpectUsers() {
+    public List<String> getExpectedUserIds() {
         return getParameter(expectMK, Collections.emptyList());
     }
 
@@ -150,7 +151,7 @@ public final class CreateRoomRequest extends AbstractRequest {
      *
      * @return 用于房间匹配的房间自定义属性键
      */
-    public List<String> getLobbyKeys() {
+    public List<String> getCustomRoomPropertyKeysForLobby() {
         return getParameter(lobbyKeysK, Collections.emptyList());
     }
 
@@ -175,7 +176,7 @@ public final class CreateRoomRequest extends AbstractRequest {
      *
      * @return 返回房间自定义属性，是不可变 Map
      */
-    public PlayObject getRoomProperties() {
+    public PlayObject getCustomRoomProperties() {
         return getParameter(attrK, PlayObject.EMPTY_OBJECT);
     }
 
@@ -192,5 +193,21 @@ public final class CreateRoomRequest extends AbstractRequest {
 
         setParameter(attrK, attr.clone());
         return this;
+    }
+
+    @Override
+    public String toString() {
+        return "CreateRoomRequest{" +
+                ", roomName=" + getRoomName() +
+                ", userId=" + getUserId() +
+                ", expectUserIds=" + getExpectedUserIds() +
+                ", emptyRoomTtl=" + getEmptyRoomTtlSecs() +
+                ", maxPlayerCount=" + getMaxPlayerCount() +
+                ", playerTtl=" + getPlayerTtlSecs() +
+                ", visible=" + isVisible() +
+                ", flag=" + getParameter(flagK) +
+                ", customRoomProperties=" + getCustomRoomProperties() +
+                ", customRoomPropertyKeysForLobby=" + getCustomRoomPropertyKeysForLobby() +
+                "}";
     }
 }
