@@ -425,8 +425,9 @@ public final class SetRoomSystemPropertiesRequest extends AbstractRequest {
                         getMaxPlayerCountProperty()
                 )) {
             if (property.isPresent()) {
-                propertyStrBuilder.append(", ");
+                propertyStrBuilder.append(", {");
                 propertyStrBuilder.append(property.get());
+                propertyStrBuilder.append("}");
             }
         }
 
