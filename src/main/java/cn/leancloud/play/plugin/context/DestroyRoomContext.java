@@ -20,7 +20,7 @@ public final class DestroyRoomContext extends AbstractOperationContext<DestroyRo
 
     @Override
     public void rejectProcess(Reason reason) {
-        Log.warn("reject destroy room with reason {} is not allowed. will continue process anyway", reason);
+        Log.warn("Reject destroy room with reason {} is not allowed. will continue process anyway", reason);
         super.continueProcess();
     }
 }

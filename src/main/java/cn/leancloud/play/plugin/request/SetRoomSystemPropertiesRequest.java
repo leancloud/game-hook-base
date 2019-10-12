@@ -426,12 +426,12 @@ public final class SetRoomSystemPropertiesRequest extends AbstractRequest {
                 )) {
             if (property.isPresent()) {
                 propertyStrBuilder.append(", ");
-                propertyStrBuilder.append(property);
+                propertyStrBuilder.append(property.get());
             }
         }
 
         return "SetRoomSystemPropertiesRequest{" +
-                ", roomName=" + getRoomName() +
+                "roomName=" + getRoomName() +
                 ", userId=" + getUserId() +
                 propertyStrBuilder.toString() +
                 "}";

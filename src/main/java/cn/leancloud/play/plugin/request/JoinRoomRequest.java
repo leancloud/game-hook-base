@@ -88,7 +88,7 @@ public final class JoinRoomRequest extends AbstractRequest {
     @Override
     public String toString() {
         return "JoinRoomRequest{" +
-                ", roomName=" + getRoomName() +
+                "roomName=" + getRoomName() +
                 ", userId=" + getUserId() +
                 ", expectUserIds=" + getExpectedUserIds() +
                 ", rejoin=" + isRejoin() +

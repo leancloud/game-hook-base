@@ -82,7 +82,7 @@ public final class LeaveRoomRequest extends AbstractRequest {
     @Override
     public String toString() {
         return "LeaveRoomRequest{" +
-                ", roomName=" + getRoomName() +
+                "roomName=" + getRoomName() +
                 ", userId=" + getUserId() +
                 ", fromActorId=" + getFromActorId() +
                 ", targetActorId=" + getTargetActorId() +

@@ -98,7 +98,7 @@ public final class SetPlayerPropertiesRequest extends AbstractRequest {
     @Override
     public String toString() {
         return "SetPlayerPropertiesRequest{" +
-                ", roomName=" + getRoomName() +
+                "roomName=" + getRoomName() +
                 ", userId=" + getUserId() +
                 ", actorId=" + getTargetActorId() +
                 ", properties=" + getProperties() +

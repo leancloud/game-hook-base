@@ -68,7 +68,7 @@ public final class SetRoomPropertiesRequest extends AbstractRequest {
     @Override
     public String toString() {
         return "SetRoomPropertiesRequest{" +
-                ", roomName=" + getRoomName() +
+                "roomName=" + getRoomName() +
                 ", userId=" + getUserId() +
                 ", properties=" + getProperties() +
                 ", expectedValues=" + getExpectedValues() +

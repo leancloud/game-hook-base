@@ -198,14 +198,14 @@ public final class CreateRoomRequest extends AbstractRequest {
     @Override
     public String toString() {
         return "CreateRoomRequest{" +
-                ", roomName=" + getRoomName() +
+                "roomName=" + getRoomName() +
                 ", userId=" + getUserId() +
                 ", expectUserIds=" + getExpectedUserIds() +
                 ", emptyRoomTtl=" + getEmptyRoomTtlSecs() +
                 ", maxPlayerCount=" + getMaxPlayerCount() +
                 ", playerTtl=" + getPlayerTtlSecs() +
                 ", visible=" + isVisible() +
-                ", flag=" + getParameter(flagK) +
+                ", flag=" + getParameter(flagK, 0) +
                 ", customRoomProperties=" + getCustomRoomProperties() +
                 ", customRoomPropertyKeysForLobby=" + getCustomRoomPropertyKeysForLobby() +
                 "}";

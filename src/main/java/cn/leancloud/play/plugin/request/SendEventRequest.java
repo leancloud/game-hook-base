@@ -166,7 +166,7 @@ public final class SendEventRequest extends AbstractRequest {
     @Override
     public String toString() {
         return "SendEventRequest{" +
-                ", roomName=" + getRoomName() +
+                "roomName=" + getRoomName() +
                 ", userId=" + getUserId() +
                 ", eventId=" + getEventId() +
                 ", fromActorId=" + getFromActorId() +
