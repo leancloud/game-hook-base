@@ -290,6 +290,12 @@ public final class SetRoomSystemPropertiesRequest extends AbstractRequest {
             m.put(operator.key, valueToSet);
             return m;
         }
+
+        @Override
+        public String toString() {
+            return "operator=" + getOperator().name() +
+                    ", expectedUserIds=" + valueToSet;
+        }
     }
 
     /**
@@ -325,6 +331,11 @@ public final class SetRoomSystemPropertiesRequest extends AbstractRequest {
         public Boolean getPropertyValueToSet() {
             return valueToSet;
         }
+
+        @Override
+        public String toString() {
+            return "visible=" + valueToSet;
+        }
     }
 
     /**
@@ -359,6 +370,11 @@ public final class SetRoomSystemPropertiesRequest extends AbstractRequest {
         public Boolean getPropertyValueToSet() {
             return valueToSet;
         }
+
+        @Override
+        public String toString() {
+            return "openRoom=" + valueToSet;
+        }
     }
 
     /**
@@ -391,13 +407,33 @@ public final class SetRoomSystemPropertiesRequest extends AbstractRequest {
         public Integer getPropertyValueToSet() {
             return valueToSet;
         }
+
+        @Override
+        public String toString() {
+            return "maxPlayerCount=" + valueToSet;
+        }
     }
 
     @Override
     public String toString() {
+        final StringBuilder propertyStrBuilder = new StringBuilder();
+        for (Optional<? extends RoomSystemProperty<?>> property :
+                Arrays.asList(
+                        getOpenRoomProperty(),
+                        getExposeRoomProperty(),
+                        getExpectedUserIdsProperty(),
+                        getMaxPlayerCountProperty()
+                )) {
+            if (property.isPresent()) {
+                propertyStrBuilder.append(", ");
+                propertyStrBuilder.append(property);
+            }
+        }
+
         return "SetRoomSystemPropertiesRequest{" +
                 ", roomName=" + getRoomName() +
                 ", userId=" + getUserId() +
+                propertyStrBuilder.toString() +
                 "}";
     }
 }
