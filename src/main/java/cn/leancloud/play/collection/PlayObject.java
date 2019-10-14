@@ -23,9 +23,9 @@ public final class PlayObject implements Map<String, Object>, Cloneable, Seriali
 
     public PlayObject(Map<Object, Object> map) {
         if (map == null) {
-            this.map = new PlayObject();
+            this.map = new HashMap<>();
         } else {
-            this.map = toPlayObject(map);
+            this.map = toPlayObject(map).getInnerMap();
         }
     }
 
@@ -39,7 +39,7 @@ public final class PlayObject implements Map<String, Object>, Cloneable, Seriali
             return null;
         }
 
-        PlayObject map = new PlayObject(inputMap.size());
+        final PlayObject map = new PlayObject(inputMap.size());
 
         for (Map.Entry<Object, Object> entry : inputMap.entrySet()) {
             Object key = entry.getKey();

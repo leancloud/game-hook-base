@@ -22,7 +22,11 @@ public final class PlayArray implements List<Object>, Cloneable, RandomAccess, S
         if (list == null) {
             this.list = new ArrayList<>();
         } else {
-            this.list = list;
+            if (list instanceof PlayArray) {
+                this.list = ((PlayArray) list).getInnerList();
+            } else {
+                this.list = list;
+            }
         }
     }
 
