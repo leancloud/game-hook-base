@@ -8,4 +8,16 @@ public final class DestroyRoomRequest extends AbstractRequest {
     public DestroyRoomRequest(Map<Keyword, Object> requestParams) {
         super(requestParams);
     }
+
+    @Override
+    public String getUserId() {
+        return null;
+    }
+
+    @Override
+    public String toString() {
+        return "DestroyRoomRequest{" +
+                "roomName=" + getRoomName() +
+                "}";
+    }
 }

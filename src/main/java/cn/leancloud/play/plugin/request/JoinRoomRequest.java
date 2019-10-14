@@ -11,10 +11,10 @@ import java.util.Map;
 import java.util.Objects;
 
 public final class JoinRoomRequest extends AbstractRequest {
-    private static final Keyword expectMK = (Keyword) RT.keyword(null, "expect-m");
-    private static final Keyword isRejoinK = (Keyword) RT.keyword(null, "rejoin?");
-    private static final Keyword expectAttrK = (Keyword) RT.keyword(null, "expect-attr");
-    private static final Keyword attrK = (Keyword) RT.keyword(null, "attr");
+    private static final Keyword expectMK = RT.keyword(null, "expect-m");
+    private static final Keyword isRejoinK = RT.keyword(null, "rejoin?");
+    private static final Keyword expectAttrK = RT.keyword(null, "expect-attr");
+    private static final Keyword attrK = RT.keyword(null, "attr");
 
     public JoinRoomRequest(Map<Keyword, Object> requestParams) {
         super(requestParams);
@@ -25,7 +25,7 @@ public final class JoinRoomRequest extends AbstractRequest {
      *
      * @return 用于「占位」的玩家 ID 列表
      */
-    public List<String> getExpectUsers() {
+    public List<String> getExpectedUserIds() {
         return getParameter(expectMK, Collections.emptyList());
     }
 
@@ -66,7 +66,7 @@ public final class JoinRoomRequest extends AbstractRequest {
      *
      * @return 返回房间玩家自定义属性，是不可变 Map
      */
-    public PlayObject getActorProperties() {
+    public PlayObject getPlayerCustomRoomProperties() {
         return getParameter(attrK, PlayObject.EMPTY_OBJECT);
     }
 
@@ -77,11 +77,23 @@ public final class JoinRoomRequest extends AbstractRequest {
      *             所以本方法返回后再修改 attr 不会影响已存入请求内的房间玩家自定义属性参数
      * @return this
      */
-    public JoinRoomRequest setActorProperties(PlayObject attr) {
+    public JoinRoomRequest setPlayerCustomRoomProperties(PlayObject attr) {
         Objects.requireNonNull(attr);
         if (attr.isEmpty()) throw new IllegalArgumentException();
 
         setParameter(attrK, attr.clone());
         return this;
+    }
+
+    @Override
+    public String toString() {
+        return "JoinRoomRequest{" +
+                "roomName=" + getRoomName() +
+                ", userId=" + getUserId() +
+                ", expectUserIds=" + getExpectedUserIds() +
+                ", rejoin=" + isRejoin() +
+                ", matchProperties=" + getMatchProperties() +
+                ", playerCustomRoomProperties=" + getPlayerCustomRoomProperties() +
+                "}";
     }
 }

@@ -9,9 +9,9 @@ import java.util.Map;
 import java.util.Objects;
 
 public final class SetPlayerPropertiesRequest extends AbstractRequest {
-    private static final Keyword targetActorIdK = (Keyword) RT.keyword(null, "target-actor-id");
-    private static final Keyword expectAttrK = (Keyword) RT.keyword(null, "expect-attr");
-    private static final Keyword attrK = (Keyword) RT.keyword(null, "attr");
+    private static final Keyword targetActorIdK = RT.keyword(null, "target-actor-id");
+    private static final Keyword expectAttrK = RT.keyword(null, "expect-attr");
+    private static final Keyword attrK = RT.keyword(null, "attr");
 
     public SetPlayerPropertiesRequest(Map<Keyword, Object> requestParams) {
         super(requestParams);
@@ -93,6 +93,17 @@ public final class SetPlayerPropertiesRequest extends AbstractRequest {
     public SetPlayerPropertiesRequest setTargetActorId(int actorId) {
         setParameter(targetActorIdK, (long) actorId);
         return this;
+    }
+
+    @Override
+    public String toString() {
+        return "SetPlayerPropertiesRequest{" +
+                "roomName=" + getRoomName() +
+                ", userId=" + getUserId() +
+                ", actorId=" + getTargetActorId() +
+                ", properties=" + getProperties() +
+                ", expectedValues=" + getExpectedValues() +
+                "}";
     }
 }
 

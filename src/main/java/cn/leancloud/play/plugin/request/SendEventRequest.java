@@ -13,12 +13,12 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 public final class SendEventRequest extends AbstractRequest {
-    private static final Keyword cacheOptionK = (Keyword) RT.keyword(null, "cache-option");
-    private static final Keyword receiverGroupK = (Keyword) RT.keyword(null, "receiver-group");
-    private static final Keyword toActorsK = (Keyword) RT.keyword(null, "to-actors");
-    private static final Keyword dataK = (Keyword) RT.keyword(null, "data");
-    private static final Keyword eventIdK = (Keyword) RT.keyword(null, "event-id");
-    private static final Keyword fromActorIdK = (Keyword) RT.keyword(null, "from-actor-id");
+    private static final Keyword cacheOptionK = RT.keyword(null, "cache-option");
+    private static final Keyword receiverGroupK = RT.keyword(null, "receiver-group");
+    private static final Keyword toActorsK = RT.keyword(null, "to-actors");
+    private static final Keyword dataK = RT.keyword(null, "data");
+    private static final Keyword eventIdK = RT.keyword(null, "event-id");
+    private static final Keyword fromActorIdK = RT.keyword(null, "from-actor-id");
 
     public SendEventRequest(Map<Keyword, Object> requestParams) {
         super(requestParams);
@@ -83,7 +83,7 @@ public final class SendEventRequest extends AbstractRequest {
      *
      * @return 目标玩家 Actor Id 列表
      */
-    public List<Integer> getToActorIds() {
+    public List<Integer> getTargetActorIds() {
         List<Number> actors = getParameter(toActorsK);
         if (actors != null) {
             return actors.stream().map(Number::intValue).collect(Collectors.toList());
@@ -97,7 +97,7 @@ public final class SendEventRequest extends AbstractRequest {
      * @param actorIds 目标玩家 Actor Id 列表
      * @return this
      */
-    public SendEventRequest setToActorIds(List<Integer> actorIds) {
+    public SendEventRequest setTargetActorIds(List<Integer> actorIds) {
         Objects.requireNonNull(actorIds);
 
         setParameter(toActorsK, PersistentVector.create(actorIds));
@@ -161,5 +161,19 @@ public final class SendEventRequest extends AbstractRequest {
 
         Log.error("No from actor id in {}. current params={}", SendEventRequest.class.getSimpleName(), getAllInternalParameters());
         return -1;
+    }
+
+    @Override
+    public String toString() {
+        return "SendEventRequest{" +
+                "roomName=" + getRoomName() +
+                ", userId=" + getUserId() +
+                ", eventId=" + getEventId() +
+                ", fromActorId=" + getFromActorId() +
+                ", targetActorIds=" + getTargetActorIds() +
+                ", receiverGroup=" + getReceiverGroup().name() +
+                ", cacheOptions=" + getCacheOption().name() +
+                ", eventData=" + getEventData() +
+                "}";
     }
 }

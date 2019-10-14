@@ -56,7 +56,8 @@ public final class GenericCollectionOuterClass {
       "\002 \003(\01323.cn.leancloud.play.proto.GenericC" +
       "ollection.MapEntry\032U\n\010MapEntry\022\013\n\003key\030\001 " +
       "\001(\t\022<\n\003val\030\002 \001(\0132/.cn.leancloud.play.pro" +
-      "to.GenericCollectionValueB\002P\001b\006proto3"
+      "to.GenericCollectionValueB\034P\001\252\002\027LeanClou" +
+      "d.Play.Protocolb\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {

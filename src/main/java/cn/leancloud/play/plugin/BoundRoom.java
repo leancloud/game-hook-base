@@ -44,7 +44,7 @@ public interface BoundRoom {
      *
      * @return 房间自定义属性
      */
-    PlayObject getRoomProperties();
+    PlayObject getCustomRoomProperties();
 
     /**
      * 获取房间所有玩家列表。
@@ -103,7 +103,7 @@ public interface BoundRoom {
      *
      * @return 指定的玩家 ID 列表
      */
-    List<String> getExpectUsers();
+    List<String> getExpectedUserIds();
 
     /**
      * 房间是否可见。默认为可见，即所有玩家都能在大厅上查看、自动匹配到本房间
@@ -124,7 +124,7 @@ public interface BoundRoom {
      *
      * @return 用于房间匹配的房间自定义属性键
      */
-    List<String> getLobbyKeys();
+    List<String> getCustomRoomPropertyKeysForLobby();
 
     /**
      * 更改房间玩家自定义属性。
