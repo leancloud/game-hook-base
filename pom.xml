@@ -25,7 +25,7 @@
 
     <scm>
         <connection>scm:git:git://github.com/leancloud/multiplayer-server-plugin.git</connection>
-        <developerConnection>scm:git:ssh://github.com/leancloud/multiplayer-server-plugin.git</developerConnection>
+        <developerConnection>scm:git:https://github.com/leancloud/multiplayer-server-plugin.git</developerConnection>
         <url>http://github.com/leancloud/multiplayer-server-plugin/tree/master</url>
         <tag>HEAD</tag>
     </scm>
